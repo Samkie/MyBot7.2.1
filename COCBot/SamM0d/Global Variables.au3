@@ -475,5 +475,3 @@ Global $aProfileStats[44][9] = _
 ["g_aiNbrOfDetectedMines",0,0,0,0,0,0,0,0], _
 ["g_aiNbrOfDetectedCollectors",0,0,0,0,0,0,0,0], _
 ["g_aiNbrOfDetectedDrills",0,0,0,0,0,0,0,0]]
-
-#include "Log Msg.au3"

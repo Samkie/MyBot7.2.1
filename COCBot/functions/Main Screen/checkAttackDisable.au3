@@ -181,6 +181,6 @@ Func checkAttackDisable($iSource, $Result = "")
 	For $i = 0 To UBound($g_asShieldStatus) - 1
 		$g_asShieldStatus[$i] = "" ; reset global shield info array
 	Next
-
+	EndIf
 EndFunc   ;==>checkAttackDisable
 

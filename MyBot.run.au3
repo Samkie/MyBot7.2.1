@@ -169,6 +169,8 @@ Func InitializeBot()
 
 	; samm0d - MySwitch
 	$g_sEmulatorInfo4MySwitch = $sAndroidInfo
+	; samm0d log translate
+	#include "COCBot\SamM0d\Log Msg.au3"
 	;ProcessSetPriority(@AutoItPID, $iBotProcessPriority) ;~ Restore process priority
 
 EndFunc   ;==>InitializeBot

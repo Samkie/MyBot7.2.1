@@ -373,7 +373,10 @@ Func _checkOnTrainUnit()
 	$g_hBitmap = _GDIPlus_BitmapCreateFromHBITMAP($g_hHBitmap)
 
 	; 检查是否有兵造着，空白就返回
-	If _ColorCheck(_GetPixelColor(820,12,False), Hex(0XCFCFC8, 6), 10) And _ColorCheck(_GetPixelColor(820,2,False), Hex(0XCFCFC8, 6), 10) Then Return True
+	If _ColorCheck(_GetPixelColor(820,12,False), Hex(0XCFCFC8, 6), 10) And _ColorCheck(_GetPixelColor(820,2,False), Hex(0XCFCFC8, 6), 10) Then
+		setlog("No Army On Train",$COLOR_ERROR)
+		Return True
+	EndIf
 
 	; 检查造兵列表是否过长
 	If _ColorCheck(_GetPixelColor(27,1,False), Hex(0XCFCFC8, 6), 10) And Not _ColorCheck(_GetPixelColor(25,29,False), Hex(0XCFCFC8, 6), 10) Then

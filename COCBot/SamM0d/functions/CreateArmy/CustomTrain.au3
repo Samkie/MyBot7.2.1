@@ -113,42 +113,28 @@ Func CustomTrain($ForcePreTrain = False)
 							ExitLoop
 						Else ; when train time = 0 and troops are not full and got some troops on train
 							;If Int(($g_CurrentCampUtilization / (($g_iTotalCampSpace * $g_iTrainArmyFullTroopPct) / 100)) * 100) >= 95 And $g_CurrentCampUtilization <> (($g_iTotalCampSpace * $g_iTrainArmyFullTroopPct) / 100) Then
-								Setlog("Check troops queue in train, is that any troops stuck...")
-								If gotoTrainTroops() Then
+								SetLog($CustomTrain_MSG_3, $COLOR_INFO)
+								;Setlog("Check troops queue in train, is that any troops stuck...")
+								If gotoTrainTroops() = False Then Return
+								If _Sleep(1000) Then Return
+								If _ColorCheck(_GetPixelColor(808, 156 + $g_iMidOffsetY, True), Hex(0xD7AFA9, 6), 10) Then ; pink color
+									RemoveAllTroopAlreadyTrain()
 									If _Sleep(1000) Then Return
-									If _ColorCheck(_GetPixelColor(808, 156 + $g_iMidOffsetY, True), Hex(0xD7AFA9, 6), 10) Then ; pink color
-										RemoveAllTroopAlreadyTrain()
-										If _Sleep(1000) Then Return
-									;Else
-									;	Setlog("Troops train working fine.",$COLOR_SUCCESS)
-									EndIf
-
-									$bNotStuckJustOnBoost = True
-									If gotoArmy() = False Then
-										SetLog("Cannot open army overview tab page.",$COLOR_ERROR)
-										Return
-									EndIf
-								Else
-									SetLog("Cannot open train troops tab page.",$COLOR_ERROR)
-									Return
 								EndIf
 
-							;EndIf
+								$bNotStuckJustOnBoost = True
+								If gotoArmy() = False Then Return
 						EndIf
 					Else
 						If $ichkDisablePretrainTroops = 1 Then
-							;If _ColorCheck(_GetPixelColor(389, 99 + $g_iMidOffsetY, True), Hex(0X6AB31F, 6), 10) Then
 							If _ColorCheck(_GetPixelColor(389, 100 + $g_iMidOffsetY, True), Hex(0X5E5748, 6), 20) = False Then
-								If gotoTrainTroops() Then
+								If gotoTrainTroops() = False Then Return
+								If _Sleep(1000) Then Return
+								If _ColorCheck(_GetPixelColor(808, 156 + $g_iMidOffsetY, True), Hex(0xD7AFA9, 6), 10) Then ; pink color
+									RemoveAllTroopAlreadyTrain()
 									If _Sleep(1000) Then Return
-									If _ColorCheck(_GetPixelColor(808, 156 + $g_iMidOffsetY, True), Hex(0xD7AFA9, 6), 10) Then ; pink color
-										RemoveAllTroopAlreadyTrain()
-										If _Sleep(1000) Then Return
-									EndIf
-									If gotoArmy() = False Then Return
-								Else
-									SetLog("Cannot open train troops tab page.",$COLOR_ERROR)
 								EndIf
+								If gotoArmy() = False Then Return
 							Else
 								getMyArmyTroopCount()
 								If $bRestartCustomTrain Then ContinueLoop
@@ -279,17 +265,14 @@ Func CustomTrain($ForcePreTrain = False)
 		EndIf
 	EndIf
 
-	If gotoArmy() Then
-		getArmyCCStatus()
-		If _Sleep(50) Then Return ; 10ms improve pause button response
-	Else
-		SetLog("Cannot open army overview tab page.",$COLOR_ERROR)
-	EndIf
+	gotoArmy()
+	getArmyCCStatus()
+	If _Sleep(50) Then Return ; 10ms improve pause button response
 
 
 	If $g_iDebugSetlogTrain = 1 Then Setlog("Fullarmy = " & $g_bFullArmy & " CurCamp = " & $g_CurrentCampUtilization & " TotalCamp = " & $g_iTotalCampSpace & " - result = " & ($g_bFullArmy = True And $g_CurrentCampUtilization = $g_iTotalCampSpace), $COLOR_DEBUG)
 	If $g_bFullArmy = True Then
-		SetLog("Your Army Camps are now Full", $COLOR_SUCCESS, "Times New Roman", 10)
+		SetLog($CustomTrain_MSG_4, $COLOR_SUCCESS, "Times New Roman", 10)
 		If (($g_bNotifyPBEnable = True Or $g_bNotifyTGEnable = True) And $g_bNotifyAlertCampFull = True) Then PushMsg("CampFull")
 	EndIf
 
@@ -384,7 +367,7 @@ Func DoCheckReVamp($bDoPreTrain = False, $ForcePreTrain = False)
 	Next
 
 	If $bReVampFlag Then
-		If gotoTrainTroops() Then
+		If gotoTrainTroops() = False Then Return
 			If _sleep(100) Then Return
 			; starttrain
 			Local $iRemainTroopsCapacity = 0
@@ -401,7 +384,7 @@ Func DoCheckReVamp($bDoPreTrain = False, $ForcePreTrain = False)
 			For $i = 0 To UBound($tempTroops) - 1
 				Local $iOnQQty = Eval("Add" & $tempTroops[$i][0])
 				If $iOnQQty > 0 Then
-					SetLog("Prepare for train number Of " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]), $iOnQQty) & " x" & $iOnQQty,$COLOR_ACTION)
+					SetLog($CustomTrain_MSG_5 & "" & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]), $iOnQQty) & " x" & $iOnQQty,$COLOR_ACTION)
 				EndIf
 			Next
 
@@ -436,7 +419,7 @@ Func DoCheckReVamp($bDoPreTrain = False, $ForcePreTrain = False)
 					If ($Troop4Add * $iCost) > $iBuildCost Then
 						$bFlagOutOfResource = True
 						; use eval and not $i to compare because of maybe after array sort $tempTroops
-						Setlog("Not enough " & (Eval("e" & $tempTroops[$i][0]) > 11 ? "Dark " : "") & "Elixir to train " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]),0) & " troops!", $COLOR_ERROR)
+						Setlog($CustomTrain_MSG_8 & " " & (Eval("e" & $tempTroops[$i][0]) > 11 ? $CustomTrain_MSG_DarkElixir : $CustomTrain_MSG_Elixir) & " " & $CustomTrain_MSG_9 & " " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]),0), $COLOR_ERROR)
 					EndIf
 
 					If $bFlagOutOfResource Then
@@ -448,7 +431,7 @@ Func DoCheckReVamp($bDoPreTrain = False, $ForcePreTrain = False)
 						Return ; We are out of Elixir stop training.
 					EndIf
 					; use eval and not $i to compare because of maybe after array sort $tempTroops
-					SetLog("Ready to train " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]),$Troop4Add) & " x" & $Troop4Add & " with total " & (Eval("e" & $tempTroops[$i][0]) > 11 ? "Dark " : "") & "Elixir: " & ($Troop4Add * $iCost),(Eval("e" & $tempTroops[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
+					SetLog($CustomTrain_MSG_6 & " " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]),$Troop4Add) & " x" & $Troop4Add & " " & $CustomTrain_MSG_7 & " " & (Eval("e" & $tempTroops[$i][0]) > 11 ? $CustomTrain_MSG_DarkElixir : $CustomTrain_MSG_Elixir) & " : " & ($Troop4Add * $iCost),(Eval("e" & $tempTroops[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 
 					If ($tempTroops[$i][2] * $Troop4Add) <= $iRemainTroopsCapacity Then
 						MyTrainClick(Eval("aButtonTrain" & $tempTroops[$i][0]),$Troop4Add,$g_iTrainClickDelay,"#TT01")
@@ -470,9 +453,6 @@ Func DoCheckReVamp($bDoPreTrain = False, $ForcePreTrain = False)
 					If _Sleep(500) Then Return
 				EndIf
 			Next
-		Else
-			SetLog("Cannot open train troops tab page.",$COLOR_ERROR)
-		EndIf
 	EndIf
 	If $bDoPreTrain Then
 		$tempDisableTrain = True
