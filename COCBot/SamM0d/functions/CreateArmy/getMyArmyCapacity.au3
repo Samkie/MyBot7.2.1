@@ -16,7 +16,7 @@
 ; ===============================================================================================================================
 Func getMyArmyCapacity($bOpenArmyWindow = False, $bCloseArmyWindow = False, $bShowLog = True)
 
-	If $g_iDebugSetlogTrain = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getMyArmyCapacity:", $COLOR_DEBUG1)
+	If $iSamM0dDebug = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getMyArmyCapacity:", $COLOR_DEBUG1)
 
 	If $bOpenArmyWindow = False And IsTrainPage() = False Then ; check for train page
 		SetError(1)
@@ -39,18 +39,18 @@ Func getMyArmyCapacity($bOpenArmyWindow = False, $bCloseArmyWindow = False, $bSh
 
 	While 1
 		$sArmyInfo = getMyOcrArmyCap()
-		If $g_iDebugSetlogTrain = 1 Then Setlog("$sArmyInfo = " & $sArmyInfo, $COLOR_DEBUG)
+		If $iSamM0dDebug = 1 Then Setlog("$sArmyInfo = " & $sArmyInfo, $COLOR_DEBUG)
 		$aGetArmySize = StringSplit($sArmyInfo, "#")
 		If IsArray($aGetArmySize) Then
 			If $aGetArmySize[0] > 1 Then
 				If Number($aGetArmySize[2]) < 20 Or Mod(Number($aGetArmySize[2]), 5) <> 0 Then ; check to see if camp size is multiple of 5, or try to read again
-					If $g_iDebugSetlogTrain = 1 Then Setlog(" OCR value is not valid camp size", $COLOR_DEBUG)
+					If $iSamM0dDebug = 1 Then Setlog(" OCR value is not valid camp size", $COLOR_DEBUG)
 					ContinueLoop
 				EndIf
 				$tmpTotalCamp = Number($aGetArmySize[2])
 				$g_CurrentCampUtilization = Number($aGetArmySize[1])
 				If $g_iTotalCampSpace = 0 Then $g_iTotalCampSpace = $tmpTotalCamp
-				If $g_iDebugSetlogTrain = 1 Then Setlog("$g_CurrentCampUtilization = " & $g_CurrentCampUtilization & ", $g_iTotalCampSpace = " & $g_iTotalCampSpace, $COLOR_DEBUG)
+				If $iSamM0dDebug = 1 Then Setlog("$g_CurrentCampUtilization = " & $g_CurrentCampUtilization & ", $g_iTotalCampSpace = " & $g_iTotalCampSpace, $COLOR_DEBUG)
 				;$g_iArmyCapacity = Int($g_CurrentCampUtilization / $tmpTotalCamp * 100)
 				;SetLog("Troops: " & $g_CurrentCampUtilization & "/" & $tmpTotalCamp & " (" & $g_iArmyCapacity & "%)")
 				ExitLoop

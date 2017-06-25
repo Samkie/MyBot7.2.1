@@ -16,7 +16,7 @@
 ; ===============================================================================================================================
 
 Func getMyArmyTroopCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $test = false)
-	If $g_iDebugSetlogTrain = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getArmyTroopCount:", $COLOR_DEBUG1)
+	If $iSamM0dDebug = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getArmyTroopCount:", $COLOR_DEBUG1)
 
 	If $test = false  Then
 		If $bOpenArmyWindow = False And IsTrainPage() = False Then ; check for train page
@@ -110,7 +110,7 @@ Func getMyArmyTroopCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $t
 				For $i = 0 To UBound($MyTroops) - 1
 					Local $itempTotal = Eval("cur" & $MyTroops[$i][0]) + Eval("OnT" & $MyTroops[$i][0])
 					If Eval("OnT" & $MyTroops[$i][0]) > 0 Then
-						SetLog(" - On Train no. of " & MyNameOfTroop(Eval("e" & $MyTroops[$i][0]),  Eval("OnT" & $MyTroops[$i][0])) & ": " &  Eval("OnT" & $MyTroops[$i][0]), (Eval("e" & $MyTroops[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
+						SetLog(" - No. of On Train " & MyNameOfTroop(Eval("e" & $MyTroops[$i][0]),  Eval("OnT" & $MyTroops[$i][0])) & ": " &  Eval("OnT" & $MyTroops[$i][0]), (Eval("e" & $MyTroops[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 					EndIf
 					If $MyTroops[$i][3] < $itempTotal Then
 						If $ichkEnableDeleteExcessTroops = 1 Then
@@ -147,7 +147,7 @@ Func getMyArmyTroopCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $t
 					For $i = 0 To UBound($MyTroops) - 1
 						Local $itempTotal = Eval("OnQ" & $MyTroops[$i][0])
 						If $itempTotal > 0 Then
-							SetLog(" - On Queue no. of " & MyNameOfTroop(Eval("e" & $MyTroops[$i][0]),  Eval("OnQ" & $MyTroops[$i][0])) & ": " &  Eval("OnQ" & $MyTroops[$i][0]), (Eval("e" & $MyTroops[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
+							SetLog(" - No. of On Queue " & MyNameOfTroop(Eval("e" & $MyTroops[$i][0]),  Eval("OnQ" & $MyTroops[$i][0])) & ": " &  Eval("OnQ" & $MyTroops[$i][0]), (Eval("e" & $MyTroops[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 							$bGotOnQueueFlag = True
 						EndIf
 						If $MyTroops[$i][3] < $itempTotal Then
@@ -204,7 +204,7 @@ Func getMyArmyTroopCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $t
 EndFunc   ;==>getArmyTroopCount
 
 Func _checkAvailableUnit()
-	If $g_iDebugSetlogTrain = 1 Then SetLog("============Start _checkAvailableUnit ============")
+	If $iSamM0dDebug = 1 Then SetLog("============Start _checkAvailableUnit ============")
 	SetLog("Start check available unit...", $COLOR_INFO)
 	Local $aLastResult[1][3]
 	Local $sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Army\"
@@ -223,18 +223,18 @@ Func _checkAvailableUnit()
 	If IsArray($result) then
 		ReDim $aLastResult[UBound($result)][3]
 		For $i = 0 To UBound($result) -1
-			If $g_iDebugSetlogTrain = 1 Then SetLog("--------------------------------------------------")
+			If $iSamM0dDebug = 1 Then SetLog("--------------------------------------------------")
 			$aPropsValues = $result[$i] ; should be return objectname,objectpoints
 			If UBound($aPropsValues) = 2 then
 				$aLastResult[$i][0] = $aPropsValues[0] ; objectname
-				If $g_iDebugSetlogTrain = 1 Then SetLog("objectname: " & $aLastResult[$i][0], $COLOR_DEBUG)
+				If $iSamM0dDebug = 1 Then SetLog("objectname: " & $aLastResult[$i][0], $COLOR_DEBUG)
 
 				$aCoor = StringSplit($aPropsValues[1],",",$STR_NOCOUNT) ; objectpoints, split by "," tp get coor x
 				$aLastResult[$i][1] = GetArmySlotPosition($aCoor[0]) ; get the army slot base on coor X
-				If $g_iDebugSetlogTrain = 1 Then SetLog("objectpoints: " & $aPropsValues[1], $COLOR_DEBUG)
-				If $g_iDebugSetlogTrain = 1 Then SetLog("slot: " & $aLastResult[$i][1], $COLOR_DEBUG)
+				If $iSamM0dDebug = 1 Then SetLog("objectpoints: " & $aPropsValues[1], $COLOR_DEBUG)
+				If $iSamM0dDebug = 1 Then SetLog("slot: " & $aLastResult[$i][1], $COLOR_DEBUG)
 				$aLastResult[$i][2] = getArmyQtyFromSlot($aLastResult[$i][1])
-				If $g_iDebugSetlogTrain = 1 Then SetLog("Qty: " & $aLastResult[$i][2], $COLOR_DEBUG)
+				If $iSamM0dDebug = 1 Then SetLog("Qty: " & $aLastResult[$i][2], $COLOR_DEBUG)
 				If $aLastResult[$i][2] <> 0 Then
 					Assign("cur" & $aLastResult[$i][0], $aLastResult[$i][2])
 					$AvailableCamp += ($aLastResult[$i][2] * $TroopsUnitSize[Eval("e" & $aLastResult[$i][0])])
@@ -255,26 +255,26 @@ Func _checkAvailableUnit()
 		_ArraySort($aLastResult, 0, 0, 0, 1) ; 重新排序兵种位置
 
 		For $i = 0 To UBound($aLastResult) - 1
-			If $g_iDebugSetlogTrain = 1 Then Setlog(" Slot : " & $i + 1, $COLOR_DEBUG)
+			If $iSamM0dDebug = 1 Then Setlog(" Slot : " & $i + 1, $COLOR_DEBUG)
 			If $aLastResult[$i][1] <> $i + 1 Then
-				If $g_iDebugSetlogTrain = 1 Then Setlog(" Slot : " & $i + 1 & " - Troops detection error.", $COLOR_DEBUG)
+				If $iSamM0dDebug = 1 Then Setlog(" Slot : " & $i + 1 & " - Troops detection error.", $COLOR_DEBUG)
 				Return False
 			EndIf
 		Next
 
 		If $AvailableCamp <> $g_CurrentCampUtilization Then
-			If $g_iDebugSetlogTrain = 1 Then SetLog("Error: Troops size for all available Unit: " & $AvailableCamp & "  -  Camp: " & $g_CurrentCampUtilization, $COLOR_RED)
+			If $iSamM0dDebug = 1 Then SetLog("Error: Troops size for all available Unit: " & $AvailableCamp & "  -  Camp: " & $g_CurrentCampUtilization, $COLOR_RED)
 			Return False
 		Else
 			For $i = 0 To UBound($aLastResult,$UBOUND_ROWS) - 1
-				SetLog(" - Available no. of " & MyNameOfTroop(Eval("e" & $aLastResult[$i][0]), $aLastResult[$i][2]) & ": " & $aLastResult[$i][2], (Eval("e" & $aLastResult[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
+				SetLog(" - No. of Available " & MyNameOfTroop(Eval("e" & $aLastResult[$i][0]), $aLastResult[$i][2]) & ": " & $aLastResult[$i][2], (Eval("e" & $aLastResult[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 				If $ichkEnableDeleteExcessTroops = 1 Then
 					If $aLastResult[$i][2] > $MyTroops[Eval("e" & $aLastResult[$i][0])][3] Then
 						$bRestartCustomTrain = True
 						$bDeletedExcess = True
 						SetLog(" >>> excess: " & $aLastResult[$i][2] - $MyTroops[Eval("e" & $aLastResult[$i][0])][3],$COLOR_RED)
 						Assign("RemSlot" & $aLastResult[$i][1],$aLastResult[$i][2] - $MyTroops[Eval("e" & $aLastResult[$i][0])][3])
-						If $g_iDebugSetlogTrain = 1 Then SetLog("Slot: " & $aLastResult[$i][1])
+						If $iSamM0dDebug = 1 Then SetLog("Slot: " & $aLastResult[$i][1])
 					EndIf
 				EndIf
 			Next
@@ -302,7 +302,7 @@ Func _checkAvailableUnit()
 				If WaitforPixel($aButtonEditCancel[4],$aButtonEditCancel[5],$aButtonEditCancel[4]+1,$aButtonEditCancel[5]+1,Hex($aButtonEditCancel[6], 6), $aButtonEditCancel[7],20) Then
 					For $i = 10 To 0 Step -1
 						Local $RemoveSlotQty = Eval("RemSlot" & $i + 1)
-						If $g_iDebugSetlogTrain = 1 Then SetLog($i & " $RemoveSlotQty: " & $RemoveSlotQty)
+						If $iSamM0dDebug = 1 Then SetLog($i & " $RemoveSlotQty: " & $RemoveSlotQty)
 						If $RemoveSlotQty > 0 Then
 							Local $iRx = (80 + (73 * $i))
 							Local $iRy = 240 + $g_iMidOffsetY
@@ -347,7 +347,7 @@ Func getQueueArmyStartSlot()
 EndFunc
 
 Func _checkOnTrainUnit()
-	If $g_iDebugSetlogTrain = 1 Then SetLog("============Start _checkOnTrainUnit ============")
+	If $iSamM0dDebug = 1 Then SetLog("============Start _checkOnTrainUnit ============")
 	SetLog("Start check on train unit...", $COLOR_INFO)
 	Local $aLastResult[1][3]
 	Local $sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Army\Train\"
@@ -433,7 +433,7 @@ Func _checkOnTrainUnit()
 
 		_ArraySort($aLastResult, 1, 0, 0, 1)
 
-		If $g_iDebugSetlogTrain = 1 Then
+		If $iSamM0dDebug = 1 Then
 			For $i = 0 To UBound($aLastResult) - 1
 				SetLog("Afrer _ArraySort - Obj:" & $aLastResult[$i][0] & " Slot:" & $aLastResult[$i][1] & " Qty: " & $aLastResult[$i][2], $COLOR_DEBUG)
 				If Eval("OnT" & $aLastResult[$i][0]) > 0 Then
@@ -455,7 +455,7 @@ Func _checkOnTrainUnit()
 EndFunc	;==>_checkOnTrainUnit
 
 Func _checkOnQueueUnit()
-	If $g_iDebugSetlogTrain = 1 Then SetLog("============Start _checkOnQueueUnit ============")
+	If $iSamM0dDebug = 1 Then SetLog("============Start _checkOnQueueUnit ============")
 	SetLog("Start check on queue unit...", $COLOR_INFO)
 	Local $aLastResult[1][3]
 	Local $sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Army\Queue\"
@@ -528,7 +528,7 @@ Func _checkOnQueueUnit()
 
 		_ArraySort($aLastResult, 1, 0, 0, 1)
 
-		If $g_iDebugSetlogTrain = 1 Then
+		If $iSamM0dDebug = 1 Then
 			For $i = 0 To UBound($aLastResult) - 1
 				SetLog("Afrer _ArraySort - Obj:" & $aLastResult[$i][0] & " Slot:" & $aLastResult[$i][1] & " Qty: " & $aLastResult[$i][2], $COLOR_DEBUG)
 				If Eval("OnQ" & $aLastResult[$i][0]) > 0 Then
