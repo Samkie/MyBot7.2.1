@@ -69,7 +69,7 @@ InitializeBot()
 MainLoop()
 
 Func UpdateBotTitle()
-	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.8.1 "
+	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.8.2 "
 	If $g_sBotTitle = "" Then
 		$g_sBotTitle = $sTitle
 	Else
@@ -1249,6 +1249,8 @@ Func _RunFunction($action)
 			If isOnBuilderIsland() Or (($g_bChkCollectBuilderBase Or $g_bChkStartClockTowerBoost) And SwitchBetweenBases()) Then
 				CollectBuilderBase()
 				StartClockTowerBoost()
+				; samm0d
+				RemoveSpecialObstacleBB() ; get 6 gems
 				; switch back to normal village
 				SwitchBetweenBases()
 			EndIf

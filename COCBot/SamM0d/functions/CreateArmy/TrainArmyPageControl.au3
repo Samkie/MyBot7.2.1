@@ -20,7 +20,7 @@ Func gotoArmy()
 			ClickP($aButtonArmyTab,1,0,"ArmyTab")
 			$iCount += 1
 			If $iCount >= 10 Then
-				setlog("Failed to open army page.")
+				setlog("Failed to open army page.", $COLOR_ERROR)
 				Return False
 			EndIf
 			If _Sleep(100) Then Return
@@ -37,7 +37,7 @@ Func gotoTrainTroops()
 			ClickP($aButtonTrainTroopsTab,1,0,"TrainTroopsTab")
 			$iCount += 1
 			If $iCount >= 10 Then
-				setlog("Failed to open train troops page.")
+				setlog("Failed to open train troops page.", $COLOR_ERROR)
 				Return False
 			EndIf
 			If _Sleep(100) Then Return
@@ -54,7 +54,7 @@ Func gotoBrewSpells()
 			ClickP($aButtonBrewSpellsTab,1,0,"BrewSpellsTab")
 			$iCount += 1
 			If $iCount >= 10 Then
-				setlog("Failed to open brew spells page.")
+				setlog("Failed to open brew spells page.", $COLOR_ERROR)
 				Return False
 			EndIf
 			If _Sleep(100) Then Return
@@ -71,7 +71,7 @@ Func gotoQuickTrain()
 			ClickP($aButtonQuickTrainTab,1,0,"QuickTrainTab")
 			$iCount += 1
 			If $iCount >= 10 Then
-				setlog("Failed to open quick train page.")
+				setlog("Failed to open quick train page.", $COLOR_ERROR)
 				Return False
 			EndIf
 			If _Sleep(100) Then Return

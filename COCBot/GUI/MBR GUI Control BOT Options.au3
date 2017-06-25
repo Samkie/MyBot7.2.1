@@ -265,6 +265,7 @@ Func btnTestTrain()
 	Local $currentOCR = $g_iDebugOcr
 	Local $currentRunState = $g_bRunState
 	$g_bRunState = True
+
 	BeginImageTest()
 
 	Local $result

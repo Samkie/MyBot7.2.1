@@ -23,6 +23,7 @@
 ;#include "SamM0d\MBRMates\smartZap\smartZap.au3"
 ;#include "SamM0d\MBRMates\smartZap\ExtremeZap.au3"
 #include "SamM0d\functions\SamM0dZap.au3"
+#include "SamM0d\functions\RemoveSpecialObstacleBB.au3"
 #include "SamM0d\functions\AreCollectorsNearRedline.au3"
 #include "SamM0d\functions\HLFClick.au3"
 #include "SamM0d\functions\OCR\getMyOcr.au3"
