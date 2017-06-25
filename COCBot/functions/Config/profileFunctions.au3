@@ -138,9 +138,6 @@ Func selectProfile()
 		_GUICtrlComboBox_SetCurSel($g_hCmbProfile, 0)
 	EndIf
 
-	; samm0d
-	BuildProfileForSwitch()
-
 	; Set the profile name on the village info group.
 	GUICtrlSetData($g_hGrpVillage, GetTranslatedFileIni("MBR Main GUI", "Tab_02", "Village") & ": " & $g_sProfileCurrentName)
 	GUICtrlSetData($g_hTxtNotifyOrigin, $g_sProfileCurrentName)

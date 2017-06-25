@@ -77,11 +77,9 @@ Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
 			SetLog("Attacking on all sides", $COLOR_INFO)
 			$nbSides = 4
 		Case 4 ;DE Side - Live Base only ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			SetLog("Attacking on Dark Elixir Side.", $COLOR_INFO)
 			$nbSides = 1
-			If $g_iMatchMode = $LB Then
-				SetLog("Attacking on Dark Elixir Side.", $COLOR_INFO)
-				If Not ($g_abAttackStdSmartAttack[$g_iMatchMode]) Then GetBuildingEdge($eSideBuildingDES) ; Get DE Storage side when Redline is not used.
-			EndIf
+			If Not ($g_abAttackStdSmartAttack[$g_iMatchMode]) Then GetBuildingEdge($eSideBuildingDES) ; Get DE Storage side when Redline is not used.
 		Case 5 ;TH Side - Live Base only ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			SetLog("Attacking on Town Hall Side.", $COLOR_INFO)
 			$nbSides = 1
@@ -215,39 +213,7 @@ Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
 	$g_aiDeployHeroesPosition[0] = -1
 	$g_aiDeployHeroesPosition[1] = -1
 
-	; samm0d
-	If $ichkDropCCFirst = 1 Then
-		Local $iPos = -1
-		For $i = 0 To UBound($listInfoDeploy) - 1
-			If IsString($listInfoDeploy[$i][0]) And $listInfoDeploy[$i][0] = "CC" Then
-				$iPos = $i
-				ExitLoop
-			EndIf
-		Next
-		If $iPos > 0 Then
-			For $i = $iPos To 1 Step -1
-				$listInfoDeploy[$i][0] = $listInfoDeploy[$i-1][0]
-				$listInfoDeploy[$i][1] = $listInfoDeploy[$i-1][1]
-				$listInfoDeploy[$i][2] = $listInfoDeploy[$i-1][2]
-				$listInfoDeploy[$i][3] = $listInfoDeploy[$i-1][3]
-				$listInfoDeploy[$i][4] = $listInfoDeploy[$i-1][4]
-			Next
-			$listInfoDeploy[0][0] = "CC"
-			$listInfoDeploy[0][1] = 1
-			$listInfoDeploy[0][2] = 1
-			$listInfoDeploy[0][3] = 1
-			$listInfoDeploy[0][4] = 1
-		EndIf
-	EndIf
-
-	; samm0d
-	If $g_aiAttackStdDropSides[$g_iMatchMode] = 4 And  $g_iMatchMode = $DB Then
-		SetLog(_PadStringCenter("Multi Finger Attack", 50, "="), $COLOR_BLUE)
-		launchMultiFinger($listInfoDeploy, $g_iClanCastleSlot, $g_iKingSlot, $g_iQueenSlot, $g_iWardenSlot)
-	Else
-		SetLog(_PadStringCenter("Standard Attack", 50, "="), $COLOR_BLUE)
-		LaunchTroop2($listInfoDeploy, $g_iClanCastleSlot, $g_iKingSlot, $g_iQueenSlot, $g_iWardenSlot)
-	EndIf
+	LaunchTroop2($listInfoDeploy, $g_iClanCastleSlot, $g_iKingSlot, $g_iQueenSlot, $g_iWardenSlot)
 
 	CheckHeroesHealth()
 
@@ -259,11 +225,13 @@ Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
 			ExitLoop ;Check remaining quantities
 		EndIf
 		For $i = $eBarb To $eBowl ; lauch all remaining troops
-			; samm0d - disable 500ms delay if don't have that kind of troop
-			if LauchTroop($i, $nbSides, 0, 1) = True Then
-				CheckHeroesHealth()
-				If _Sleep($DELAYALGORITHM_ALLTROOPS5) Then Return
-			EndIf
+			;If $i = $eBarb Or $i = $eArch Then
+			LauchTroop($i, $nbSides, 0, 1)
+			If $g_iActivateKQCondition = "Auto" Then CheckHeroesHealth()
+			;Else
+			;	 LauchTroop($i, $nbSides, 0, 1, 2)
+			;EndIf
+			If _Sleep($DELAYALGORITHM_ALLTROOPS5) Then Return
 		Next
 	Next
 
@@ -329,38 +297,24 @@ Func SmartAttackStrategy($imode)
 			;SetLog("	[" & UBound($g_aiPixelBottomRight) & "] pixels BottomRight")
 
 			If ($g_abAttackStdSmartNearCollectors[$imode][0] Or $g_abAttackStdSmartNearCollectors[$imode][1] Or $g_abAttackStdSmartNearCollectors[$imode][2]) Then
-				;samm0d
-				If $bIDoScanMineAndElixir = False Then
-					SetLog("Locating Mines, Collectors & Drills", $COLOR_INFO)
-				Else
-					SetLog("Locating Drills", $COLOR_INFO)
-				EndIf
+				SetLog("Locating Mines, Collectors & Drills", $COLOR_INFO)
 				$hTimer = __TimerInit()
-
-				;samm0d
-				If $bIDoScanMineAndElixir = False Then
-					Global $g_aiPixelMine[0]
-					Global $g_aiPixelElixir[0]
-					Global $g_aiPixelNearCollector[0]
-				EndIf
-
+				Global $g_aiPixelMine[0]
+				Global $g_aiPixelElixir[0]
 				Global $g_aiPixelDarkElixir[0]
+				Global $g_aiPixelNearCollector[0]
 				; If drop troop near gold mine
 				If $g_abAttackStdSmartNearCollectors[$imode][0] Then
-					If $bIDoScanMineAndElixir = False Then
-						$g_aiPixelMine = GetLocationMine()
-						If (IsArray($g_aiPixelMine)) Then
-							_ArrayAdd($g_aiPixelNearCollector, $g_aiPixelMine)
-						EndIf
+					$g_aiPixelMine = GetLocationMine()
+					If (IsArray($g_aiPixelMine)) Then
+						_ArrayAdd($g_aiPixelNearCollector, $g_aiPixelMine)
 					EndIf
 				EndIf
 				; If drop troop near elixir collector
 				If $g_abAttackStdSmartNearCollectors[$imode][1] Then
-					If $bIDoScanMineAndElixir = False Then
-						$g_aiPixelElixir = GetLocationElixir()
-						If (IsArray($g_aiPixelElixir)) Then
-							_ArrayAdd($g_aiPixelNearCollector, $g_aiPixelElixir)
-						EndIf
+					$g_aiPixelElixir = GetLocationElixir()
+					If (IsArray($g_aiPixelElixir)) Then
+						_ArrayAdd($g_aiPixelNearCollector, $g_aiPixelElixir)
 					EndIf
 				EndIf
 				; If drop troop near dark elixir drill
@@ -377,9 +331,6 @@ Func SmartAttackStrategy($imode)
 				$g_aiNbrOfDetectedMines[$imode] += UBound($g_aiPixelMine)
 				$g_aiNbrOfDetectedCollectors[$imode] += UBound($g_aiPixelElixir)
 				$g_aiNbrOfDetectedDrills[$imode] += UBound($g_aiPixelDarkElixir)
-
-				$bIDoScanMineAndElixir = False
-
 				UpdateStats()
 			EndIf
 

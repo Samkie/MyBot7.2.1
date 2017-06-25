@@ -676,10 +676,6 @@ Func GUIControl_WM_NOTIFY($hWind, $iMsg, $wParam, $lParam)
 			tabTHSnipe()
 		Case $g_hGUI_BOT_TAB
 			tabBot()
-
-		; samm0d
-		Case $g_hGUI_STATS_TAB
-			tabStats()
 		Case Else
 			$bCheckEmbeddedShield = False
 	EndSwitch
@@ -1376,10 +1372,6 @@ Func tabMain()
 				GUISetState(@SW_HIDE, $g_hGUI_VILLAGE)
 				GUISetState(@SW_HIDE, $g_hGUI_ATTACK)
 				GUISetState(@SW_HIDE, $g_hGUI_BOT)
-
-				; SamM0d
-				GUISetState(@SW_HIDE, $hGUI_MOD)
-
 				GUISetState(@SW_HIDE, $g_hGUI_ABOUT)
 				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_LOG)
 
@@ -1387,10 +1379,6 @@ Func tabMain()
 				GUISetState(@SW_HIDE, $g_hGUI_LOG)
 				GUISetState(@SW_HIDE, $g_hGUI_ATTACK)
 				GUISetState(@SW_HIDE, $g_hGUI_BOT)
-
-				; SamM0d
-				GUISetState(@SW_HIDE, $hGUI_MOD)
-
 				GUISetState(@SW_HIDE, $g_hGUI_ABOUT)
 				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_VILLAGE)
 				tabVillage()
@@ -1399,10 +1387,6 @@ Func tabMain()
 				GUISetState(@SW_HIDE, $g_hGUI_LOG)
 				GUISetState(@SW_HIDE, $g_hGUI_VILLAGE)
 				GUISetState(@SW_HIDE, $g_hGUI_BOT)
-
-				; SamM0d
-				GUISetState(@SW_HIDE, $hGUI_MOD)
-
 				GUISetState(@SW_HIDE, $g_hGUI_ABOUT)
 				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_ATTACK)
 				tabAttack()
@@ -1411,10 +1395,6 @@ Func tabMain()
 				GUISetState(@SW_HIDE, $g_hGUI_LOG)
 				GUISetState(@SW_HIDE, $g_hGUI_VILLAGE)
 				GUISetState(@SW_HIDE, $g_hGUI_ATTACK)
-
-				; SamM0d
-				GUISetState(@SW_HIDE, $hGUI_MOD)
-
 				GUISetState(@SW_HIDE, $g_hGUI_ABOUT)
 				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_BOT)
 				tabBot()
@@ -1425,26 +1405,12 @@ Func tabMain()
 				GUISetState(@SW_HIDE, $g_hGUI_ATTACK)
 				GUISetState(@SW_HIDE, $g_hGUI_BOT)
 				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_ABOUT)
-				; SamM0d
-				GUISetState(@SW_SHOWNOACTIVATE, $hGUI_MOD)
 
-			Case $tabidx = 5 ; About
+			Case Else
 				GUISetState(@SW_HIDE, $g_hGUI_LOG)
 				GUISetState(@SW_HIDE, $g_hGUI_VILLAGE)
 				GUISetState(@SW_HIDE, $g_hGUI_ATTACK)
 				GUISetState(@SW_HIDE, $g_hGUI_BOT)
-				; SamM0d
-				GUISetState(@SW_HIDE, $hGUI_MOD)
-
-				GUISetState(@SW_SHOWNOACTIVATE, $g_hGUI_ABOUT)
-
-			Case ELSE
-				GUISetState(@SW_HIDE, $g_hGUI_LOG)
-				GUISetState(@SW_HIDE, $g_hGUI_VILLAGE)
-				GUISetState(@SW_HIDE, $g_hGUI_ATTACK)
-				GUISetState(@SW_HIDE, $g_hGUI_BOT)
-				; SamM0d
-				GUISetState(@SW_HIDE, $hGUI_MOD)
 		EndSelect
 
 EndFunc   ;==>tabMain
@@ -1664,22 +1630,6 @@ Func tabBot()
 		EndSelect
 EndFunc   ;==>tabBot
 
-; samm0d
-Func tabStats()
-	Local $tabidx = GUICtrlRead($g_hGUI_STATS_TAB)
-	;SetLog("$tabidx: " & $tabidx)
-		Select
-			Case $tabidx = 3 ; Options tab
-				GUICtrlSetState($g_hLblProfileName,$GUI_HIDE)
-				GUICtrlSetState($arrowleft2,$GUI_HIDE)
-				GUICtrlSetState($arrowright2,$GUI_HIDE)
-			Case Else
-				GUICtrlSetState($g_hLblProfileName,$GUI_SHOW)
-				GUICtrlSetState($arrowleft2,$GUI_SHOW)
-				GUICtrlSetState($arrowright2,$GUI_SHOW)
-		EndSelect
-EndFunc
-
 Func tabDeadbase()
 	Local $tabidx = GUICtrlRead($g_hGUI_DEADBASE_TAB)
 		Select
@@ -1828,8 +1778,7 @@ Func Bind_ImageList($nCtrl)
 	Switch $nCtrl
 		Case $g_hTabMain
 			; the icons for main tab
-			; samm0d
-			Local $aIconIndex[6] = [$eIcnHourGlass, $eIcnTH11, $eIcnAttack, $eIcnGUI, $eIcnPekka, $eIcnInfo]
+			Local $aIconIndex[5] = [$eIcnHourGlass, $eIcnTH11, $eIcnAttack, $eIcnGUI, $eIcnInfo]
 
 		Case $g_hGUI_VILLAGE_TAB
 			; the icons for village tab

@@ -31,10 +31,6 @@ Func saveConfig()
 	SaveRegularConfig()
 	;SetDebugLog("SaveRegularConfig(), time = " & Round(__TimerDiff($t)/1000, 2) & " sec")
 
-	;===========SamM0d Config=======================
-	#include "..\..\SamM0d\saveConfig.au3"
-	;==============End SamM0D Config================
-
 	SetDebugLog("SaveConfig(), time = " & Round(__TimerDiff($t) / 1000, 2) & " sec")
 EndFunc   ;==>saveConfig
 

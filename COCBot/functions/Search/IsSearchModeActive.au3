@@ -15,11 +15,6 @@
 ; ===============================================================================================================================
 
 Func IsSearchModeActive($g_iMatchMode, $nocheckHeroes = False, $bNoLog = False)
-	; samm0d
-	Local $currentCCCampsFull = $CCCapacity >= $CCStrength
-	;Local $currentArmyFull = ($g_CurrentCampUtilization >= ($g_iTotalCampSpace * $g_iTrainArmyFullTroopPct / 100))
-	Local $checkCCTroops = ($FullCCTroops And $ichkWait4CC = 1) Or ($currentCCCampsFull  And $ichkWait4CC = 1) Or $ichkWait4CC = 0
-
 	Local $currentSearch = $g_iSearchCount + 1
 	Local $currentTropies = $g_aiCurrentLoot[$eLootTrophy]
 	Local $currentArmyCamps = Int($g_CurrentCampUtilization / $g_iTotalCampSpace * 100)
@@ -28,26 +23,18 @@ Func IsSearchModeActive($g_iMatchMode, $nocheckHeroes = False, $bNoLog = False)
 	Local $checkSearches = Int($currentSearch) >= Int($g_aiSearchSearchesMin[$g_iMatchMode]) And Int($currentSearch) <= Int($g_aiSearchSearchesMax[$g_iMatchMode]) And $g_abSearchSearchesEnable[$g_iMatchMode]
 	Local $checkTropies = Int($currentTropies) >= Int($g_aiSearchTrophiesMin[$g_iMatchMode]) And Int($currentTropies) <= Int($g_aiSearchTrophiesMax[$g_iMatchMode]) And $g_abSearchTropiesEnable[$g_iMatchMode]
 	Local $checkArmyCamps = Int($currentArmyCamps) >= Int($g_aiSearchCampsPct[$g_iMatchMode]) And $g_abSearchCampsEnable[$g_iMatchMode]
-	;Local $checkHeroes = Not ($g_aiSearchHeroWaitEnable[$g_iMatchMode] > $eHeroNone And (BitAND($g_aiAttackUseHeroes[$g_iMatchMode], $g_aiSearchHeroWaitEnable[$g_iMatchMode], $g_iHeroAvailable) = $g_aiSearchHeroWaitEnable[$g_iMatchMode]) = False) Or $nocheckHeroes
-	Local $checkHeroes = Not ($g_aiSearchHeroWaitEnable[$g_iMatchMode] > $eHeroNone And (BitAND($g_aiAttackUseHeroes[$g_iMatchMode], $g_aiSearchHeroWaitEnable[$g_iMatchMode], $g_iHeroAvailable + $g_iHeroUpgradingBit) = $g_aiSearchHeroWaitEnable[$g_iMatchMode]) = False) Or $nocheckHeroes
+	Local $checkHeroes = Not ($g_aiSearchHeroWaitEnable[$g_iMatchMode] > $eHeroNone And (BitAND($g_aiAttackUseHeroes[$g_iMatchMode], $g_aiSearchHeroWaitEnable[$g_iMatchMode], $g_iHeroAvailable) = $g_aiSearchHeroWaitEnable[$g_iMatchMode]) = False) Or $nocheckHeroes
 
-;~ 	If $checkHeroes = False Then
-;~ 		If Abs($g_aiSearchHeroWaitEnable[$g_iMatchMode] - $g_iHeroUpgradingBit) <= $eHeroNone Then $checkHeroes = True
-;~ 	EndIf
+	If $checkHeroes = False Then
+		If Abs($g_aiSearchHeroWaitEnable[$g_iMatchMode] - $g_iHeroUpgradingBit) <= $eHeroNone Then $checkHeroes = True
+	EndIf
 
 	Local $g_bCheckSpells = ($g_bFullArmySpells And $g_abSearchSpellsWaitEnable[$g_iMatchMode]) Or $g_abSearchSpellsWaitEnable[$g_iMatchMode] = False
-
 	Local $totalSpellsToBrew = 0
 	;--- To Brew
-	If $ichkCustomTrain = 1 Then
-		For $i = 0 To 9
-			$totalSpellsToBrew += Eval("i" & $MySpells[$i][0] & "SpellComp") * $MySpells[$i][2]
-		Next
-	Else
-		For $i = 0 To $eSpellCount - 1
-			$totalSpellsToBrew += $g_aiArmyCompSpells[$i]
-		Next
-	EndIf
+	For $i = 0 To $eSpellCount - 1
+		$totalSpellsToBrew += $g_aiArmyCompSpells[$i]
+	Next
 
 	If GetCurTotalSpell() = $totalSpellsToBrew And $g_abSearchSpellsWaitEnable[$g_iMatchMode] Then
 		$g_bCheckSpells = True
@@ -83,7 +70,7 @@ Func IsSearchModeActive($g_iMatchMode, $nocheckHeroes = False, $bNoLog = False)
 		EndIf
 	#CE
 
-	If $checkHeroes And $g_bCheckSpells And $checkCCTroops Then ;If $checkHeroes Then
+	If $checkHeroes And $g_bCheckSpells Then ;If $checkHeroes Then
 		If ($checkSearches Or $g_abSearchSearchesEnable[$g_iMatchMode] = False) And ($checkTropies Or $g_abSearchTropiesEnable[$g_iMatchMode] = False) And ($checkArmyCamps Or $g_abSearchCampsEnable[$g_iMatchMode] = False) Then
 			If $g_iDebugSetlog = 1 And $bNoLog = False Then Setlog($g_asModeText[$g_iMatchMode] & " active! ($checkSearches=" & $checkSearches & ",$checkTropies=" & $checkTropies & ",$checkArmyCamps=" & $checkArmyCamps & ",$checkHeroes=" & $checkHeroes & ",$g_bCheckSpells=" & $g_bCheckSpells & ")", $COLOR_INFO) ;If $g_iDebugSetlog = 1 Then Setlog($g_asModeText[$g_iMatchMode] & " active! ($checkSearches=" & $checkSearches & ",$checkTropies=" & $checkTropies &",$checkArmyCamps=" & $checkArmyCamps & ",$checkHeroes=" & $checkHeroes & ")" , $COLOR_INFO)
 			Return True

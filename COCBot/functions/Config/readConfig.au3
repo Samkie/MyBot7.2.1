@@ -24,10 +24,6 @@ Func readConfig($inputfile = $g_sProfileConfigPath) ;Reads config and sets it to
 	ReadProfileConfig()
 	If FileExists($g_sProfileBuildingPath) Then ReadBuildingConfig()
 	If FileExists($g_sProfileConfigPath) Then ReadRegularConfig()
-
-	;===========SamM0d Config=======================
-	#include "..\..\SamM0d\readConfig.au3"
-	;==============End SamM0D Config================
 EndFunc   ;==>readConfig
 
 Func ReadProfileConfig($sIniFile = $g_sProfilePath & "\profile.ini")
