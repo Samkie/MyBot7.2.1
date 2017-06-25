@@ -15,7 +15,7 @@
 Func CustomTrain($ForcePreTrain = False)
 	Local $bJustMakeDonateFlag = $bJustMakeDonate
 	$bJustMakeDonate = False
-	If $iSamM0dDebug = 1 Then SetLog("Func Train ", $COLOR_DEBUG)
+	If $g_iDebugSetlogTrain = 1 Then SetLog("Func Train ", $COLOR_DEBUG)
 	If $g_bTrainEnabled = False Then Return
 
 	Local $bNotStuckJustOnBoost = False
@@ -33,7 +33,7 @@ Func CustomTrain($ForcePreTrain = False)
 	If $g_bRestart = True Then Return
 
 	If WaitforPixel(31, 515 + $g_iBottomOffsetY, 33, 517 + $g_iBottomOffsetY, Hex(0xFFFDED, 6), 10, 20) Then
-		If $iSamM0dDebug = 1 Then SetLog("Click $aArmyTrainButton", $COLOR_SUCCESS)
+		If $g_iDebugSetlogTrain = 1 Then SetLog("Click $aArmyTrainButton", $COLOR_SUCCESS)
 		If IsMainPage() Then
 			If $g_bUseRandomClick = False Then
 				Click($aArmyTrainButton[0], $aArmyTrainButton[1], 1, 0, "#1293") ; Button Army Overview
@@ -270,7 +270,7 @@ Func CustomTrain($ForcePreTrain = False)
 	If _Sleep(50) Then Return ; 10ms improve pause button response
 
 
-	If $iSamM0dDebug = 1 Then Setlog("Fullarmy = " & $g_bFullArmy & " CurCamp = " & $g_CurrentCampUtilization & " TotalCamp = " & $g_iTotalCampSpace & " - result = " & ($g_bFullArmy = True And $g_CurrentCampUtilization = $g_iTotalCampSpace), $COLOR_DEBUG)
+	If $g_iDebugSetlogTrain = 1 Then Setlog("Fullarmy = " & $g_bFullArmy & " CurCamp = " & $g_CurrentCampUtilization & " TotalCamp = " & $g_iTotalCampSpace & " - result = " & ($g_bFullArmy = True And $g_CurrentCampUtilization = $g_iTotalCampSpace), $COLOR_DEBUG)
 	If $g_bFullArmy = True Then
 		SetLog($CustomTrain_MSG_4, $COLOR_SUCCESS, "Times New Roman", 10)
 		If (($g_bNotifyPBEnable = True Or $g_bNotifyTGEnable = True) And $g_bNotifyAlertCampFull = True) Then PushMsg("CampFull")
@@ -328,7 +328,7 @@ Func DoCheckReVamp($bDoPreTrain = False, $ForcePreTrain = False)
 	EndIf
 
 	For $i = 0 To UBound($tempTroops) - 1
-		If $iSamM0dDebug = 1 Then SetLog("$tempTroops[" & $i & "]: " & $tempTroops[$i][0] & " - " & $tempTroops[$i][1])
+		If $g_iDebugSetlogTrain = 1 Then SetLog("$tempTroops[" & $i & "]: " & $tempTroops[$i][0] & " - " & $tempTroops[$i][1])
 		; reset variable
 		Assign("Dif" & $tempTroops[$i][0],0)
 		Assign("Add" & $tempTroops[$i][0],0)
@@ -338,8 +338,8 @@ Func DoCheckReVamp($bDoPreTrain = False, $ForcePreTrain = False)
 		For $i = 0 To UBound($tempTroops) - 1
 			Local $tempCurComp = $tempTroops[$i][3]
 			Local $tempCur = Eval("Cur" & $tempTroops[$i][0]) + Eval("OnT" & $tempTroops[$i][0])
-			If $iSamM0dDebug = 1 Then SetLog("$tempMyTroops: " & $tempCurComp)
-			If $iSamM0dDebug = 1 Then SetLog("$tempCur: " & $tempCur)
+			If $g_iDebugSetlogTrain = 1 Then SetLog("$tempMyTroops: " & $tempCurComp)
+			If $g_iDebugSetlogTrain = 1 Then SetLog("$tempCur: " & $tempCur)
 			If $tempCurComp <> $tempCur Then
 				Assign("Dif" & $tempTroops[$i][0], $tempCurComp - $tempCur)
 			EndIf
@@ -354,15 +354,15 @@ Func DoCheckReVamp($bDoPreTrain = False, $ForcePreTrain = False)
 
 	For $i = 0 To UBound($tempTroops) - 1
 		If Eval("Dif" & $tempTroops[$i][0]) > 0 Then
-			If $iSamM0dDebug = 1 Then SetLog("Some troops haven't train: " & $tempTroops[$i][0])
-			If $iSamM0dDebug = 1 Then SetLog("Setting Qty Of " & $tempTroops[$i][0] & " troops: " & $tempTroops[$i][3])
+			If $g_iDebugSetlogTrain = 1 Then SetLog("Some troops haven't train: " & $tempTroops[$i][0])
+			If $g_iDebugSetlogTrain = 1 Then SetLog("Setting Qty Of " & $tempTroops[$i][0] & " troops: " & $tempTroops[$i][3])
 			;SetLog("Prepare for train number Of " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]), Eval("Dif" & $tempTroops[$i][0])) & " x" & Eval("Dif" & $tempTroops[$i][0]),$COLOR_ACTION)
 			Assign("Add" & $tempTroops[$i][0], Eval("Dif" & $tempTroops[$i][0]))
 			$bReVampFlag = True
 		ElseIf Eval("Dif" & $tempTroops[$i][0]) < 0 Then
-			If $iSamM0dDebug = 1 Then SetLog("Some troops over train: " & $tempTroops[$i][0])
-			If $iSamM0dDebug = 1 Then SetLog("Setting Qty Of " & $tempTroops[$i][0] & " troops: " & $tempTroops[$i][3])
-			If $iSamM0dDebug = 1 Then SetLog("Current Qty Of " & $tempTroops[$i][0] & " troops: " & $tempTroops[$i][3]- Eval("Dif" & $tempTroops[$i][0]))
+			If $g_iDebugSetlogTrain = 1 Then SetLog("Some troops over train: " & $tempTroops[$i][0])
+			If $g_iDebugSetlogTrain = 1 Then SetLog("Setting Qty Of " & $tempTroops[$i][0] & " troops: " & $tempTroops[$i][3])
+			If $g_iDebugSetlogTrain = 1 Then SetLog("Current Qty Of " & $tempTroops[$i][0] & " troops: " & $tempTroops[$i][3]- Eval("Dif" & $tempTroops[$i][0]))
 		EndIf
 	Next
 
@@ -420,11 +420,11 @@ Func DoCheckReVamp($bDoPreTrain = False, $ForcePreTrain = False)
 					EndIf
 
 					$iCost = $tempTroops[$i][4]
-					If $iSamM0dDebug = 1 Then SetLog("$iCost: " & $iCost)
+					If $g_iDebugSetlogTrain = 1 Then SetLog("$iCost: " & $iCost)
 
 					Local $iBuildCost = (Eval("e" & $tempTroops[$i][0]) > 11 ? getMyOcrCurDEFromTrain() : getMyOcrCurElixirFromTrain())
-					If $iSamM0dDebug = 1 Then SetLog("$iBuildCost: " & $iBuildCost)
-					If $iSamM0dDebug = 1 Then SetLog("Total need: " & ($Troop4Add * $iCost))
+					If $g_iDebugSetlogTrain = 1 Then SetLog("$iBuildCost: " & $iBuildCost)
+					If $g_iDebugSetlogTrain = 1 Then SetLog("Total need: " & ($Troop4Add * $iCost))
 					If ($Troop4Add * $iCost) > $iBuildCost Then
 						$bFlagOutOfResource = True
 						; use eval and not $i to compare because of maybe after array sort $tempTroops
@@ -654,7 +654,7 @@ Func getTroopCost($trooptype)
 
 	EndSwitch
 ;~ 	EndIf
-	If $iSamM0dDebug = 1 Then SetLog("$iResult: " & $iResult)
+	If $g_iDebugSetlogTrain = 1 Then SetLog("$iResult: " & $iResult)
 	If $iResult = "" Then $iResult = 0
 	Return $iResult
 EndFunc
@@ -726,13 +726,13 @@ Func getSpellCost($trooptype)
 				$iResult = getMyOcr(0,434,550,60,16,"troopcost",True)
 		EndSwitch
 ;~ 	EndIf
-	If $iSamM0dDebug = 1 Then SetLog("$iResult: " & $iResult)
+	If $g_iDebugSetlogTrain = 1 Then SetLog("$iResult: " & $iResult)
 	If $iResult = "" Then $iResult = 0
 	Return $iResult
 EndFunc
 
 Func getTrainArmyCapacity()
-	If $iSamM0dDebug = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getTrainArmyCapacity:", $COLOR_DEBUG1)
+	If $g_iDebugSetlogTrain = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getTrainArmyCapacity:", $COLOR_DEBUG1)
 
 	Local $aGetFactorySize[2] = [0,0]
 	Local $aTempSize
@@ -750,13 +750,13 @@ Func getTrainArmyCapacity()
 		If IsArray($aTempSize) Then
 			If UBound($aTempSize) = 2 Then
 				If Number($aTempSize[1]) < 20 Or Mod(Number($aTempSize[1]), 5) <> 0 Then ; check to see if camp size is multiple of 5, or try to read again
-					If $iSamM0dDebug = 1 Then Setlog(" OCR value is not valid camp size", $COLOR_DEBUG)
+					If $g_iDebugSetlogTrain = 1 Then Setlog(" OCR value is not valid camp size", $COLOR_DEBUG)
 					ContinueLoop
 				EndIf
 				$tmpTotalCamp = Number($aTempSize[1])
 				$tempCurS = Number($aTempSize[0])
 				If $tempCurT = 0 Then $tempCurT = $tmpTotalCamp
-				If $iSamM0dDebug = 1 Then Setlog("$tempCurS = " & $tempCurS & ", $tempCurT = " & $tempCurT, $COLOR_DEBUG)
+				If $g_iDebugSetlogTrain = 1 Then Setlog("$tempCurS = " & $tempCurS & ", $tempCurT = " & $tempCurT, $COLOR_DEBUG)
 				ExitLoop
 			Else
 				$tempCurS = 0
@@ -820,7 +820,7 @@ Func IsQueueBlockByMsg()
 		_ColorCheck(_GetPixelColor(244, 180 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFF1919, 6), 5) Or _
 		_ColorCheck(_GetPixelColor(245, 179 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFF1919, 6), 5) Or _
 		_ColorCheck(_GetPixelColor(320, 185 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFFFFFF, 6), 5) Then
-		If $iSamM0dDebug = 1 Then SetLog("Donate or other message blocked army queue.",$COLOR_RED)
+		If $g_iDebugSetlogTrain = 1 Then SetLog("Donate or other message blocked army queue.",$COLOR_RED)
 		Return True
 	EndIf
 	If _Sleep(1000) Then Return

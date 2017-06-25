@@ -59,12 +59,8 @@ Func CheckBaseQuick($bStopRecursion = False, $sReturnHome = "")
 		CheckOverviewFullArmy(True) ; Check if army needs to be trained due donations
 		If Not ($g_bFullArmy) And $g_bTrainEnabled = True Then
 			If $g_iActualTrainSkip < $g_iMaxTrainSkip Then
-				; samm0d
-				If $ichkCustomTrain = 0 Then
-					TrainRevamp()
-				Else
-					CustomTrain()
-				EndIf
+				; Train()
+				TrainRevamp()
 				If $g_bRestart = True Then Return
 			Else
 				If $g_iDebugSetlogTrain = 1 Then Setlog("skip train. " & $g_iActualTrainSkip + 1 & "/" & $g_iMaxTrainSkip, $color_purple)

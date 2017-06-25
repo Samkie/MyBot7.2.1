@@ -14,7 +14,7 @@
 ; ===============================================================================================================================
 Func getMyArmySpellCapacity($bOpenArmyWindow = False, $bCloseArmyWindow = False)
 
-	If $iSamM0dDebug = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getMyArmySpellCapacity:", $COLOR_DEBUG1)
+	If $g_iDebugSetlogTrain = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getMyArmySpellCapacity:", $COLOR_DEBUG1)
 
 	Local $TotalSFactory = 0
 
@@ -41,7 +41,7 @@ Func getMyArmySpellCapacity($bOpenArmyWindow = False, $bCloseArmyWindow = False)
 		$iCount = 0 ; reset OCR loop counter
 		While 1 ; In case the CC donations recieved msg are blocking, need to keep checking numbers till valid
 			$sSpellsInfo = getMyOcrSpellCap() ; OCR read Spells and total capacity
-			If $iSamM0dDebug = 1 Then Setlog("$sSpellsInfo = " & $sSpellsInfo, $COLOR_DEBUG)
+			If $g_iDebugSetlogTrain = 1 Then Setlog("$sSpellsInfo = " & $sSpellsInfo, $COLOR_DEBUG)
 			$aGetSFactorySize = StringSplit($sSpellsInfo, "#") ; split the existen Spells from the total Spell factory capacity
 			If IsArray($aGetSFactorySize) Then
 				If $aGetSFactorySize[0] > 1 Then

@@ -157,8 +157,7 @@ Func IsSpecialTroopToBeUsed($pMatchMode, $pTroopType)
 			Case $eCastle
 				If $g_abAttackDropCC[$iTempMode] Then Return True
 			Case $eLSpell
-				; samm0d
-				If $g_abAttackUseLightSpell[$iTempMode] Or $g_bSmartZapEnable = True Or $ichkUseSamM0dZap = 1 Then Return True
+				If $g_abAttackUseLightSpell[$iTempMode] Or $g_bSmartZapEnable = True Then Return True
 			Case $eHSpell
 				If $g_abAttackUseHealSpell[$iTempMode] Then Return True
 			Case $eRSpell

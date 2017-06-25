@@ -15,7 +15,7 @@
 ;
 Func getMyArmySpellCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $test = False)
 
-	If $iSamM0dDebug = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getArmySpellCount:", $COLOR_DEBUG1)
+	If $g_iDebugSetlogTrain = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getArmySpellCount:", $COLOR_DEBUG1)
 
 	If $bOpenArmyWindow = False And IsTrainPage() = False Then ; check for train page
 		SetError(1)
@@ -50,9 +50,9 @@ Func getMyArmySpellCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $t
 			$aFindResult = getSpellTypeAndSlot($sRegion)
 			If $aFindResult <> "" Then
 				For $i = 0 To UBound($aFindResult,$UBOUND_ROWS) - 1
-					If $iSamM0dDebug = 1 Then Setlog(" Slot : " & $i + 1, $COLOR_DEBUG)
+					If $g_iDebugSetlogTrain = 1 Then Setlog(" Slot : " & $i + 1, $COLOR_DEBUG)
 					If $aFindResult[$i][1] <> $i + 1 Then
-						If $iSamM0dDebug = 1 Then Setlog(" Slot : " & $i + 1 & " - spell detection error.", $COLOR_DEBUG)
+						If $g_iDebugSetlogTrain = 1 Then Setlog(" Slot : " & $i + 1 & " - spell detection error.", $COLOR_DEBUG)
 					EndIf
 
 					$Result = getMyOcr(0,50 + (74 * $i), 311 + $g_iMidOffsetY, 40, 18, "SpellQTY", True)
@@ -62,13 +62,13 @@ Func getMyArmySpellCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $t
 						$SpellQ = 0
 					EndIf
 
-					If $iSamM0dDebug = 1 Then SETLOG("$aFindResult[$i][0]: " & $aFindResult[$i][0] & "     $SpellQ: " & $SpellQ)
+					If $g_iDebugSetlogTrain = 1 Then SETLOG("$aFindResult[$i][0]: " & $aFindResult[$i][0] & "     $SpellQ: " & $SpellQ)
 					If _Sleep(5) Then Return
 
 					Assign("Cur" & $aFindResult[$i][0] & "Spell", $SpellQ)
 					Assign("Cur" & $g_asSpellShortNames[Eval("enum" & $aFindResult[$i][0])], Eval("Cur" & $aFindResult[$i][0] & "Spell"))
 
-					Setlog(" - No. of Available " & MyNameOfTroop(Eval("enum" & $aFindResult[$i][0])+23, $SpellQ) & ": " & $SpellQ, (Eval("enum" & $aFindResult[$i][0]) > 5 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
+					Setlog(" - Available no. of " & MyNameOfTroop(Eval("enum" & $aFindResult[$i][0])+23, $SpellQ) & ": " & $SpellQ, (Eval("enum" & $aFindResult[$i][0]) > 5 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 
 					$iTotalSpellSpace += $MySpells[Eval("enum" & $aFindResult[$i][0])][2] * $SpellQ
 
@@ -77,7 +77,7 @@ Func getMyArmySpellCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $t
 							$bDeletedExcess = True
 							SetLog(" >>> excess: " & $SpellQ - Eval("i" & $MySpells[Eval("enum" & $aFindResult[$i][0])][0] & "SpellComp"),$COLOR_RED)
 							Assign("RemSpellSlot" & $aFindResult[$i][1], $SpellQ - Eval("i" & $MySpells[Eval("enum" & $aFindResult[$i][0])][0] & "SpellComp"))
-							If $iSamM0dDebug = 1 Then SetLog("Slot: " & $aFindResult[$i][1])
+							If $g_iDebugSetlogTrain = 1 Then SetLog("Slot: " & $aFindResult[$i][1])
 						EndIf
 					EndIf
 				Next
@@ -121,7 +121,7 @@ Func getMyArmySpellCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $t
 					If WaitforPixel($aButtonEditCancel[4],$aButtonEditCancel[5],$aButtonEditCancel[4]+1,$aButtonEditCancel[5]+1,Hex($aButtonEditCancel[6], 6), $aButtonEditCancel[7],20) Then
 						For $i = 6 To 0 Step -1
 							Local $RemoveSlotQty = Eval("RemSpellSlot" & $i + 1)
-							If $iSamM0dDebug = 1 Then SetLog($i & " $RemoveSlotQty: " & $RemoveSlotQty)
+							If $g_iDebugSetlogTrain = 1 Then SetLog($i & " $RemoveSlotQty: " & $RemoveSlotQty)
 							If $RemoveSlotQty > 0 Then
 								Local $iRx = (80 + (73 * $i))
 								Local $iRy = 386 + $g_iMidOffsetY
@@ -214,7 +214,7 @@ Func getMyArmySpellCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $t
 		Next
 	EndIf
 
-	If $iSamM0dDebug = 1 Then SETLOG("$bFullArmySpells: " & $g_bFullArmySpells & ", $iTotalSpellSpace:$iMyTotalTrainSpaceSpell " & $iTotalSpellSpace & "|" & $iMyTotalTrainSpaceSpell, $COLOR_DEBUG)
+	If $g_iDebugSetlogTrain = 1 Then SETLOG("$bFullArmySpells: " & $g_bFullArmySpells & ", $iTotalSpellSpace:$iMyTotalTrainSpaceSpell " & $iTotalSpellSpace & "|" & $iMyTotalTrainSpaceSpell, $COLOR_DEBUG)
 
 	If $bCloseArmyWindow = True Then
 		ClickP($aAway, 1, 0, "#0000") ;Click Away
@@ -273,7 +273,7 @@ Func getSpellSlotPosition($InputX)
 EndFunc   ;==>GetSpellSlotPosition
 
 Func getOnBrewSpell()
-	If $iSamM0dDebug = 1 Then SetLog("============Start getOnBrewSpell ============")
+	If $g_iDebugSetlogTrain = 1 Then SetLog("============Start getOnBrewSpell ============")
 	Local $aLastResult[1][3]
 	Local $sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Spell\OnBrewSpell\"
 	Local $returnProps="objectname,objectpoints"
@@ -323,7 +323,7 @@ Func getOnBrewSpell()
 			EndIf
 		Next
 		_ArraySort($aLastResult, 1, 0, 0, 1)
-		If $iSamM0dDebug = 1 Then
+		If $g_iDebugSetlogTrain = 1 Then
 			For $i = 0 To UBound($aLastResult) - 1
 				SetLog("Afrer _ArraySort - Obj:" & $aLastResult[$i][0] & " Slot:" & $aLastResult[$i][1] & " Qty: " & $aLastResult[$i][2], $COLOR_DEBUG)
 				If Eval("OnBrew" & $aLastResult[$i][0]) > 0 Then
@@ -337,7 +337,7 @@ Func getOnBrewSpell()
 EndFunc	;==>getOnBrewSpell
 
 Func getPreTrainSpell()
-	If $iSamM0dDebug = 1 Then SetLog("============Start getPreTrainSpell ============")
+	If $g_iDebugSetlogTrain = 1 Then SetLog("============Start getPreTrainSpell ============")
 	Local $aLastResult[1][3]
 	Local $sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Spell\QueueSpell\"
 	Local $returnProps="objectname,objectpoints"
@@ -387,7 +387,7 @@ Func getPreTrainSpell()
 			EndIf
 		Next
 		_ArraySort($aLastResult, 1, 0, 0, 1)
-		If $iSamM0dDebug = 1 Then
+		If $g_iDebugSetlogTrain = 1 Then
 			For $i = 0 To UBound($aLastResult) - 1
 				SetLog("Afrer _ArraySort - Obj:" & $aLastResult[$i][0] & " Slot:" & $aLastResult[$i][1] & " Qty: " & $aLastResult[$i][2], $COLOR_DEBUG)
 				If Eval("pre" & $aLastResult[$i][0]) > 0 Then
