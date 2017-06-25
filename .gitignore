@@ -168,3 +168,5 @@ TestVersion*.txt
 !MyBot.run.Watchdog.exe
 !MyBot.run.Wmi.exe
 ![Ll]ib/*.dll
+![Ll]ib/ImgLocDebugData/ImageDebug/
+![Ll]ib/ImgLocDebugData/RedlineDebug/
