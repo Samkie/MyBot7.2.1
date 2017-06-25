@@ -454,6 +454,14 @@ Func chkEnableCustomOCR4CCRequest()
 	EndIf
 EndFunc
 
+Func chkRemoveSpecialObstacleBB()
+	If GUICtrlRead($chkRemoveSpecialObstacleBB) = $GUI_CHECKED Then
+		$ichkRemoveSpecialObstacleBB = 1
+	Else
+		$ichkRemoveSpecialObstacleBB = 0
+	EndIf
+EndFunc
+
 Func chkEnableLimitDonateUnit()
 	If GUICtrlRead($chkEnableLimitDonateUnit) = $GUI_CHECKED Then
 		$ichkEnableLimitDonateUnit = 1

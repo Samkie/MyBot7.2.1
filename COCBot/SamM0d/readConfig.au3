@@ -18,6 +18,9 @@ Global $iMultiFingerStyle = 0
 ; Multi Finger (LunaEclipse)
 IniReadS($iMultiFingerStyle, $g_sProfileConfigPath, "MultiFinger", "Select", "1")
 
+; Remove Special Obstacle at Builder Base
+IniReadS($ichkRemoveSpecialObstacleBB, $g_sProfileConfigPath, "RemoveSpecialObstacleBB", "Enable", "1", "Int")
+
 ; prevent over donate
 IniReadS($ichkEnableLimitDonateUnit, $g_sProfileConfigPath, "PreventOverDonate", "Enable", "0", "Int")
 IniReadS($itxtLimitDonateUnit, $g_sProfileConfigPath, "PreventOverDonate", "LimitValue", "8","Int")

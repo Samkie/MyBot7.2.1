@@ -1247,10 +1247,10 @@ Func _RunFunction($action)
 			_Sleep($DELAYRUNBOT3)
 		Case "BuilderBase"
 			If isOnBuilderIsland() Or (($g_bChkCollectBuilderBase Or $g_bChkStartClockTowerBoost) And SwitchBetweenBases()) Then
+				; samm0d
+				RemoveSpecialObstacleBB()
 				CollectBuilderBase()
 				StartClockTowerBoost()
-				; samm0d
-				RemoveSpecialObstacleBB() ; get 6 gems
 				; switch back to normal village
 				SwitchBetweenBases()
 			EndIf

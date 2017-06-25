@@ -16,6 +16,13 @@
 ; Multi Finger (LunaEclipse)
 IniWriteS($g_sProfileConfigPath, "MultiFinger", "Select", _GUICtrlComboBox_GetCurSel($cmbDBMultiFinger))
 
+; Remove Special Obstacle at Builder Base
+If GUICtrlRead($chkRemoveSpecialObstacleBB) = $GUI_CHECKED Then
+	IniWriteS($g_sProfileConfigPath, "RemoveSpecialObstacleBB", "Enable", 1)
+Else
+	IniWriteS($g_sProfileConfigPath, "RemoveSpecialObstacleBB", "Enable", 0)
+EndIf
+
 ; prevent over donate
 If GUICtrlRead($chkEnableLimitDonateUnit) = $GUI_CHECKED Then
 	IniWriteS($g_sProfileConfigPath, "PreventOverDonate", "Enable", 1)

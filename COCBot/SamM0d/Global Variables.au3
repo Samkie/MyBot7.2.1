@@ -54,6 +54,9 @@ Global $ichkDropCCFirst = 0
 ;Global $BottomLeftOri[5][2] = [[80, 394], [148, 446], [217, 497], [286, 549], [354, 600]]
 ;Global $BottomRightOri[5][2] = [[515, 610], [589, 554], [663, 497], [737, 443], [811, 384]]
 
+; Remove Special Obstacle at Builder Base
+Global $ichkRemoveSpecialObstacleBB, $chkRemoveSpecialObstacleBB
+
 ; Donate not over unit
 Global $ichkEnableLimitDonateUnit, $chkEnableLimitDonateUnit, $itxtLimitDonateUnit, $txtLimitDonateUnit, $iDonatedUnit
 

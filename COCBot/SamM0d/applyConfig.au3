@@ -19,6 +19,13 @@
 ;~ cmbDeployDB()
 ;~ cmbDeployAB()
 
+; Remove Special Obstacle at Builder Base
+If $ichkRemoveSpecialObstacleBB = 1 Then
+	GUICtrlSetState($chkRemoveSpecialObstacleBB, $GUI_CHECKED)
+Else
+	GUICtrlSetState($chkRemoveSpecialObstacleBB, $GUI_UNCHECKED)
+EndIf
+
 ; prevent over donate
 If $ichkEnableLimitDonateUnit = 1 Then
 	GUICtrlSetState($chkEnableLimitDonateUnit, $GUI_CHECKED)

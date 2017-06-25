@@ -14,13 +14,38 @@
 ; ===============================================================================================================================
 
 Func RemoveSpecialObstacleBB()
+	If $ichkRemoveSpecialObstacleBB <> 1 Then Return
+
+	If $iSamM0dDebug = 1 Then SetLog("Begin RemoveSpecialObstacleBB()")
+	SetLog("Checking special Obstacle...", $COLOR_ACTION)
 	getBuilderCount(True, True)
 	If $g_iFreeBuilderCountBB = $g_iTotalBuilderCountBB Then
+		ClickP($aAway, 1, 0, "#BB")
+		If _Sleep(200) Then Return
 		BuildingClick(400,591)
-		If _Sleep(500) Then Return
+		If _Sleep(300) Then Return
 		Local $iTreeCoust = getMyOcr(0,407,595 + $g_iMidOffsetY,47,15,"armycap",True)
 		If $iTreeCoust = 2000 Then
+			SetLog("Found and remove it.", $COLOR_SUCCESS)
 			HMLPureClick(Random(410,450,1), Random(640,670,1))
+			If _Sleep(200) Then Return
+			ClickP($aAway, 1, 0, "#BB")
+			Return
+		EndIf
+		ClickP($aAway, 1, 0, "#BB")
+		If _Sleep(200) Then Return
+		; second try if not found
+		BuildingClick(388,584)
+		If _Sleep(300) Then Return
+		Local $iTreeCoust = getMyOcr(0,407,595 + $g_iMidOffsetY,47,15,"armycap",True)
+		If $iTreeCoust = 2000 Then
+			SetLog("Found and remove it.", $COLOR_SUCCESS)
+			If _Sleep(200) Then Return
+			ClickP($aAway, 1, 0, "#BB")
+			Return
 		EndIf
 	EndIf
+	ClickP($aAway, 1, 0, "#BB")
+	SetLog("Not found.", $COLOR_ACTION)
+	If $iSamM0dDebug = 1 Then SetLog("End RemoveSpecialObstacleBB()")
 EndFunc
