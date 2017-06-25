@@ -1,0 +1,2 @@
+Global $CustomTrain_MSG_1 = GetTranslatedFileIni("sam m0d log msg", "Training Troops & Spells", "Training Troops & Spells")
+Global $CustomTrain_MSG_2 = GetTranslatedFileIni("sam m0d log msg", "Waiting for troops ready...", "Waiting for troops ready...")
