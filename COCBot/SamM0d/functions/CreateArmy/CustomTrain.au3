@@ -377,14 +377,23 @@ Func DoCheckReVamp($bDoPreTrain = False, $ForcePreTrain = False)
 				$iDonatedUnit = 0
 				If Not IsArray($aiTroopsMaxCamp) Then $aiTroopsMaxCamp = getTrainArmyCapacity()
 				$iRemainTroopsCapacity = $aiTroopsMaxCamp[1] - $aiTroopsMaxCamp[0]
+				If $iRemainTroopsCapacity <= 0 Then
+					SetLog("No more remain space for train Queue troops", $COLOR_ERROR)
+					Return
+				EndIf
 			Else
-				$iRemainTroopsCapacity = $g_iTotalCampSpace - $g_CurrentCampUtilization
+				$iRemainTroopsCapacity = $g_iTotalCampSpace - $aiTroopsMaxCamp[0]
+				If $iRemainTroopsCapacity <= 0 Then
+					SetLog("No more remain space for train troops", $COLOR_ERROR)
+					Return
+				EndIf
 			EndIf
+
 
 			For $i = 0 To UBound($tempTroops) - 1
 				Local $iOnQQty = Eval("Add" & $tempTroops[$i][0])
 				If $iOnQQty > 0 Then
-					SetLog($CustomTrain_MSG_5 & "" & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]), $iOnQQty) & " x" & $iOnQQty,$COLOR_ACTION)
+					SetLog($CustomTrain_MSG_5 & " " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]), $iOnQQty) & " x" & $iOnQQty,$COLOR_ACTION)
 				EndIf
 			Next
 

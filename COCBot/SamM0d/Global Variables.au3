@@ -14,7 +14,18 @@
 ; ===============================================================================================================================
 Global $g_hTabMod
 
-;===============SamM0d Global Variables====================
+;===============SamM0d Global Translate Variables====================
+Global $CustomTrain_MSG_1
+Global $CustomTrain_MSG_2
+Global $CustomTrain_MSG_3
+Global $CustomTrain_MSG_4
+Global $CustomTrain_MSG_5
+Global $CustomTrain_MSG_6
+Global $CustomTrain_MSG_7
+Global $CustomTrain_MSG_8
+Global $CustomTrain_MSG_9
+Global $CustomTrain_MSG_DarkElixir
+Global $CustomTrain_MSG_Elixir
 ;============================================================
 Global $g_hHBitmapArmyTab
 Global $g_iArmyTab_x1 = 18
