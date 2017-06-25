@@ -32,6 +32,9 @@ Func cmbProfile()
 	applyConfig()
 	saveConfig()
 
+	;samm0d
+	DoCheckSwitchEnable()
+
 	SetLog("Profile " & $g_sProfileCurrentName & " loaded from " & $g_sProfileConfigPath, $COLOR_SUCCESS)
 EndFunc   ;==>cmbProfile
 

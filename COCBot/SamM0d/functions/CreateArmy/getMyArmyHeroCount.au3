@@ -16,7 +16,7 @@
 ;
 Func getMyArmyHeroCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $bSetLog = True, $CheckWindow = True)
 
-	If $g_iDebugSetlogTrain = 1 Or $g_iDebugSetlog = 1 Then SetLog("Begin getMyArmyHeroCount:", $COLOR_DEBUG)
+	If $iSamM0dDebug = 1 Or $g_iDebugSetlog = 1 Then SetLog("Begin getMyArmyHeroCount:", $COLOR_DEBUG)
 
 	If $CheckWindow Then
 		If Not $bOpenArmyWindow And Not IsTrainPage() Then ; check for train page
@@ -54,7 +54,7 @@ Func getMyArmyHeroCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $bS
 					If $bSetLog Then Setlog(" - Grand Warden available", $COLOR_SUCCESS)
 					$g_iHeroAvailable = BitOR($g_iHeroAvailable, $eHeroWarden)
 				Case StringInStr($sResult, "heal", $STR_NOCASESENSEBASIC)
-					If $g_iDebugSetlogTrain = 1 Or $iDebugArmyHeroCount = 1 Then
+					If $iSamM0dDebug = 1 Or $iDebugArmyHeroCount = 1 Then
 						Switch $i
 							Case 0
 								$sMessage = "-Barbarian King"
@@ -96,9 +96,9 @@ Func getMyArmyHeroCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $bS
 						Case Else
 							$sMessage = "-Need to Get Monkey"
 					EndSwitch
-					If $g_iDebugSetlogTrain = 1 Or $iDebugArmyHeroCount = 1 Then SetLog("Hero slot#" & $i + 1 & $sMessage & " Upgrade in Process", $COLOR_DEBUG)
+					If $iSamM0dDebug = 1 Or $iDebugArmyHeroCount = 1 Then SetLog("Hero slot#" & $i + 1 & $sMessage & " Upgrade in Process", $COLOR_DEBUG)
 				Case StringInStr($sResult, "none", $STR_NOCASESENSEBASIC)
-					If $g_iDebugSetlogTrain = 1 Or $iDebugArmyHeroCount = 1 Then SetLog("Hero slot#" & $i + 1 & " Empty, stop count", $COLOR_DEBUG)
+					If $iSamM0dDebug = 1 Or $iDebugArmyHeroCount = 1 Then SetLog("Hero slot#" & $i + 1 & " Empty, stop count", $COLOR_DEBUG)
 					ExitLoop ; when we find empty slots, done looking for heroes
 				Case Else
 					If $bSetLog Then SetLog("Hero slot#" & $i + 1 & " bad OCR string returned!", $COLOR_ERROR)
@@ -135,9 +135,9 @@ Func getMyArmyHeroCount($bOpenArmyWindow = False, $bCloseArmyWindow = False, $bS
 		$g_bFullArmyHero = True
 	EndIf
 
-	If $g_iDebugSetlogTrain = 1 Then SetLog("$g_bFullArmyHero: " & $g_bFullArmyHero)
+	If $iSamM0dDebug = 1 Then SetLog("$g_bFullArmyHero: " & $g_bFullArmyHero)
 
-	If $g_iDebugSetlogTrain = 1 Or $iDebugArmyHeroCount = 1 Then SetLog("Hero Status K|Q|W : " & BitAND($g_iHeroAvailable, $eHeroKing) & "|" & BitAND($g_iHeroAvailable, $eHeroQueen) & "|" & BitAND($g_iHeroAvailable, $eHeroWarden), $COLOR_DEBUG)
+	If $iSamM0dDebug = 1 Or $iDebugArmyHeroCount = 1 Then SetLog("Hero Status K|Q|W : " & BitAND($g_iHeroAvailable, $eHeroKing) & "|" & BitAND($g_iHeroAvailable, $eHeroQueen) & "|" & BitAND($g_iHeroAvailable, $eHeroWarden), $COLOR_DEBUG)
 
 	If $bCloseArmyWindow Then
 		ClickP($aAway, 1, 0, "#0000") ;Click Away

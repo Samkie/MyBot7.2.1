@@ -187,7 +187,7 @@ Func findMultiImage($hBitmap4Find, $directory, $sCocDiamond, $redLines, $minLeve
 
 	; same has findButton, but allow custom area instead of button area decoding
 	; nice for dinamic locations
-	If $iSamM0dDebug = 1 Then
+	If $iSamM0dDebug = 1 And $MyOcrDebug = 1 Then
 		SetLog("******** findMultiImage *** START ***", $COLOR_ORANGE)
 		SetLog("findMultiImage : directory : " & $directory, $COLOR_ORANGE)
 		SetLog("findMultiImage : sCocDiamond : " & $sCocDiamond, $COLOR_ORANGE)
@@ -215,17 +215,17 @@ Func findMultiImage($hBitmap4Find, $directory, $sCocDiamond, $redLines, $minLeve
 	$extError = @extended
 	If $error Then
 		_logErrorDLLCall($g_sLibImgLocPath, $error)
-		If $iSamM0dDebug = 1 Then SetLog(" imgloc DLL Error : " & $error & " --- " & $extError)
+		If $iSamM0dDebug = 1 And $MyOcrDebug = 1 Then SetLog(" imgloc DLL Error : " & $error & " --- " & $extError)
 		SetError(2, $extError, $aCoords) ; Set external error code = 2 for DLL error
 		Return ""
 	EndIf
 
 	If checkImglocError($result, "findMultiImage") = True Then
-		If $iSamM0dDebug = 1 Then SetLog("findMultiImage Returned Error or No values : ", $COLOR_DEBUG)
-		If $iSamM0dDebug = 1 Then SetLog("******** findMultiImage *** END ***", $COLOR_ORANGE)
+		If $iSamM0dDebug = 1 And $MyOcrDebug = 1 Then SetLog("findMultiImage Returned Error or No values : ", $COLOR_DEBUG)
+		If $iSamM0dDebug = 1 And $MyOcrDebug = 1 Then SetLog("******** findMultiImage *** END ***", $COLOR_ORANGE)
 		Return ""
 	Else
-		If $iSamM0dDebug = 1 Then SetLog("findMultiImage found : " & $result[0])
+		If $iSamM0dDebug = 1 And $MyOcrDebug = 1 Then SetLog("findMultiImage found : " & $result[0])
 	EndIf
 
 	If $result[0] <> "" Then ;despite being a string, AutoIt receives a array[0]
@@ -234,7 +234,7 @@ Func findMultiImage($hBitmap4Find, $directory, $sCocDiamond, $redLines, $minLeve
 		For $rs = 0 To UBound($resultArr) - 1
 			For $rD = 0 To UBound($returnData) - 1 ; cycle props
 				$returnLine[$rD] = RetrieveImglocProperty($resultArr[$rs], $returnData[$rD])
-				If $iSamM0dDebug = 1 Then SetLog("findMultiImage : " & $resultArr[$rs] & "->" & $returnData[$rD] & " -> " & $returnLine[$rD])
+				If $iSamM0dDebug = 1 And $MyOcrDebug = 1 Then SetLog("findMultiImage : " & $resultArr[$rs] & "->" & $returnData[$rD] & " -> " & $returnLine[$rD])
 			Next
 			$returnValues[$rs] = $returnLine
 		Next
@@ -242,14 +242,14 @@ Func findMultiImage($hBitmap4Find, $directory, $sCocDiamond, $redLines, $minLeve
 		;;lets check if we should get redlinedata
 		If $redLines = "" Then
 			$g_sImglocRedline = RetrieveImglocProperty("redline", "") ;global var set in imglocTHSearch
-			If $iSamM0dDebug = 1 Then SetLog("findMultiImage : Redline argument is emty, seting global Redlines")
+			If $iSamM0dDebug = 1 And $MyOcrDebug = 1 Then SetLog("findMultiImage : Redline argument is emty, seting global Redlines")
 		EndIf
-		If $iSamM0dDebug = 1 Then SetLog("******** findMultiImage *** END ***", $COLOR_ORANGE)
+		If $iSamM0dDebug = 1 And $MyOcrDebug = 1 Then SetLog("******** findMultiImage *** END ***", $COLOR_ORANGE)
 		Return $returnValues
 
 	Else
-		If $iSamM0dDebug = 1 Then SetLog(" ***  findMultiImage has no result **** ", $COLOR_ORANGE)
-		If $iSamM0dDebug = 1 Then SetLog("******** findMultiImage *** END ***", $COLOR_ORANGE)
+		If $iSamM0dDebug = 1 And $MyOcrDebug = 1 Then SetLog(" ***  findMultiImage has no result **** ", $COLOR_ORANGE)
+		If $iSamM0dDebug = 1 And $MyOcrDebug = 1 Then SetLog("******** findMultiImage *** END ***", $COLOR_ORANGE)
 		Return ""
 	EndIf
 

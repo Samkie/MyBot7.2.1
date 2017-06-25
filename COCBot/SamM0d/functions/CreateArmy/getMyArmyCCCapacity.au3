@@ -16,7 +16,7 @@
 ; ===============================================================================================================================
 Func getMyArmyCCCapacity($bOpenArmyWindow = False, $bCloseArmyWindow = False)
 
-	If $g_iDebugSetlogTrain = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getCCCapacity:", $COLOR_DEBUG1)
+	If $iSamM0dDebug = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getCCCapacity:", $COLOR_DEBUG1)
 
 	If $bOpenArmyWindow = False And IsTrainPage() = False Then ; check for train page
 		SetError(1)
@@ -37,12 +37,12 @@ Func getMyArmyCCCapacity($bOpenArmyWindow = False, $bCloseArmyWindow = False)
 
 	While 1
 		$sCCInfo = getMyOcrCCCap()
-		If $g_iDebugSetlogTrain = 1 Then Setlog("$sCCInfo = " & $sCCInfo, $COLOR_DEBUG)
+		If $iSamM0dDebug = 1 Then Setlog("$sCCInfo = " & $sCCInfo, $COLOR_DEBUG)
 		$aGetCCSize = StringSplit($sCCInfo, "#")
 		If IsArray($aGetCCSize) Then
 			If $aGetCCSize[0] > 1 Then
 				If Number($aGetCCSize[2]) < 10 Or Mod(Number($aGetCCSize[2]), 5) <> 0 Then ; check to see if camp size is multiple of 5, or try to read again
-					If $g_iDebugSetlogTrain = 1 Then Setlog(" OCR value is not valid cc camp size", $COLOR_DEBUG)
+					If $iSamM0dDebug = 1 Then Setlog(" OCR value is not valid cc camp size", $COLOR_DEBUG)
 					ContinueLoop
 				EndIf
 				$CurTotalCCCamp = Number($aGetCCSize[2])

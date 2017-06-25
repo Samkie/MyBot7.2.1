@@ -28,6 +28,19 @@ Global $g_hBtnTestConfigSave = 0, $g_hBtnTestConfigApply = 0, $g_hBtnTestConfigR
 Func CreateBotDebug()
    Local $x = 25, $y = 45
    GUICtrlCreateGroup(GetTranslatedFileIni("MBR GUI Design Child Bot - Debug", "Group_01", "Debug"), $x - 20, $y - 20, $g_iSizeWGrpTab2, $g_iSizeHGrpTab2)
+
+	;===== samm0d
+	$chkDebugMyOcr = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 23, "GetMyOcr Debug"),$x+140, $y)
+		_GUICtrlSetTip(-1, "Enable setlog for debug getMyOcr function")
+		GUICtrlSetState(-1, $GUI_UNCHECKED)
+		GUICtrlSetOnEvent(-1, "chkDebugMyOcr")
+
+	$chkDebugSamM0d = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 24, "SamM0d Debug"),$x+140, $y+20)
+		_GUICtrlSetTip(-1, "Enable setlog for SamM0d Debug")
+		GUICtrlSetState(-1, $GUI_UNCHECKED)
+		GUICtrlSetOnEvent(-1, "chkDebugSamM0d")
+	;============
+
 	  $g_hChkDebugClick = GUICtrlCreateCheckbox(GetTranslatedFileIni("MBR GUI Design Child Bot - Debug", "ChkDebugClick", "Click"), $x, $y - 5, -1, -1)
 	  _GUICtrlSetTip(-1, GetTranslatedFileIni("MBR GUI Design Child Bot - Debug", "ChkDebugClick_Info _01", "Debug: Write the clicked (x,y) coordinates to the log."))
 	  $y += 20
