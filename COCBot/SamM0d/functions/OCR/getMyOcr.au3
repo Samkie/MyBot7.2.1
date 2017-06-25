@@ -1,5 +1,5 @@
 ; #FUNCTION# ====================================================================================================================
-; Name ..........: getMyOcr(BETA) 0.5
+; Name ..........: getMyOcr(BETA) 0.6
 ; Description ...: Reading characters using ImgLoc
 ; Syntax ........: getMyOcr($x,$y,$width,$height,$bReturnAsNumber,$OCRType,$bFlagDecode)
 ; Parameters ....: $x     					-
@@ -11,7 +11,7 @@
 ;                  $bFlagDecode             - is that need decode from config.ini
 ;				   $bFlagMulti	            - when use more than 1 image for determine one character.
 ; Return values .: String Or Number base on character images found.
-; Author ........: Samkie (17 JUN 2017)
+; Author ........: Samkie (25 JUN 2017)
 ; Remarks .......: This file is part of MyBot, previously known as ClashGameBot. Copyright 2015-2016
 ;                  MyBot is distributed under the terms of the GNU GPL
 ; Related .......:
@@ -19,7 +19,7 @@
 ; Example .......: No
 ; ===============================================================================================================================
 
-Func getMyOcr($hBitmap, $x, $y, $width, $height, $OCRType, $bReturnAsNumber = False, $bFlagDecode = False, $bFlagMulti = False)
+Func getMyOcr($hHOCRBitmap, $x, $y, $width, $height, $OCRType, $bReturnAsNumber = False, $bFlagDecode = False, $bFlagMulti = False)
 	If $MyOcrDebug = 1 Then SetLog("========getMyOcr========", $COLOR_DEBUG)
 
 	Local $aLastResult[1][4] ; col stored objectname, coorx, coory, level(width of the image)
@@ -39,13 +39,13 @@ Func getMyOcr($hBitmap, $x, $y, $width, $height, $OCRType, $bReturnAsNumber = Fa
 
 	$sDirectory = @ScriptDir & "\COCBot\SamM0d\functions\OCR\" & $tempOCRType
 
-	If $hBitmap = 0 Then
+	If $hHOCRBitmap = 0 Then
 		ForceCaptureRegion()
 		_CaptureRegion2(Int($x),Int($y),int($x+$width),Int($y+$height))
-		$hBitmap = GetHHBitmapArea($g_hHBitmap2)
+		$hHOCRBitmap = GetHHBitmapArea($g_hHBitmap2,0,0,$width,$height)
 	EndIf
 
-	$result = findMultiImage($hBitmap, $sDirectory ,"FV" ,"FV", 0, 0, 0 , $returnProps)
+	$result = findMultiImage($hHOCRBitmap, $sDirectory ,"FV" ,"FV", 0, 0, 0 , $returnProps)
 
 	If IsArray($result) then
 		$iMax = UBound($result) -1
