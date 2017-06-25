@@ -477,12 +477,15 @@ Func DoMyQuickTrain($MyTrainArmy)
 			If gotoTrainTroops() = False Then Return
 			$aiTroopsMaxCamp = getTrainArmyCapacity()
 		EndIf
-		If $g_CurrentCampUtilization <> 0 And $g_CurrentCampUtilization < $g_iTotalCampSpace Then
-			DoCheckReVamp()
-			Return
-		ElseIf $aiTroopsMaxCamp[0] > Int((($aiTroopsMaxCamp[1] / 2) * $g_iTrainArmyFullTroopPct) / 100) And $g_iTrainArmyFullTroopPct = 100 Then
-			DoCheckReVamp(True)
-			Return
+		If $aiTroopsMaxCamp[0] = Int($aiTroopsMaxCamp[1] / 2) Then
+		Else
+			If $g_CurrentCampUtilization <> 0 And $g_CurrentCampUtilization < $g_iTotalCampSpace Then
+				DoCheckReVamp()
+				Return
+			ElseIf $aiTroopsMaxCamp[0] > Int((($aiTroopsMaxCamp[1] / 2) * $g_iTrainArmyFullTroopPct) / 100) And $g_iTrainArmyFullTroopPct = 100 Then
+				DoCheckReVamp(True)
+				Return
+			EndIf
 		EndIf
 	EndIf
 
