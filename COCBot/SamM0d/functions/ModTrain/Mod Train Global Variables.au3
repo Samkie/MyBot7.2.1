@@ -64,23 +64,24 @@ Global $MyTroops[19][5] = _
 ["Bowl"	, 19,  6, 0,0]]
 ;name,order,size,unit quantity,train cost
 
+; updated 28 Jun 2017
 Global $MyTroopsCost[19][9] = _
 [[250,25,40,60,100,150,200,250,250], _
 [500,50,80,120,200,300,400,500,500], _
 [4000,250,750,1250,1750,2250,3000,3500,4000], _
 [200,25,40,60,80,100,150,200,200], _
-[3500,1000,1500,2000,2500,3000,3500,3500,3500], _
+[4000,1000,1500,2000,2500,3000,3500,4000,4000], _
 [5000,2000,2500,3000,3500,4000,4500,5000,5000], _
-[4500,1500,2000,2500,3000,3500,4000,4500,4500], _
-[10000,5000,6000,8000,10000,10000,10000,10000,10000], _
+[5000,1500,2000,2500,3000,3500,4000,4500,5000], _
+[15000,5000,6000,8000,10000,15000,15000,15000,15000], _
 [47000,25000,29000,33000,37000,42000,47000,47000,47000], _
-[45000,28000,32000,36000,40000,45000,45000,45000,45000], _
+[50000,28000,32000,36000,40000,45000,50000,50000,50000], _
 [19000,15000,16000,17000,18000,19000,19000,19000,19000], _
-[6000,4200,4800,5400,6000,6000,6000,6000,6000], _
+[6000,4200,4800,5200,5600,6000,6000,6000,6000], _
 [12,6,7,8,9,10,11,12,12], _
-[90,40,45,52,58,65,90,90,90], _
+[115,40,45,52,58,65,90,115,115], _
 [190,70,100,130,160,190,190,190,190], _
-[750,450,550,600,675,750,750,750,750], _
+[825,450,550,600,675,750,825,825,825], _
 [450,250,350,450,450,450,450,450,450], _
 [570,390,450,510,570,570,570,570,570], _
 [170,130,150,170,170,170,170,170,170]]
@@ -112,14 +113,15 @@ Global $MySpells[10][5] = _
 ["Haste"	 ,  9,  1, 0, 0], _
 ["Skeleton"	 , 10,  1, 0, 0]]
 
+; updated 28 Jun 2017
 Global $MySpellsCost[10][8] = _
 [[26000,15000,16500,18000,20000,22000,24000,26000], _
-[24000,15000,16500,18000,20000,22000,24000,24000], _
+[25000,15000,16500,18000,19000,21000,23000,25000], _
 [33000,23000,25000,27000,30000,33000,33000,33000], _
 [31000,23000,27000,31000,31000,31000,31000,31000], _
-[35000,26000,29000,31000,33000,35000,35000,35000], _
-[44000,38000,40000,42000,44000,44000,44000,44000], _
-[140,95,110,125,140,140,140,140], _
+[35000,23000,26000,29000,31000,33000,35000,35000], _
+[45000,38000,39000,41000,43000,45000,45000,45000], _
+[155,95,110,125,140,155,155,155], _
 [180,125,140,160,180,180,180,180], _
 [95,80,85,90,95,95,95,95], _
 [140,110,120,130,140,140,140,140]]
@@ -203,7 +205,7 @@ Global $g_hHBitmap_OT_Slot1, $g_hHBitmap_OT_Slot2, $g_hHBitmap_OT_Slot3, $g_hHBi
 Global $g_hHBitmap_OT_SlotQty1, $g_hHBitmap_OT_SlotQty2, $g_hHBitmap_OT_SlotQty3, $g_hHBitmap_OT_SlotQty4, $g_hHBitmap_OT_SlotQty5, $g_hHBitmap_OT_SlotQty6, $g_hHBitmap_OT_SlotQty7, $g_hHBitmap_OT_SlotQty8, $g_hHBitmap_OT_SlotQty9, $g_hHBitmap_OT_SlotQty10, $g_hHBitmap_OT_SlotQty11
 Global $g_hHBitmap_Capture_OT_Slot1, $g_hHBitmap_Capture_OT_Slot2, $g_hHBitmap_Capture_OT_Slot3, $g_hHBitmap_Capture_OT_Slot4, $g_hHBitmap_Capture_OT_Slot5, $g_hHBitmap_Capture_OT_Slot6, $g_hHBitmap_Capture_OT_Slot7, $g_hHBitmap_Capture_OT_Slot8, $g_hHBitmap_Capture_OT_Slot9, $g_hHBitmap_Capture_OT_Slot10, $g_hHBitmap_Capture_OT_Slot11
 Global $g_aiArmyOnTrainSlot[4] = [65,212,838,228]
-Global $g_aiArmyOnTrainSlotQty[4] = [65,192,838,207]
+Global $g_aiArmyOnTrainSlotQty[4] = [65,190,838,206]
 Global $g_aiArmyAvailableSlot[4] = [20,230,840,246]
 Global $g_aiArmyAvailableSlotQty[4] = [20,198,840,213]
 
@@ -214,7 +216,7 @@ Global $g_hHBitmap_OB_Slot1, $g_hHBitmap_OB_Slot2, $g_hHBitmap_OB_Slot3, $g_hHBi
 Global $g_hHBitmap_OB_SlotQty1, $g_hHBitmap_OB_SlotQty2, $g_hHBitmap_OB_SlotQty3, $g_hHBitmap_OB_SlotQty4, $g_hHBitmap_OB_SlotQty5, $g_hHBitmap_OB_SlotQty6, $g_hHBitmap_OB_SlotQty7, $g_hHBitmap_OB_SlotQty8, $g_hHBitmap_OB_SlotQty9, $g_hHBitmap_OB_SlotQty10, $g_hHBitmap_OB_SlotQty11
 Global $g_hHBitmap_Capture_OB_Slot1, $g_hHBitmap_Capture_OB_Slot2, $g_hHBitmap_Capture_OB_Slot3, $g_hHBitmap_Capture_OB_Slot4, $g_hHBitmap_Capture_OB_Slot5, $g_hHBitmap_Capture_OB_Slot6, $g_hHBitmap_Capture_OB_Slot7, $g_hHBitmap_Capture_OB_Slot8, $g_hHBitmap_Capture_OB_Slot9, $g_hHBitmap_Capture_OB_Slot10, $g_hHBitmap_Capture_OB_Slot11
 Global $g_aiArmyOnBrewSlot[4] = [65,212,838,228]
-Global $g_aiArmyOnBrewSlotQty[4] = [65,191,838,206]
+Global $g_aiArmyOnBrewSlotQty[4] = [65,190,838,206]
 Global $g_aiArmyAvailableSpellSlot[4] = [20,372,840,388]
 Global $g_aiArmyAvailableSpellSlotQty[4] = [20,343,840,358]
 

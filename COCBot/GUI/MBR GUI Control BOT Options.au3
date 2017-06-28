@@ -266,6 +266,21 @@ Func btnTestTrain()
 	Local $currentRunState = $g_bRunState
 	$g_bRunState = True
 
+;~ 	;$tempDisableTrain = False
+;~ 	;$tempDisableBrewSpell = False
+;~ 	;TroopsAndSpellsChecker($tempDisableTrain, $tempDisableBrewSpell, False)
+;~ 	For $i = 0 To 18
+;~ 		CheckNeedSwipe(Eval("e" & $MyTroops[$i][0]))
+;~ 		setlog($MyTroops[$i][0] & " Cost: " & getTroopCost($MyTroops[$i][0]))
+;~ 	Next
+
+;~ 	If gotoBrewSpells() = False Then Return
+
+;~ 	For $i = 0 to 9
+
+;~ 		setlog($MySpells[$i][0] & " Cost: " & getSpellCost($MySpells[$i][0]))
+;~ 	Next
+
 	BeginImageTest()
 
 	Local $result

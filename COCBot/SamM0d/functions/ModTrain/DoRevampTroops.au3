@@ -108,7 +108,7 @@ Func DoRevampTroops($bDoPreTrain = False)
 					; check train cost before click, incase use gem
 					If $tempTroops[$i][4] = 0 Then
 						$iCost = getTroopCost($tempTroops[$i][0])
-						If $iCost = 0 Then
+						If $iCost = 0 Or $iCost >= $MyTroopsCost[Eval("e" & $tempTroops[$i][0])][0] Then
 							; cannot read train cost, use max level train cost
 							$iCost = $MyTroopsCost[Eval("e" & $tempTroops[$i][0])][0]
 						EndIf
@@ -294,44 +294,44 @@ Func getTroopCost($trooptype)
 ;~ 	Else
 	Switch $trooptype
 		Case "Barb"
-			$iResult = getMyOcr(0,35,450,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,35,450,60,16,"troopcost",True,False,True)
 		Case "Arch"
-			$iResult = getMyOcr(0,35,552,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,35,552,60,16,"troopcost",True,False,True)
 		Case "Giant"
-			$iResult = getMyOcr(0,134,450,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,134,450,60,16,"troopcost",True,False,True)
 		Case "Gobl"
-			$iResult = getMyOcr(0,134,552,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,134,552,60,16,"troopcost",True,False,True)
 		Case "Wall"
-			$iResult = getMyOcr(0,233,450,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,233,450,60,16,"troopcost",True,False,True)
 		Case "Ball"
-			$iResult = getMyOcr(0,233,552,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,233,552,60,16,"troopcost",True,False,True)
 		Case "Wiza"
-			$iResult = getMyOcr(0,332,450,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,332,450,60,16,"troopcost",True,False,True)
 		Case "Heal"
-			$iResult = getMyOcr(0,332,552,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,332,552,60,16,"troopcost",True,False,True)
 		Case "Drag"
-			$iResult = getMyOcr(0,431,450,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,431,450,60,16,"troopcost",True,False,True)
 		Case "Pekk"
-			$iResult = getMyOcr(0,431,552,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,431,552,60,16,"troopcost",True,False,True)
 		Case "BabyD"
-			$iResult = getMyOcr(0,530,450,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,530,450,60,16,"troopcost",True,False,True)
 		Case "Mine"
-			$iResult = getMyOcr(0,530,552,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,530,552,60,16,"troopcost",True,False,True)
 
 		Case "Mini"
-			$iResult = getMyOcr(0,632,450,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,632,450,60,16,"troopcost",True,False,True)
 		Case "Hogs"
-			$iResult = getMyOcr(0,632,552,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,632,552,60,16,"troopcost",True,False,True)
 		Case "Valk"
-			$iResult = getMyOcr(0,731,450,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,731,450,60,16,"troopcost",True,False,True)
 		Case "Gole"
-			$iResult = getMyOcr(0,731,552,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,731,552,60,16,"troopcost",True,False,True)
 		Case "Witc"
-			$iResult = getMyOcr(0,648,450,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,648,450,60,16,"troopcost",True,False,True)
 		Case "Lava"
-			$iResult = getMyOcr(0,648,552,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,648,552,60,16,"troopcost",True,False,True)
 		Case "Bowl"
-			$iResult = getMyOcr(0,747,450,60,16,"troopcost",True)
+			$iResult = getMyOcr(0,747,450,60,16,"troopcost",True,False,True)
 
 	EndSwitch
 ;~ 	EndIf

@@ -114,9 +114,8 @@ Func getMyOcr($hHOCRBitmap, $x, $y, $width, $height, $OCRType, $bReturnAsNumber 
 	If $g_iSamM0dDebugOCR = 1 Then SetLog("$sReturn: " & $sReturn, $COLOR_DEBUG)
 
 	If $g_iSamM0dDebugImage Then
-		Local $Date = @YEAR & "-" & @MON & "-" & @MDAY
 		Local $Time = @HOUR & "." & @MIN & "." & @SEC
-		_debugSaveHBitmapToImage($hHOCRBitmap, "getMyOcr_" & $OCRType & "_" & $Date & "_" & $Time)
+		_debugSaveHBitmapToImage($hHOCRBitmap, "getMyOcr_" & $OCRType & "_" & $sReturn & "_" & $Time)
 	EndIf
 	If $bReturnAsNumber Then
 		If $sReturn = "" Then $sReturn = "0"
@@ -167,16 +166,16 @@ EndFunc
 
 Func getMyOcrCurDEFromTrain()
 	; current dark elixir from train troops page or brew spell page, bottom center
-	Local $sResult = getMyOcr(0,400,566 + $g_iMidOffsetY,84,15,"spellqtybrew",True)
+	Local $sResult = getMyOcr(0,400,565 + $g_iMidOffsetY,84,16,"spellqtybrew",True)
 	Return $sResult
 EndFunc
 
 Func getMyOcrCurElixirFromTrain()
 	; current gold from train troops page or brew spell page, bottom center
 	If _ColorCheck(_GetPixelColor(217,600,True), Hex(0XE8E8E0, 6), 10) Then ; If True mean the current village don't had dark elixir yet
-		Return getMyOcr(0,304,566 + $g_iMidOffsetY,102,15,"spellqtybrew",True)
+		Return getMyOcr(0,304,565 + $g_iMidOffsetY,102,16,"spellqtybrew",True)
 	Else
-		Return getMyOcr(0,230,566 + $g_iMidOffsetY,102,15,"spellqtybrew",True)
+		Return getMyOcr(0,230,565 + $g_iMidOffsetY,102,16,"spellqtybrew",True)
 	EndIf
 EndFunc
 
@@ -196,7 +195,7 @@ Func findMultiImage($hBitmap4Find, $directory, $sCocDiamond, $redLines, $minLeve
 		SetLog("******** findMultiImage *** START ***", $COLOR_ORANGE)
 	EndIf
 
-	If $g_iSamM0dDebugImage Then
+	If $g_iSamM0dDebugImage And $g_iSamM0dDebugOCR = 0 Then
 		Local $Date = @YEAR & "-" & @MON & "-" & @MDAY
 		Local $Time = @HOUR & "." & @MIN & "." & @SEC
 		_debugSaveHBitmapToImage($hBitmap4Find, "findMultiImage_" & $Date & "_" & $Time)

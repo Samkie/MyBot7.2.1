@@ -395,7 +395,7 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 								EndIf
 							Case $g_iSpellFactorySize < $g_iMySpellsSize And $g_aiSpellsMaxCamp[0] < $g_iMySpellsSize
 								DoRevampSpells()
-								If $bForcePreTrain Then
+								If $bOrPrebrewspell Then
 									ContinueLoop
 								EndIf
 							Case Else
