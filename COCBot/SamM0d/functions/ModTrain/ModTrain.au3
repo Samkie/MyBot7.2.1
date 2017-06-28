@@ -190,7 +190,7 @@ Func ModTrain($ForcePreTrain = False)
 EndFunc   ;==>CustomTrain
 
 Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $bForcePreTrain = False)
-	If $g_iSamM0dDebug = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getArmyTroopCount:", $COLOR_DEBUG1)
+	If $g_iSamM0dDebug = 1 Then SETLOG("Begin TroopsAndSpellsChecker:", $COLOR_DEBUG1)
 
 	Local $hTimer = __TimerInit()
 	Local $iCount = 0
@@ -279,7 +279,7 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 								Else
 									DoMyQuickTrain($icmbMyQuickTrain)
 								EndIf
-							Case $g_CurrentCampUtilization > $iFullArmyCamp And $g_aiTroopsMaxCamp[0] > $iFullArmyCamp
+							Case $g_CurrentCampUtilization >= $iFullArmyCamp And $g_aiTroopsMaxCamp[0] > $iFullArmyCamp
 								If $ichkDisablePretrainTroops = 1 Then
 									SetLog("Pre-train troops disable by user.",$COLOR_INFO)
 									$tempDisableTrain = True
@@ -312,6 +312,14 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 								DoRevampTroops()
 								If $bForcePreTrain Then
 									ContinueLoop
+								EndIf
+							Case Else
+								SetLog("Error: cannot meet any condition to Do Revamp Troops.", $COLOR_RED)
+								If $g_iSamM0dDebug = 1 Then
+									SetLog("$g_CurrentCampUtilization: " & $g_CurrentCampUtilization, $COLOR_RED)
+									SetLog("$iFullArmyCamp: " & $iFullArmyCamp, $COLOR_RED)
+									SetLog("$g_aiTroopsMaxCamp[0]: " & $g_aiTroopsMaxCamp[0], $COLOR_RED)
+									SetLog("$g_aiTroopsMaxCamp[1]: " & $g_aiTroopsMaxCamp[1], $COLOR_RED)
 								EndIf
 						EndSelect
 						$bTroopCheckOK = True
@@ -389,6 +397,14 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 								DoRevampSpells()
 								If $bForcePreTrain Then
 									ContinueLoop
+								EndIf
+							Case Else
+								SetLog("Error: cannot meet any condition to Do Revamp Spells.", $COLOR_RED)
+								If $g_iSamM0dDebug = 1 Then
+									SetLog("$g_iSpellFactorySize: " & $g_iSpellFactorySize, $COLOR_RED)
+									SetLog("$g_iMySpellsSize: " & $g_iMySpellsSize, $COLOR_RED)
+									SetLog("$g_aiSpellsMaxCamp[0]: " & $g_aiTroopsMaxCamp[0], $COLOR_RED)
+									SetLog("$g_aiSpellsMaxCamp[1]: " & $g_aiTroopsMaxCamp[1], $COLOR_RED)
 								EndIf
 						EndSelect
 						$bSpellCheckOK = True
