@@ -109,7 +109,7 @@ Global $aButtonTrainValk[9]               = [744,  390 + $g_iMidOffsetY, 794, 42
 Global $aButtonTrainGole[9]               = [744,  490 + $g_iMidOffsetY, 794, 525 + $g_iMidOffsetY, 775, 478 + $g_iMidOffsetY,   0XC8B298, 20, "=-= Train Golem"]
 
 Global $aButtonTrainWitc[9]               = [660,  390 + $g_iMidOffsetY, 710, 425 + $g_iMidOffsetY, 681, 380 + $g_iMidOffsetY,   0X202453, 20, "=-= Train Witch"]
-Global $aButtonTrainLava[9]               = [660,  490 + $g_iMidOffsetY, 710, 525 + $g_iMidOffsetY, 699, 493 + $g_iMidOffsetY,   0X50443E, 20, "=-= Train Lava Hound"]
+Global $aButtonTrainLava[9]               = [660,  490 + $g_iMidOffsetY, 710, 525 + $g_iMidOffsetY, 699, 493 + $g_iMidOffsetY,   0X5A4E49, 20, "=-= Train Lava Hound"]
 Global $aButtonTrainBowl[9]               = [759,  390 + $g_iMidOffsetY, 809, 425 + $g_iMidOffsetY, 775, 375 + $g_iMidOffsetY,   0X686AE8, 20, "=-= Train Bowler"]
 
 Global $aButtonTrainArmy1[9]              = [750,  320 + $g_iMidOffsetY, 800, 335 + $g_iMidOffsetY, 735, 320 + $g_iMidOffsetY,   0XCDF175, 20, "=-= Quick Train Army 1"]
@@ -408,6 +408,15 @@ Func RemoveAllPreTrainTroops()
 	For $i = 0 To UBound($MyTroops) - 1
 		Assign("OnQ" & $MyTroops[$i][0], 0)
 	Next
+EndFunc
+
+Func RemoveTrainTroops($iSlot, $iCount)
+	Local $iLoopCount = 0
+	While $iLoopCount < $iCount
+		HMLPureClick(Random(118 + ($iSlot * 70.5)-2, 118 + ($iSlot * 70.5)+2, 1), Random(200,204,1),1,0,"#RTS")
+		If _Sleep(Random(($g_iTrainClickDelay*90)/100, ($g_iTrainClickDelay*110)/100, 1), False) Then ExitLoop
+		$iLoopCount += 1
+	WEnd
 EndFunc
 
 Func HMLClickAway(ByRef $x, ByRef $y, ByRef $MsgCode)

@@ -60,10 +60,10 @@ Func CheckBaseQuick($bStopRecursion = False, $sReturnHome = "")
 		If Not ($g_bFullArmy) And $g_bTrainEnabled = True Then
 			If $g_iActualTrainSkip < $g_iMaxTrainSkip Then
 				; samm0d
-				If $ichkCustomTrain = 0 Then
+				If $ichkModTrain = 0 Then
 					TrainRevamp()
 				Else
-					CustomTrain()
+					ModTrain()
 				EndIf
 				If $g_bRestart = True Then Return
 			Else

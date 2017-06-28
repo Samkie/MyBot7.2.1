@@ -30,15 +30,21 @@ Func CreateBotDebug()
    GUICtrlCreateGroup(GetTranslatedFileIni("MBR GUI Design Child Bot - Debug", "Group_01", "Debug"), $x - 20, $y - 20, $g_iSizeWGrpTab2, $g_iSizeHGrpTab2)
 
 	;===== samm0d
-	$chkDebugMyOcr = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 23, "GetMyOcr Debug"),$x+140, $y)
+	$g_hChkSamM0dDebugOCR = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 23, "GetMyOcr Debug"),$x+140, $y)
 		_GUICtrlSetTip(-1, "Enable setlog for debug getMyOcr function")
 		GUICtrlSetState(-1, $GUI_UNCHECKED)
-		GUICtrlSetOnEvent(-1, "chkDebugMyOcr")
+		GUICtrlSetOnEvent(-1, "g_hchkSamM0dDebugOCR")
 
-	$chkDebugSamM0d = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 24, "SamM0d Debug"),$x+140, $y+20)
+	$g_hchkSamM0dDebug = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 24, "SamM0d Debug"),$x+140, $y+20)
 		_GUICtrlSetTip(-1, "Enable setlog for SamM0d Debug")
 		GUICtrlSetState(-1, $GUI_UNCHECKED)
-		GUICtrlSetOnEvent(-1, "chkDebugSamM0d")
+		GUICtrlSetOnEvent(-1, "g_hChkSamM0dDebug")
+
+	$g_hchkSamM0dImage = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Debug Image", "SamM0d Debug Image"),$x+140, $y+40)
+		_GUICtrlSetTip(-1, "Enable save SamM0d Debug Image under profile section.")
+		GUICtrlSetState(-1, $GUI_UNCHECKED)
+		GUICtrlSetOnEvent(-1, "g_hchkSamM0dImage")
+
 	;============
 
 	  $g_hChkDebugClick = GUICtrlCreateCheckbox(GetTranslatedFileIni("MBR GUI Design Child Bot - Debug", "ChkDebugClick", "Click"), $x, $y - 5, -1, -1)

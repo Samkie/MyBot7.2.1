@@ -291,8 +291,10 @@ Func InitializeControlVariables()
 	$oAlwaysEnabledControls($g_hTabAbout) = 1
 
 	; samm0d
-	$oAlwaysEnabledControls($chkDebugMyOcr) = 1
-	$oAlwaysEnabledControls($chkDebugSamM0d) = 1
+	$oAlwaysEnabledControls($g_hChkSamM0dDebugOCR) = 1
+	$oAlwaysEnabledControls($g_hChkSamM0dDebug) = 1
+	$oAlwaysEnabledControls($g_hchkSamM0dImage) = 1
+
 	$oAlwaysEnabledControls($grpMySwitch) = 1
 	$oAlwaysEnabledControls($chkProfileImage) = 1
 

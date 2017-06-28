@@ -19,12 +19,12 @@
 ;~ cmbDeployDB()
 ;~ cmbDeployAB()
 
-; Remove Special Obstacle at Builder Base
-If $ichkRemoveSpecialObstacleBB = 1 Then
-	GUICtrlSetState($chkRemoveSpecialObstacleBB, $GUI_CHECKED)
-Else
-	GUICtrlSetState($chkRemoveSpecialObstacleBB, $GUI_UNCHECKED)
-EndIf
+;~ ; Remove Special Obstacle at Builder Base
+;~ If $ichkRemoveSpecialObstacleBB = 1 Then
+;~ 	GUICtrlSetState($chkRemoveSpecialObstacleBB, $GUI_CHECKED)
+;~ Else
+;~ 	GUICtrlSetState($chkRemoveSpecialObstacleBB, $GUI_UNCHECKED)
+;~ EndIf
 
 ; prevent over donate
 If $ichkEnableLimitDonateUnit = 1 Then
@@ -262,10 +262,10 @@ GUICtrlSetData($txtStickToTrainWindow, $itxtStickToTrainWindow)
 txtStickToTrainWindow()
 
 
-If $ichkCustomTrain = 1 Then
-	GUICtrlSetState($chkCustomTrain, $GUI_CHECKED)
+If $ichkModTrain = 1 Then
+	GUICtrlSetState($chkModTrain, $GUI_CHECKED)
 Else
-	GUICtrlSetState($chkCustomTrain, $GUI_UNCHECKED)
+	GUICtrlSetState($chkModTrain, $GUI_UNCHECKED)
 EndIf
 
 
@@ -313,7 +313,7 @@ For $i = 0 To UBound($MySpells)-1
 	Else
 		GUICtrlSetState(Eval("chkPre" & $MySpells[$i][0]), $GUI_UNCHECKED)
 	EndIf
-	GUICtrlSetData(Eval("txtNum" & $MySpells[$i][0] & "Spell"), Eval("i" & $MySpells[$i][0] & "SpellComp"))
+	GUICtrlSetData(Eval("txtNum" & $MySpells[$i][0] & "Spell"), $MySpells[$i][3])
 	_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "Order"), $MySpells[$i][1]-1)
 Next
 

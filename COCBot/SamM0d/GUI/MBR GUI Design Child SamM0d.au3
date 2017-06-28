@@ -322,7 +322,7 @@ $yStart = 10
 
 Local $x = $xStart, $y = $yStart
 
-	$chkCustomTrain = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 66, "Enable Custom Train and spell"),$x+10, $y+20)
+	$chkModTrain = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 66, "Enable Custom Train and spell"),$x+10, $y+20)
 		_GUICtrlSetTip(-1, "Use Custom Train and Spell replace for official train system.")
 		GUICtrlSetState(-1, $GUI_UNCHECKED)
 		GUICtrlSetOnEvent(-1, "chkCustomTrain")
@@ -672,10 +672,10 @@ $txtLimitDonateUnit = GUICtrlCreateInput("8", $x + 280, $y+2, 35, 20, BitOR($GUI
 	GUICtrlSetLimit(-1, 2)
 	GUICtrlSetOnEvent(-1, "txtLimitDonateUnit")
 
-$y += 25
-$chkRemoveSpecialObstacleBB = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Remove Special Obstacle BB", "Remove Special Obstacle at Builder Base"), $x+10, $y, -1, -1)
-	GUICtrlSetOnEvent(-1, "chkRemoveSpecialObstacleBB")
-	GUICtrlSetState(-1, $GUI_UNCHECKED)
+;~ $y += 25
+;~ $chkRemoveSpecialObstacleBB = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Remove Special Obstacle BB", "Remove Special Obstacle at Builder Base"), $x+10, $y, -1, -1)
+;~ 	GUICtrlSetOnEvent(-1, "chkRemoveSpecialObstacleBB")
+;~ 	GUICtrlSetState(-1, $GUI_UNCHECKED)
 
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 

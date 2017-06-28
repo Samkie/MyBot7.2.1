@@ -100,12 +100,12 @@
 #Sam Mod image
 ![Ii]mages/triangle_left.bmp
 ![Ii]mages/triangle_right.bmp
-!COCBot/SamM0d/[Ii]mages/Army/*.*
-!COCBot/SamM0d/[Ii]mages/Army/Queue/*.*
-!COCBot/SamM0d/[Ii]mages/Army/Train/*.*
-!COCBot/SamM0d/[Ii]mages/Spell/*.*
-!COCBot/SamM0d/[Ii]mages/Spell/OnBrewSpell/*.*
-!COCBot/SamM0d/[Ii]mages/Spell/QueueSpell/*.*
+!COCBot/SamM0d/[Ii]mages/Troops/*.*
+!COCBot/SamM0d/[Ii]mages/Troops/Queue/*.*
+!COCBot/SamM0d/[Ii]mages/Troops/Train/*.*
+!COCBot/SamM0d/[Ii]mages/Spells/*.*
+!COCBot/SamM0d/[Ii]mages/Spells/Brew/*.*
+!COCBot/SamM0d/[Ii]mages/Spells/Queue/*.*
 !COCBot/SamM0d/[Ii]mages/HeroStatus/*.*
 !COCBot/SamM0d/functions/OCR/armybuildinfo/*.*
 !COCBot/SamM0d/functions/OCR/armycap/*.*

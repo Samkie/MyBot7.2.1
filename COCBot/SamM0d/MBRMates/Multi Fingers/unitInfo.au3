@@ -79,10 +79,10 @@ EndFunc   ;==>unitCountArray
 
 ; Calculate how many troops to drop for the wave
 Func calculateDropAmount($unitCount, $remainingWaves, $position = 0, $minTroopsPerPosition = 1)
-;~ 	If $iSamM0dDebug = 1 Then Setlog("$unitCount: " & $unitCount)
-;~ 	If $iSamM0dDebug = 1 Then Setlog("$remainingWaves: " & $remainingWaves)
-;~ 	If $iSamM0dDebug = 1 Then Setlog("$position: " & $position)
-;~ 	If $iSamM0dDebug = 1 Then Setlog("$minTroopsPerPosition: " & $minTroopsPerPosition)
+;~ 	If $g_iSamM0dDebug = 1 Then Setlog("$unitCount: " & $unitCount)
+;~ 	If $g_iSamM0dDebug = 1 Then Setlog("$remainingWaves: " & $remainingWaves)
+;~ 	If $g_iSamM0dDebug = 1 Then Setlog("$position: " & $position)
+;~ 	If $g_iSamM0dDebug = 1 Then Setlog("$minTroopsPerPosition: " & $minTroopsPerPosition)
 
 	;Local $return = Ceiling(($unitCount+1) / $remainingWaves)
 	Local $return = Ceiling($unitCount / $remainingWaves)

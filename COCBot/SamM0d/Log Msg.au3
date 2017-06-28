@@ -7,6 +7,7 @@ $CustomTrain_MSG_6 = GetTranslatedFileIni("sam m0d log msg", "Ready to train", "
 $CustomTrain_MSG_7 = GetTranslatedFileIni("sam m0d log msg", "with total", "with total")
 $CustomTrain_MSG_8 = GetTranslatedFileIni("sam m0d log msg", "Not enough", "Not enough")
 $CustomTrain_MSG_9 = GetTranslatedFileIni("sam m0d log msg", "to train", "to train")
+$CustomTrain_MSG_10 = GetTranslatedFileIni("sam m0d log msg", "Prepare for brew number Of", "Prepare for brew number Of")
 
 $CustomTrain_MSG_DarkElixir = GetTranslatedFileIni("sam m0d log msg", "Dark Elixir", "Dark Elixir")
 $CustomTrain_MSG_Elixir = GetTranslatedFileIni("sam m0d log msg", "Elixir", "Elixir")

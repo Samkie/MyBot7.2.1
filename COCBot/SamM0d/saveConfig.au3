@@ -16,12 +16,12 @@
 ; Multi Finger (LunaEclipse)
 IniWriteS($g_sProfileConfigPath, "MultiFinger", "Select", _GUICtrlComboBox_GetCurSel($cmbDBMultiFinger))
 
-; Remove Special Obstacle at Builder Base
-If GUICtrlRead($chkRemoveSpecialObstacleBB) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "RemoveSpecialObstacleBB", "Enable", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "RemoveSpecialObstacleBB", "Enable", 0)
-EndIf
+;~ ; Remove Special Obstacle at Builder Base
+;~ If GUICtrlRead($chkRemoveSpecialObstacleBB) = $GUI_CHECKED Then
+;~ 	IniWriteS($g_sProfileConfigPath, "RemoveSpecialObstacleBB", "Enable", 1)
+;~ Else
+;~ 	IniWriteS($g_sProfileConfigPath, "RemoveSpecialObstacleBB", "Enable", 0)
+;~ EndIf
 
 ; prevent over donate
 If GUICtrlRead($chkEnableLimitDonateUnit) = $GUI_CHECKED Then
@@ -251,10 +251,10 @@ Else
 	IniWriteS($g_sProfileConfigPath, "MyTroops", "DeleteExcess", 0)
 EndIf
 
-If GUICtrlRead($chkCustomTrain) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "MyTroops", "EnableCustomTrain", 1)
+If GUICtrlRead($chkModTrain) = $GUI_CHECKED Then
+	IniWriteS($g_sProfileConfigPath, "MyTroops", "EnableModTrain", 1)
 Else
-	IniWriteS($g_sProfileConfigPath, "MyTroops", "EnableCustomTrain", 0)
+	IniWriteS($g_sProfileConfigPath, "MyTroops", "EnableModTrain", 0)
 EndIf
 
 If GUICtrlRead($chkMyTroopsOrder) = $GUI_CHECKED Then

@@ -107,7 +107,7 @@ Func ApplyEnableAcc()
 		GUICtrlSetState($chkForcePreTrainB4Switch, $GUI_UNCHECKED)
 	EndIf
 
-	If $iSamM0dDebug Then SetLog("$ichkEnableMySwitch: " & $ichkEnableMySwitch)
+	If $g_iSamM0dDebug Then SetLog("$ichkEnableMySwitch: " & $ichkEnableMySwitch)
 	buildSwitchList()
 	DoCheckSwitchEnable()
 EndFunc

@@ -18,8 +18,8 @@ Global $iMultiFingerStyle = 0
 ; Multi Finger (LunaEclipse)
 IniReadS($iMultiFingerStyle, $g_sProfileConfigPath, "MultiFinger", "Select", "1")
 
-; Remove Special Obstacle at Builder Base
-IniReadS($ichkRemoveSpecialObstacleBB, $g_sProfileConfigPath, "RemoveSpecialObstacleBB", "Enable", "1", "Int")
+;~ ; Remove Special Obstacle at Builder Base
+;~ IniReadS($ichkRemoveSpecialObstacleBB, $g_sProfileConfigPath, "RemoveSpecialObstacleBB", "Enable", "1", "Int")
 
 ; prevent over donate
 IniReadS($ichkEnableLimitDonateUnit, $g_sProfileConfigPath, "PreventOverDonate", "Enable", "0", "Int")
@@ -116,7 +116,7 @@ $itxtIncreaseGlobalDelay = IniRead($g_sProfileConfigPath, "GlobalDelay", "DelayP
 $itxtStickToTrainWindow = IniRead($g_sProfileConfigPath, "StickToTrainPage", "Minutes", 2)
 
 ; My Troops
-IniReadS($ichkCustomTrain, $g_sProfileConfigPath, "MyTroops", "EnableCustomTrain", "0")
+IniReadS($ichkModTrain, $g_sProfileConfigPath, "MyTroops", "EnableModTrain", "0")
 IniReadS($ichkMyTroopsOrder, $g_sProfileConfigPath, "MyTroops", "Order", "0")
 IniReadS($ichkEnableDeleteExcessTroops, $g_sProfileConfigPath, "MyTroops", "DeleteExcess", "0")
 
@@ -152,15 +152,8 @@ For $j = 0 To 2
 	Next
 Next
 For $i = 0 To UBound($MySpells) - 1
-	Assign("i" & $MySpells[$i][0] & "SpellComp",  $MySpellSetting[$icmbTroopSetting][$i][0])
 	Assign("ichkPre" & $MySpells[$i][0],  $MySpellSetting[$icmbTroopSetting][$i][2])
+	$MySpells[$i][3] =  $MySpellSetting[$icmbTroopSetting][$i][0]
 	$MySpells[$i][1] =  $MySpellSetting[$icmbTroopSetting][$i][1]
 Next
-
-;$iTotalTrainSpaceSpell = 0
-;For $i = 0 To 9
-;	$iTotalTrainSpaceSpell += Number(Eval("i" & $MySpells[$i][0] & "SpellComp") * $MySpells[$i][2])
-;	if $iSamM0dDebug = 1 Then SetLog("$iTotalTrainSpaceSpell: " & $iTotalTrainSpaceSpell)
-;Next
-
 

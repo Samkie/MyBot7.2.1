@@ -20,7 +20,7 @@ Func getTotalGoogleAccount()
 	Local $aStartPos = _PixelSearch($x2-1,0,$x2,300,Hex(0xFFFFFF, 6),5)
 
 	If IsArray($aStartPos) Then
-		If $iSamM0dDebug Then SetLog("$aStartPos: " & $aStartPos[0] & "," & $aStartPos[1])
+		If $g_iSamM0dDebug Then SetLog("$aStartPos: " & $aStartPos[0] & "," & $aStartPos[1])
 		$iSlotYOffset = $aStartPos[1]
 		_CaptureRegion()
 		For $i = 0 To 7
@@ -31,7 +31,7 @@ Func getTotalGoogleAccount()
 				ExitLoop
 			EndIf
 		Next
-		If $iSamM0dDebug Then SetLog("Acc. $iCount: " & $iCount)
+		If $g_iSamM0dDebug Then SetLog("Acc. $iCount: " & $iCount)
 		Return $iCount
 	EndIf
 	Return 0
@@ -66,7 +66,7 @@ Func SelectGoogleAccount($iSlot)
 
 	$iCount = 0
 	While Not _ColorCheck(_GetPixelColor(160, 380,True), Hex(0xFFFFFF, 6),10)
-		If $iSamM0dDebug Then SetLog("wait for google account page Color: " & _GetPixelColor(160, 380,True))
+		If $g_iSamM0dDebug Then SetLog("wait for google account page Color: " & _GetPixelColor(160, 380,True))
 		$iCount += 1
 		If $iCount > 30 Then
 			SetLog("Cannot load google account page, restart game...", $COLOR_RED)
@@ -106,7 +106,7 @@ Func SelectGoogleAccount($iSlot)
 
 	If _Sleep(500) Then Return False
 
-	If $iSamM0dDebug Then SetLog("$iResult: " & $iResult)
+	If $g_iSamM0dDebug Then SetLog("$iResult: " & $iResult)
 
 	If _Sleep(5) Then Return False
 
@@ -121,7 +121,7 @@ Func SelectGoogleAccount($iSlot)
 
 ;~ 	$iCount = 0
 ;~ 	While Not _ColorCheck(_GetPixelColor($aButtonSetting[4], $aButtonSetting[5],True), Hex($aButtonSetting[6], 6), Number($aButtonSetting[7]))
-;~ 		If $iSamM0dDebug Then SetLog("Color: " & _GetPixelColor(160, 380,True))
+;~ 		If $g_iSamM0dDebug Then SetLog("Color: " & _GetPixelColor(160, 380,True))
 ;~ 		If _ColorCheck(_GetPixelColor(402, 516,True), Hex(0xFFFFFF, 6), 5) And _ColorCheck(_GetPixelColor(405, 537,True), Hex(0x5EAC10, 6), 20) Then
 ;~ 			Click($aButtonVillageWasAttackOK[0],$aButtonVillageWasAttackOK[1],1,0,"#VWAO")
 ;~ 			If _Sleep(1000) Then Return True
@@ -141,7 +141,7 @@ Func DoLoadVillage()
 	Local $iCount = 0
 	$iCount = 0
 	While Not _ColorCheck(_GetPixelColor($aButtonVillageLoad[4], $aButtonVillageLoad[5],True), Hex($aButtonVillageLoad[6],6), $aButtonVillageLoad[7])
-		If $iSamM0dDebug Then SetLog("village load button Color: " & _GetPixelColor(160, 380,True))
+		If $g_iSamM0dDebug Then SetLog("village load button Color: " & _GetPixelColor(160, 380,True))
 		$iCount += 1
 		If $iCount = 60 Then
 			SetLog("Cannot load village load button, restart game...", $COLOR_RED)
@@ -164,7 +164,7 @@ Func DoConfirmVillage()
 	Local $iCount = 0
 	$iCount = 0
 	While Not _ColorCheck(_GetPixelColor($aButtonVillageConfirmClose[4], $aButtonVillageConfirmClose[5],True), Hex($aButtonVillageConfirmClose[6],6), $aButtonVillageConfirmClose[7])
-		If $iSamM0dDebug Then SetLog("load village confirm button Color: " & _GetPixelColor(160, 380,True))
+		If $g_iSamM0dDebug Then SetLog("load village confirm button Color: " & _GetPixelColor(160, 380,True))
 		$iCount += 1
 		If $iCount > 15 Then
 			SetLog("Cannot load village confirm button, restart game...", $COLOR_RED)
@@ -185,7 +185,7 @@ Func DoConfirmVillage()
 	If _Sleep(500) Then Return False
 	$iCount = 0
 	While Not _ColorCheck(_GetPixelColor($aButtonVillageConfirmOK[4], $aButtonVillageConfirmOK[5],True), Hex($aButtonVillageConfirmOK[6],6), $aButtonVillageConfirmOK[7])
-		If $iSamM0dDebug Then SetLog("confirm village Okay button Color: " & _GetPixelColor(160, 380,True))
+		If $g_iSamM0dDebug Then SetLog("confirm village Okay button Color: " & _GetPixelColor(160, 380,True))
 		$iCount += 1
 		If $iCount > 15 Then
 			SetLog("Cannot confirm village Okay button, restart game...", $COLOR_RED)
@@ -336,7 +336,7 @@ Func getNextSwitchList()
 							If $iFirstAtkDonAcc <> $i Then ; check switch change other donate acc.
 								If $aSwitchList[$iFirstAtkDonAcc][5] = 0 Then ; if not PB time
 									If $iStayRemain >= (($aSwitchList[$i][6] * 60) * 1000) Then ; stay ? minutes before change account
-										If $iSamM0dDebug Then SetLog("$aSwitchList[$iFirstAtkDonAcc][4]: " & $aSwitchList[$iFirstAtkDonAcc][4])
+										If $g_iSamM0dDebug Then SetLog("$aSwitchList[$iFirstAtkDonAcc][4]: " & $aSwitchList[$iFirstAtkDonAcc][4])
 										SetLog("Switch other donate account: " & $aSwitchList[$iFirstAtkDonAcc][3],$COLOR_INFO)
 										Return $aSwitchList[$iFirstAtkDonAcc][4]
 									EndIf
@@ -354,11 +354,11 @@ Func getNextSwitchList()
 		EndIf
 	Next
 
-	If $iSamM0dDebug Then SetLog("$iNextAccSlot: " & $iNextAccSlot)
-	If $iSamM0dDebug Then SetLog("$bChangeNextAcc: " & $bChangeNextAcc)
-	If $iSamM0dDebug Then SetLog("$bFlagGotTrainTimeout: " & $bFlagGotTrainTimeout)
-	If $iSamM0dDebug Then SetLog("$iFirstAtkDonAcc: " & $iFirstAtkDonAcc)
-	If $iSamM0dDebug Then SetLog("$bFlagDoSortSwitchList: " & $bFlagDoSortSwitchList)
+	If $g_iSamM0dDebug Then SetLog("$iNextAccSlot: " & $iNextAccSlot)
+	If $g_iSamM0dDebug Then SetLog("$bChangeNextAcc: " & $bChangeNextAcc)
+	If $g_iSamM0dDebug Then SetLog("$bFlagGotTrainTimeout: " & $bFlagGotTrainTimeout)
+	If $g_iSamM0dDebug Then SetLog("$iFirstAtkDonAcc: " & $iFirstAtkDonAcc)
+	If $g_iSamM0dDebug Then SetLog("$bFlagDoSortSwitchList: " & $bFlagDoSortSwitchList)
 
 	If $bFlagGotTrainTimeout = False Then
 		If $bChangeNextAcc = False Then Return $iNextAccSlot
@@ -368,7 +368,7 @@ Func getNextSwitchList()
 		EndIf
 	EndIf
 
-	If $iSamM0dDebug Then SetLog("$iNextAccSlot1: " & $iNextAccSlot)
+	If $g_iSamM0dDebug Then SetLog("$iNextAccSlot1: " & $iNextAccSlot)
 
 	For $i = 0 to UBound($aSwitchList) - 1
 		If $aSwitchList[$i][4] = $iNextAccSlot Then
@@ -382,8 +382,8 @@ Func getNextSwitchList()
 		EndIf
 	Next
 
-	If $iSamM0dDebug Then SetLog("$iNextAccSlot2: " & $iNextAccSlot)
-	If $iSamM0dDebug Then SetLog("$bFlagDoSortSwitchList: " & $bFlagDoSortSwitchList)
+	If $g_iSamM0dDebug Then SetLog("$iNextAccSlot2: " & $iNextAccSlot)
+	If $g_iSamM0dDebug Then SetLog("$bFlagDoSortSwitchList: " & $bFlagDoSortSwitchList)
 
 	If $bFlagDoSortSwitchList Or $iCurActiveAcc = -1 Then
 		sortSwitchList()
@@ -396,7 +396,7 @@ Func getNextSwitchList()
 		Next
 	EndIf
 
-	If $iSamM0dDebug Then SetLog("$iNextAccSlot3: " & $iNextAccSlot)
+	If $g_iSamM0dDebug Then SetLog("$iNextAccSlot3: " & $iNextAccSlot)
 	Return $iNextAccSlot
 EndFunc
 
@@ -412,8 +412,8 @@ Func DoSwitchAcc()
 					If $aSwitchList[$i][2] <> 1 Then
 						If $g_bIsFullArmywithHeroesAndSpells Or $ichkForcePreTrainB4Switch Then ;If $g_bIsFullArmywithHeroesAndSpells = True mean just back from attack, then we check train before switch acc.
 							SetLog("Check train before switch account...",$COLOR_ACTION)
-							If $ichkCustomTrain = 1 Then
-								CustomTrain($ichkForcePreTrainB4Switch = 1)
+							If $ichkModTrain = 1 Then
+								ModTrain($ichkForcePreTrainB4Switch = 1)
 							Else
 								TrainRevamp()
 							EndIf
@@ -432,8 +432,8 @@ Func DoSwitchAcc()
 
 	$iNextAcc = getNextSwitchList()
 
-	If $iSamM0dDebug Then SetLog("$iCurActiveAcc: " & $iCurActiveAcc)
-	If $iSamM0dDebug Then SetLog("$iNextAcc: " & $iNextAcc)
+	If $g_iSamM0dDebug Then SetLog("$iCurActiveAcc: " & $iCurActiveAcc)
+	If $g_iSamM0dDebug Then SetLog("$iNextAcc: " & $iNextAcc)
 
 	If $iCurActiveAcc <> $iNextAcc Then
 		If _Sleep(500) Then Return
@@ -457,9 +457,9 @@ Func DoSwitchAcc()
 				EndIf
 			Next
 
-			If $iSamM0dDebug Then SetLog("$iTempNextACC: " & $iTempNextACC)
-			If $iSamM0dDebug Then SetLog("$aSwitchList[$iTempNextACC][3]: " & $aSwitchList[$iTempNextACC][3])
-			If $iSamM0dDebug Then SetLog("$aSwitchList[$iTempNextACC][4]: " & $aSwitchList[$iTempNextACC][4])
+			If $g_iSamM0dDebug Then SetLog("$iTempNextACC: " & $iTempNextACC)
+			If $g_iSamM0dDebug Then SetLog("$aSwitchList[$iTempNextACC][3]: " & $aSwitchList[$iTempNextACC][3])
+			If $g_iSamM0dDebug Then SetLog("$aSwitchList[$iTempNextACC][4]: " & $aSwitchList[$iTempNextACC][4])
 
 			If $iTempNextACC <> - 1 Then
 				If loadVillageFrom($aSwitchList[$iTempNextACC][3], $aSwitchList[$iTempNextACC][4]) = True Then
@@ -515,7 +515,7 @@ Func DoSwitchAcc()
 EndFunc
 
 Func DoVillageLoadSucess($iAcc)
-	If $iSamM0dDebug Then SetLog("DoVillageLoadSucess: " & $icmbWithProfile[$iAcc])
+	If $g_iSamM0dDebug Then SetLog("DoVillageLoadSucess: " & $icmbWithProfile[$iAcc])
 	For $i = 0 To UBound($aSwitchList) - 1
 		If $aSwitchList[$i][4] = $iAcc Then
 			$iCurStep = $i
@@ -527,7 +527,7 @@ Func DoVillageLoadSucess($iAcc)
 
 	SetLog("Prepare to load profile: " & GUICtrlRead($g_hCmbProfile),$COLOR_ACTION)
 	cmbProfile()
-	If $iSamM0dDebug Then SetLog("$iAcc: " & $iAcc)
+	If $g_iSamM0dDebug Then SetLog("$iAcc: " & $iAcc)
 	loadCurStats($iAcc)
 
 	; after load new profile, reset variable below for new runbot() loop
@@ -1014,7 +1014,7 @@ Func btnMakeSwitchADBFolder()
 		; remove old village before new copy
 		DirRemove($sMyProfilePath4shared_prefs, 1)
 
-		If $iSamM0dDebug Then SetLog("$g_sEmulatorInfo4MySwitch: " & $g_sEmulatorInfo4MySwitch)
+		If $g_iSamM0dDebug Then SetLog("$g_sEmulatorInfo4MySwitch: " & $g_sEmulatorInfo4MySwitch)
 
 		If StringInStr($g_sEmulatorInfo4MySwitch,"bluestacks") Then
 			$lResult = RunWait($g_sAndroidAdbPath & " -s " & $g_sAndroidAdbDevice & " shell "& Chr(34) & "su -c 'chmod 777 /data/data/" & $g_sAndroidGamePackage & "/shared_prefs; mkdir /sdcard/tempshared; cp /data/data/" & $g_sAndroidGamePackage & _
@@ -1026,7 +1026,7 @@ Func btnMakeSwitchADBFolder()
 				EndIf
 			EndIf
 		Else
-			If $iSamM0dDebug Then SetLog("Command: " & $g_sAndroidAdbPath & " -s " & $g_sAndroidAdbDevice & " pull /data/data/" & $g_sAndroidGamePackage & "/shared_prefs " & Chr(34) & $sMyProfilePath4shared_prefs & Chr(34))
+			If $g_iSamM0dDebug Then SetLog("Command: " & $g_sAndroidAdbPath & " -s " & $g_sAndroidAdbDevice & " pull /data/data/" & $g_sAndroidGamePackage & "/shared_prefs " & Chr(34) & $sMyProfilePath4shared_prefs & Chr(34))
 			$lResult = RunWait($g_sAndroidAdbPath & " -s " & $g_sAndroidAdbDevice & " pull /data/data/" & $g_sAndroidGamePackage & "/shared_prefs " & Chr(34) & $sMyProfilePath4shared_prefs & Chr(34), "", @SW_HIDE)
 		EndIf
 
@@ -1125,8 +1125,8 @@ Func checkProfileCorrect()
 				$iSecondBaseTabHeight = 0
 			EndIf
 
-			If $iSamM0dDebug = 1 Then SetLog("_GetPixelColor(85, " & 163 + $iSecondBaseTabHeight & ", True): " & _GetPixelColor(85, 163 + $iSecondBaseTabHeight, $g_bNoCapturePixel))
-			If $iSamM0dDebug = 1 Then SetLog("_GetPixelColor(20, " & 295 + $iSecondBaseTabHeight & ", True): " & _GetPixelColor(20, 295 + $iSecondBaseTabHeight, $g_bNoCapturePixel))
+			If $g_iSamM0dDebug = 1 Then SetLog("_GetPixelColor(85, " & 163 + $iSecondBaseTabHeight & ", True): " & _GetPixelColor(85, 163 + $iSecondBaseTabHeight, $g_bNoCapturePixel))
+			If $g_iSamM0dDebug = 1 Then SetLog("_GetPixelColor(20, " & 295 + $iSecondBaseTabHeight & ", True): " & _GetPixelColor(20, 295 + $iSecondBaseTabHeight, $g_bNoCapturePixel))
 
 			$bVillagePageFlag = _ColorCheck(_GetPixelColor(85, 163 + $iSecondBaseTabHeight, $g_bNoCapturePixel), Hex(0X959AB6,6), 20) = True And _ColorCheck(_GetPixelColor(20, 295 + $iSecondBaseTabHeight, $g_bNoCapturePixel), Hex(0X4E4D79,6), 10) = True
 
@@ -1135,9 +1135,9 @@ Func checkProfileCorrect()
 				Local $result = DllCall($g_hLibImgLoc, "str", "FindTile", "handle", $g_hHBitmap, "str", @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\village_92.png", "str", "FV", "int", 1)
 				If @error Then _logErrorDLLCall($g_sLibImgLocPath, @error)
 				If IsArray($result) Then
-					If $iSamM0dDebug Then SetLog("DLL Call succeeded " & $result[0], $COLOR_ERROR)
+					If $g_iSamM0dDebug Then SetLog("DLL Call succeeded " & $result[0], $COLOR_ERROR)
 					If $result[0] = "0" Or $result[0] = "" Then
-						If $iSamM0dDebug Then SetLog("Image not found", $COLOR_ERROR)
+						If $g_iSamM0dDebug Then SetLog("Image not found", $COLOR_ERROR)
 						$bVillagePageFlag = False
 						$iImageNotMatchCount += 1
 						If $iImageNotMatchCount > 3 Then
@@ -1146,7 +1146,7 @@ Func checkProfileCorrect()
 					ElseIf StringLeft($result[0], 2) = "-1" Then
 						SetLog("DLL Error: " & $result[0], $COLOR_ERROR)
 					Else
-						If $iSamM0dDebug Then SetLog("$result[0]: " & $result[0])
+						If $g_iSamM0dDebug Then SetLog("$result[0]: " & $result[0])
 						Local $aCoor = StringSplit($result[0],"|",$STR_NOCOUNT)
 						If IsArray($aCoor) Then
 							If StringLeft($aCoor[1], 2) <> "-1" Then
@@ -1179,12 +1179,12 @@ Func Wait4Main()
 
 	For $i = 0 To 105 ;105*2000 = 3.5 Minutes
 		$iCount += 1
-		If $iSamM0dDebug Then
+		If $g_iSamM0dDebug Then
 			Setlog("ChkObstl Loop = " & $i & "   ExitLoop = " & $iCount, $COLOR_DEBUG) ; Debug stuck loop
 		EndIf
 		_CaptureRegion()
 		If _ColorCheck(_GetPixelColor($aButtonOpenShieldInfo[4], $aButtonOpenShieldInfo[5], $g_bNoCapturePixel), Hex($aButtonOpenShieldInfo[6], 6), Number($aButtonOpenShieldInfo[7])) Then ;Checks for Main Screen
-			If $iSamM0dDebug Then Setlog("Screen cleared, WaitMainScreen exit", $COLOR_DEBUG)
+			If $g_iSamM0dDebug Then Setlog("Screen cleared, WaitMainScreen exit", $COLOR_DEBUG)
 			ExitLoop
 		Else
 			If TestCapture() = False And _Sleep($DELAYWAITMAINSCREEN1) Then Return

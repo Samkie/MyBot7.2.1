@@ -69,7 +69,7 @@ InitializeBot()
 MainLoop()
 
 Func UpdateBotTitle()
-	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.8.2 "
+	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.8.3 "
 	If $g_sBotTitle = "" Then
 		$g_sBotTitle = $sTitle
 	Else
@@ -169,6 +169,17 @@ Func InitializeBot()
 
 	; samm0d - MySwitch
 	$g_sEmulatorInfo4MySwitch = $sAndroidInfo
+
+	; samm0d
+	If FileExists(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\") Then
+		If Not FileExists(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\") Then
+			DirCreate(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images")
+		EndIf
+	Else
+		DirCreate(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug")
+		DirCreate(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images")
+	EndIf
+
 	; samm0d log translate
 	#include "COCBot\SamM0d\Log Msg.au3"
 	;ProcessSetPriority(@AutoItPID, $iBotProcessPriority) ;~ Restore process priority
@@ -614,7 +625,7 @@ Func runBot() ;Bot that runs everything in order
 
 	While 1
 		; samm0d
-		If $iSamM0dDebug And $g_bRestart Then SetLog("Continue loop with restart", $COLOR_DEBUG)
+		If $g_iSamM0dDebug And $g_bRestart Then SetLog("Continue loop with restart", $COLOR_DEBUG)
 		If $ichkAutoDock = 1 Then
 			If $g_bAndroidEmbedded = False Then
 				btnEmbed()
@@ -672,7 +683,7 @@ Func runBot() ;Bot that runs everything in order
 
 		; samm0d switch
 		If $ichkEnableMySwitch Then
-			If $iSamM0dDebug Then SetLog("$bAvoidSwitch: " & $bAvoidSwitch)
+			If $g_iSamM0dDebug Then SetLog("$bAvoidSwitch: " & $bAvoidSwitch)
 ;~ 			If $bAvoidSwitch = False Then
 				$bUpdateStats = True
 				If $g_bIsClientSyncError = False And $g_bIsSearchLimit = False And ($g_bQuickAttack = False) Then
@@ -896,7 +907,7 @@ Func Idle() ;Sequence that runs until Full Army
 		checkMainScreen(False) ; required here due to many possible exits
 
 		; samm0d
-		If $ichkCustomTrain = 0 Then
+		If $ichkModTrain = 0 Then
 			If ($g_iCommandStop = 3 Or $g_iCommandStop = 0) And $g_bTrainEnabled = True Then
 				CheckArmyCamp(True, True)
 				If _Sleep($DELAYIDLE1) Then Return
@@ -944,7 +955,7 @@ Func Idle() ;Sequence that runs until Full Army
 		AddIdleTime()
 		checkMainScreen(False) ; required here due to many possible exits
 
-		If $ichkCustomTrain = 0 Then
+		If $ichkModTrain = 0 Then
 			If $g_iCommandStop = -1 Then
 				If $g_iActualTrainSkip < $g_iMaxTrainSkip Then
 					If CheckNeedOpenTrain($g_sTimeBeforeTrain) Then TrainRevamp()
@@ -982,7 +993,7 @@ Func Idle() ;Sequence that runs until Full Army
 				EndIf
 			EndIf
 		Else
-			CustomTrain()
+			ModTrain()
 			If $g_bRestart = True Then ExitLoop
 			If _Sleep(200) Then ExitLoop
 			checkMainScreen(False)
@@ -1183,8 +1194,8 @@ Func _RunFunction($action)
 			EndIf
 		Case "DonateCC,Train"
 			; samm0d
-			If $ichkCustomTrain = 1 Then
-				CustomTrain()
+			If $ichkModTrain = 1 Then
+				ModTrain()
 			Else
 				TrainRevamp()
 			EndIf
@@ -1198,9 +1209,9 @@ Func _RunFunction($action)
 			EndIf
 			If _Sleep($DELAYRUNBOT1) = False Then checkMainScreen(False)
 
-			If $ichkCustomTrain = 1 Then
+			If $ichkModTrain = 1 Then
 				If $bJustMakeDonate Then
-					CustomTrain()
+					ModTrain()
 				EndIf
 			Else
 				If $g_bTrainEnabled Then ; check for training enabled in halt mode
@@ -1247,8 +1258,6 @@ Func _RunFunction($action)
 			_Sleep($DELAYRUNBOT3)
 		Case "BuilderBase"
 			If isOnBuilderIsland() Or (($g_bChkCollectBuilderBase Or $g_bChkStartClockTowerBoost) And SwitchBetweenBases()) Then
-				; samm0d
-				RemoveSpecialObstacleBB()
 				CollectBuilderBase()
 				StartClockTowerBoost()
 				; switch back to normal village
