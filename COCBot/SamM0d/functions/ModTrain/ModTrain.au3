@@ -224,6 +224,8 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 		_CaptureRegion2()
 		$g_hHBitmapArmyTab = GetHHBitmapArea($g_hHBitmap2)
 		;--------------------------------------------------
+		$g_hHBitmapArmyCap = GetHHBitmapArea($g_hHBitmapArmyTab,$g_aiArmyCap[0],$g_aiArmyCap[1],$g_aiArmyCap[2],$g_aiArmyCap[3])
+		getMyArmyCapacityMini($g_hHBitmapArmyCap)
 
 		If $bDisableTrain = False Then
 			;====Reset the variable======
@@ -252,10 +254,8 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 			WEnd
 			_CaptureRegion2()
 			$g_hHBitmapTrainTab = GetHHBitmapArea($g_hHBitmap2)
-			$g_hHBitmapArmyCap = GetHHBitmapArea($g_hHBitmapArmyTab,$g_aiArmyCap[0],$g_aiArmyCap[1],$g_aiArmyCap[2],$g_aiArmyCap[3])
 			$g_hHBitmapTrainCap = GetHHBitmapArea($g_hHBitmapTrainTab,$g_aiTrainCap[0],$g_aiTrainCap[1],$g_aiTrainCap[2],$g_aiTrainCap[3])
 
-			getMyArmyCapacityMini($g_hHBitmapArmyCap)
 			getTrainArmyCapacityMini($g_hHBitmapTrainCap)
 
 			If $g_aiTroopsMaxCamp[0] = 0 Then
@@ -323,6 +323,9 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 			$bTroopCheckOK = True
 		EndIf
 
+		$g_hHBitmapSpellCap = GetHHBitmapArea($g_hHBitmapArmyTab,$g_aiSpellCap[0],$g_aiSpellCap[1],$g_aiSpellCap[2],$g_aiSpellCap[3])
+		getMySpellCapacityMini($g_hHBitmapSpellCap)
+
 		If $bDisableBrewSpell = False Then
 			; reset Global variables
 			For $i = $enumLightning To $enumSkeleton
@@ -347,10 +350,9 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 			WEnd
 			_CaptureRegion2()
 			$g_hHBitmapBrewTab = GetHHBitmapArea($g_hHBitmap2)
-			$g_hHBitmapSpellCap = GetHHBitmapArea($g_hHBitmapArmyTab,$g_aiSpellCap[0],$g_aiSpellCap[1],$g_aiSpellCap[2],$g_aiSpellCap[3])
 			$g_hHBitmapBrewCap = GetHHBitmapArea($g_hHBitmapBrewTab,$g_aiBrewCap[0],$g_aiBrewCap[1],$g_aiBrewCap[2],$g_aiBrewCap[3])
 
-			getMySpellCapacityMini($g_hHBitmapSpellCap)
+
 			getBrewSpellCapacityMini($g_hHBitmapBrewCap)
 
 			If $g_aiSpellsMaxCamp[0] = 0 Then

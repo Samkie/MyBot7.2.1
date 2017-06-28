@@ -183,7 +183,7 @@ Func getMyArmyCapacityMini($hHBitmap, $bShowLog = True)
 		If $bShowLog Then SetLog("Troops: " & $g_CurrentCampUtilization & "/" & $g_iTotalCampSpace & " (" & $g_iArmyCapacity & "%)")
 	EndIf
 
-	If $g_CurrentCampUtilization >= Int(($g_iTotalCampSpace * $g_iTrainArmyFullTroopPct) / 100) Then
+	If $g_CurrentCampUtilization >= Int(($g_iMyTroopsSize * $g_iTrainArmyFullTroopPct) / 100) Then
 		$g_bfullArmy = True
 	Else
 		$g_bfullArmy = False
@@ -237,6 +237,7 @@ Func getMySpellCapacityMini($hHBitmap, $bShowLog = True)
 	If $g_iTotalSpellCampSpace <> 0 Then
 		If $bShowLog Then SetLog("Spells: " & $g_iSpellFactorySize & "/" & $g_iTotalSpellCampSpace)
 	EndIf
+	$g_bFullArmySpells = $g_iSpellFactorySize >= $g_iMySpellsSize
 EndFunc
 
 Func getBrewSpellCapacityMini($hHBitmap, $bShowLog = True)

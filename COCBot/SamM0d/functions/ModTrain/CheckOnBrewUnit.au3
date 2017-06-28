@@ -303,8 +303,6 @@ Func CheckOnBrewUnit($hHBitmap)
 		EndIf
 	EndIf
 
-	$g_bFullArmySpells = $iAvailableCamp >= $g_iMySpellsSize
-
 	If $g_abAttackTypeEnable[$DB] = True And $g_abSearchSpellsWaitEnable[$DB] = True Then
 		For $i = $enumLightning To $enumSkeleton
 			If Eval("Cur" & $MySpells[$i][0] & "Spell") < $MySpells[$i][3] Then
