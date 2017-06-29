@@ -78,12 +78,36 @@ Global $itxtIncreaseGlobalDelay = 10
 Global $itxtStickToTrainWindow = 2
 
 ; Wait For CC
-Global $ichkWait4CC = False
+; GUI object declared
+Global $chkWait4CC, $chkWait4CCSpell, $txtCCStrength
+Global $grpClanCastle
+
+Global $cmbCCTroopSlot1, $cmbCCTroopSlot2, $cmbCCTroopSlot3
+Global $txtCCTroopSlotQty1, $txtCCTroopSlotQty2, $txtCCTroopSlotQty3
+
+Global $iCCTroopSlot1, $iCCTroopSlot2, $iCCTroopSlot3
+Global $iCCTroopSlotQty1, $iCCTroopSlotQty2, $iCCTroopSlotQty3
+
+Global $cmbCCSpellSlot1, $cmbCCSpellSlot2
+Global $txtCCSpellSlotQty1, $txtCCSpellSlotQty2
+Global $iCCSpellSlot1, $iCCSpellSlot2
+Global $iCCSpellSlotQty1, $iCCSpellSlotQty2
+
+
+Global $g_iChkWait4CC = False
 Global $CurCCCamp = 0
 Global $CurTotalCCCamp = 0
 Global $CCCapacity = 0
 Global $CCStrength = 100
 Global $FullCCTroops = False
+; Wait For CC Spell
+Global $g_iChkWait4CCSpell = False
+Global $g_iCurCCSpellCamp = 0
+Global $g_iCurTotalCCSpellCamp = 0
+Global $g_bFullCCSpells = False
+
+
+
 
 Global $chkDropCCFirst
 
@@ -172,7 +196,7 @@ Global $aBaseNode[2] = [-1,-1] ;first found with core
 Global $iFaceDirection = 1
 Global $aLastWall[2] = [-1,-1]
 
-Global $grpStatsMisc, $chkSmartUpdateWall,$txtClickWallDelay, $chkEnableCustomOCR4CCRequest, $chkWait4CC, $txtCCStrength, $chkCheck4CC, $txtCheck4CCWaitTime, $chkIncreaseGlobalDelay, $txtIncreaseGlobalDelay, _
+Global $grpStatsMisc, $chkSmartUpdateWall,$txtClickWallDelay, $chkEnableCustomOCR4CCRequest, $chkCheck4CC, $txtCheck4CCWaitTime, $chkIncreaseGlobalDelay, $txtIncreaseGlobalDelay, _
 $chkAutoDock
 
 ; CSV Deployment Speed Mod

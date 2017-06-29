@@ -63,6 +63,7 @@ Func CheckOnTrainUnit($hHBitmap)
 			$iCount += 1
 		Else
 			Local $bIsQueueTroop = False
+			Local $bContinueNextLoop = False
 			; if color check is pink that mean pre train unit
 			If _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
 				$sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Troops\Queue\"
@@ -72,6 +73,7 @@ Func CheckOnTrainUnit($hHBitmap)
 			EndIf
 
 			Assign("g_hHBitmap_OT_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(65 + (70.5 * $i) + ((70.5 - 20) / 2)), $g_aiArmyOnTrainSlot[1] - 2, Int(65 + (70.5* $i) + ((70.5 - 20) / 2) + 20), $g_aiArmyOnTrainSlot[3] + 2))
+			Assign("g_hHBitmap_Capture_OT_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 16) / 2)), $g_aiArmyOnTrainSlot[1], Int(22 + (74* $i) + ((74- 16) / 2) + 16), $g_aiArmyOnTrainSlot[3]))
 
 			Local $result = findMultiImage(Eval("g_hHBitmap_OT_Slot" & $i + 1), $sDirectory ,"FV" ,"FV", 0, 1000, 1 , $returnProps)
 
@@ -96,11 +98,23 @@ Func CheckOnTrainUnit($hHBitmap)
 				Next
 
 			Else
+				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 30) / 2)), $g_aiArmyOnTrainSlot[1] - 7, Int(22 + (74* $i) + ((74 - 30) / 2) + 30), $g_aiArmyOnTrainSlot[3] + 7)
+				_debugSaveHBitmapToImage($temphHBitmap, "Troop_OnT_Slot_" & $i + 1, True)
+				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_OT_Slot" & $i + 1), "Troop_OnT_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
+				If $temphHBitmap <> 0 Then
+					GdiDeleteHBitmap($temphHBitmap)
+				EndIf
 				SetLog("Error: Cannot detect what troops on slot: " & $i + 1 , $COLOR_ERROR)
+				SetLog("Please check the filename: Troop_OnT_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
+				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
+				SetLog("Rename the correct filename and replace back to file location: " & $sDirectory, $COLOR_ERROR)
+				$bContinueNextLoop = True
 			EndIf
 
-			;If $bExitLoopFlag = True Then ExitLoop
-
+			If $bContinueNextLoop = True Then
+				$i += 1
+				ContinueLoop
+			EndIf
 
 			Assign("g_hHBitmap_OT_SlotQty" & $i + 1, GetHHBitmapArea($hHBitmap, Int(67 + (70.5 * $i)), $g_aiArmyOnTrainSlotQty[1], Int(67 + (70.5* $i) + 40), $g_aiArmyOnTrainSlotQty[3]))
 
@@ -110,7 +124,7 @@ Func CheckOnTrainUnit($hHBitmap)
 				$iQty = getMyOcr(Eval("g_hHBitmap_OT_SlotQty" & $i + 1),0,0,0,0,"spellqtybrew", True)
 			EndIf
 
-			If $iQty <> 0 Then
+			If $iQty <> 0 And $sObjectname <> "" Then
 				$aiTroopInfo[$i][0] = $sObjectname
 				$aiTroopInfo[$i][1] = $iQty
 				$aiTroopInfo[$i][2] = $i + 1
@@ -130,7 +144,6 @@ Func CheckOnTrainUnit($hHBitmap)
 	If $g_hHBitmap <> 0 Then
 		GdiDeleteHBitmap($g_hHBitmap)
 	EndIf
-	$g_hHBitmap = GetHHBitmapArea($hHBitmap)
 	If $g_hBitmap <> 0 Then
 		GdiDeleteBitmap($g_hBitmap)
 	EndIf

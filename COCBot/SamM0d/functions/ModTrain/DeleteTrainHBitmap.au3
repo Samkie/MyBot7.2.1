@@ -1,4 +1,10 @@
 Func DeleteTrainHBitmap()
+	If $g_hHBitmap <> 0 Then
+		GdiDeleteHBitmap($g_hHBitmap)
+	EndIf
+	If $g_hBitmap <> 0 Then
+		GdiDeleteBitmap($g_hBitmap)
+	EndIf
 	If $g_hHBitmap2 <> 0 Then
 		GdiDeleteHBitmap($g_hHBitmap2)
 	EndIf

@@ -126,50 +126,6 @@ Global $MySpellsCost[10][8] = _
 [95,80,85,90,95,95,95,95], _
 [140,110,120,130,140,140,140,140]]
 
-;~ Global $preLightning = 0
-;~ Global $preRage = 0
-;~ Global $preJump = 0
-;~ Global $preHeal = 0
-;~ Global $preFreeze = 0
-;~ Global $preClone = 0
-;~ Global $prePoison = 0
-;~ Global $preHaste = 0
-;~ Global $preSkeleton = 0
-;~ Global $preEarth = 0
-
-;~ Global $preLightningSlot = 0
-;~ Global $preRageSlot = 0
-;~ Global $preJumpSlot = 0
-;~ Global $preHealSlot = 0
-;~ Global $preFreezeSlot = 0
-;~ Global $preCloneSlot = 0
-;~ Global $prePoisonSlot = 0
-;~ Global $preHasteSlot = 0
-;~ Global $preSkeletonSlot = 0
-;~ Global $preEarthSlot = 0
-
-;~ Global $OnBrewLightning = 0
-;~ Global $OnBrewRage = 0
-;~ Global $OnBrewJump = 0
-;~ Global $OnBrewHeal = 0
-;~ Global $OnBrewFreeze = 0
-;~ Global $OnBrewClone = 0
-;~ Global $OnBrewPoison = 0
-;~ Global $OnBrewHaste = 0
-;~ Global $OnBrewSkeleton = 0
-;~ Global $OnBrewEarth = 0
-
-;~ Global $OnBrewLightningSlot = 0
-;~ Global $OnBrewRageSlot = 0
-;~ Global $OnBrewJumpSlot = 0
-;~ Global $OnBrewHealSlot = 0
-;~ Global $OnBrewFreezeSlot = 0
-;~ Global $OnBrewCloneSlot = 0
-;~ Global $OnBrewPoisonSlot = 0
-;~ Global $OnBrewHasteSlot = 0
-;~ Global $OnBrewSkeletonSlot = 0
-;~ Global $OnBrewEarthSlot = 0
-
 Global $ichkPreLightning = 0
 Global $ichkPreRage = 0
 Global $ichkPreJump = 0
@@ -198,6 +154,19 @@ Global $g_hHBitmap_Av_Spell_Slot1, $g_hHBitmap_Av_Spell_Slot2, $g_hHBitmap_Av_Sp
 Global $g_hHBitmap_Av_Spell_SlotQty1, $g_hHBitmap_Av_Spell_SlotQty2, $g_hHBitmap_Av_Spell_SlotQty3, $g_hHBitmap_Av_Spell_SlotQty4, $g_hHBitmap_Av_Spell_SlotQty5, $g_hHBitmap_Av_Spell_SlotQty6, $g_hHBitmap_Av_Spell_SlotQty7
 Global $g_hHBitmap_Capture_Av_Spell_Slot1, $g_hHBitmap_Capture_Av_Spell_Slot2, $g_hHBitmap_Capture_Av_Spell_Slot3, $g_hHBitmap_Capture_Av_Spell_Slot4, $g_hHBitmap_Capture_Av_Spell_Slot5, $g_hHBitmap_Capture_Av_Spell_Slot6, $g_hHBitmap_Capture_Av_Spell_Slot7
 
+Global $g_aiArmyAvailableCCSlot[4] = [20,533,460,549]
+Global $g_aiArmyAvailableCCSlotQty[4] = [20,498,460,514]
+Global $g_aiArmyAvailableCCSpellSlot[4] = [514,529,670,545]
+Global $g_aiArmyAvailableCCSpellSlotQty[4] = [514,499,670,515]
+
+Global $g_hHBitmap_Av_CC_Slot1, $g_hHBitmap_Av_CC_Slot2, $g_hHBitmap_Av_CC_Slot3, $g_hHBitmap_Av_CC_Slot4, $g_hHBitmap_Av_CC_Slot5, $g_hHBitmap_Av_CC_Slot6
+Global $g_hHBitmap_Av_CC_SlotQty1, $g_hHBitmap_Av_CC_SlotQty2, $g_hHBitmap_Av_CC_SlotQty3, $g_hHBitmap_Av_CC_SlotQty4, $g_hHBitmap_Av_CC_SlotQty5, $g_hHBitmap_Av_CC_SlotQty6
+Global $g_hHBitmap_Capture_Av_CC_Slot1, $g_hHBitmap_Capture_Av_CC_Slot2, $g_hHBitmap_Capture_Av_CC_Slot3, $g_hHBitmap_Capture_Av_CC_Slot4, $g_hHBitmap_Capture_Av_CC_Slot5, $g_hHBitmap_Capture_Av_CC_Slot6
+Global $g_hHBitmap_Av_CC_Spell_Slot1, $g_hHBitmap_Av_CC_Spell_Slot2
+Global $g_hHBitmap_Av_CC_Spell_SlotQty1, $g_hHBitmap_Av_CC_Spell_SlotQty2
+Global $g_hHBitmap_Capture_Av_CC_Spell_Slot1, $g_hHBitmap_Capture_Av_CC_Spell_Slot2
+
+
 Global $g_hHBitmapTrainTab
 Global $g_hHBitmapTrainCap
 Global $g_aiTrainCap[4] = [45,161,115,174]
@@ -208,6 +177,7 @@ Global $g_aiArmyOnTrainSlot[4] = [65,212,838,228]
 Global $g_aiArmyOnTrainSlotQty[4] = [65,190,838,206]
 Global $g_aiArmyAvailableSlot[4] = [20,230,840,246]
 Global $g_aiArmyAvailableSlotQty[4] = [20,198,840,213]
+
 
 Global $g_hHBitmapBrewTab
 Global $g_hHBitmapBrewCap

@@ -419,6 +419,25 @@ Func RemoveTrainTroops($iSlot, $iCount)
 	WEnd
 EndFunc
 
+Func RemoveCCTroops($iSlot, $iCount)
+	Local $iLoopCount = 0
+	While $iLoopCount < $iCount
+		HMLPureClick(Random(80 + ($iSlot * 74)-2, 80 + ($iSlot * 74)+2, 1), Random(571,575,1),1,0,"#RTS")
+		If _Sleep(Random(($g_iTrainClickDelay*90)/100, ($g_iTrainClickDelay*110)/100, 1), False) Then ExitLoop
+		$iLoopCount += 1
+	WEnd
+EndFunc
+
+Func RemoveCCSpells($iSlot, $iCount, $iOffsetSlot)
+	Local $iLoopCount = 0
+	$iOffsetSlot += 58
+	While $iLoopCount < $iCount
+		HMLPureClick(Random($iOffsetSlot + ($iSlot * 74)-2, $iOffsetSlot + ($iSlot * 74)+2, 1), Random(571,575,1),1,0,"#RTS")
+		If _Sleep(Random(($g_iTrainClickDelay*90)/100, ($g_iTrainClickDelay*110)/100, 1), False) Then ExitLoop
+		$iLoopCount += 1
+	WEnd
+EndFunc
+
 Func HMLClickAway(ByRef $x, ByRef $y, ByRef $MsgCode)
 	If $bDonateAwayFlag = True Then
 		Return HMLClickPR($aButtonClose8,$x,$y)

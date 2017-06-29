@@ -231,13 +231,31 @@ Else
 EndIf
 
 ; wait 4 cc
-If $ichkWait4CC = 1 Then
+If $g_iChkWait4CC = 1 Then
 	GUICtrlSetState($chkWait4CC, $GUI_CHECKED)
 Else
 	GUICtrlSetState($chkWait4CC, $GUI_UNCHECKED)
 EndIf
 GUICtrlSetData($txtCCStrength, $CCStrength)
+_GUICtrlComboBox_SetCurSel($cmbCCTroopSlot1,$iCCTroopSlot1)
+_GUICtrlComboBox_SetCurSel($cmbCCTroopSlot2,$iCCTroopSlot2)
+_GUICtrlComboBox_SetCurSel($cmbCCTroopSlot3,$iCCTroopSlot3)
+GUICtrlSetData($txtCCTroopSlotQty1,$iCCTroopSlotQty1)
+GUICtrlSetData($txtCCTroopSlotQty2,$iCCTroopSlotQty2)
+GUICtrlSetData($txtCCTroopSlotQty3,$iCCTroopSlotQty3)
 chkWait4CC()
+
+If $g_iChkWait4CCSpell = 1 Then
+	GUICtrlSetState($chkWait4CCSpell, $GUI_CHECKED)
+Else
+	GUICtrlSetState($chkWait4CCSpell, $GUI_UNCHECKED)
+EndIf
+_GUICtrlComboBox_SetCurSel($cmbCCSpellSlot1,$iCCSpellSlot1)
+_GUICtrlComboBox_SetCurSel($cmbCCSpellSlot2,$iCCSpellSlot2)
+GUICtrlSetData($txtCCSpellSlotQty1,$iCCSpellSlotQty1)
+GUICtrlSetData($txtCCSpellSlotQty2,$iCCSpellSlotQty2)
+chkWait4CCSpell()
+
 
 ; check 4 cc
 If $ichkCheck4CC = 1 Then

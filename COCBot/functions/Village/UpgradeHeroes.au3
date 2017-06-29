@@ -55,7 +55,9 @@ Func UpgradeHeroes()
 		Return
 	EndIf
 	;#### upgrade queen ####;
-	QueenUpgrade()
+	; samm0d - if heroes already in upgrade, skip update...
+	If BitAND($g_iHeroUpgradingBit, $eHeroQueen) <> $eHeroQueen Then QueenUpgrade()
+
 	If _Sleep($DELAYUPGRADEHERO1) Then Return
 	;;;;;;;;;;;;;;;;;;;;;;;;##### Barbarian King #####;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;##### Verify Builders available #####;
@@ -66,7 +68,9 @@ Func UpgradeHeroes()
 		Return
 	EndIf
 	;##### Upgrade King #####;
-	KingUpgrade()
+	; samm0d - if heroes already in upgrade, skip update...
+	If BitAND($g_iHeroUpgradingBit, $eHeroKing) <> $eHeroKing Then KingUpgrade()
+
 	If _Sleep($DELAYUPGRADEHERO1) Then Return
 	;;;;;;;;;;;;;;;;;;;;;;;;##### Grand Warden #####;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;##### Verify Builders available
@@ -77,8 +81,8 @@ Func UpgradeHeroes()
 		Return
 	EndIf
 	;##### Upg Warden
-	WardenUpgrade()
-
+	; samm0d - if heroes already in upgrade, skip update...
+	If BitAND($g_iHeroUpgradingBit, $eHeroWarden) <> $eHeroWarden Then WardenUpgrade()
 EndFunc   ;==>UpgradeHeroes
 
 Func QueenUpgrade()

@@ -280,22 +280,42 @@ Func btnTestTrain()
 
 ;~ 		setlog($MySpells[$i][0] & " Cost: " & getSpellCost($MySpells[$i][0]))
 ;~ 	Next
+	SetLog("===START===")
+    ModTrain()
 
-	BeginImageTest()
+;~ 			Local $iCount2 = 0
+;~ 			While IsQueueBlockByMsg($iCount2) ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
+;~ 				If _Sleep(1000) Then ExitLoop
+;~ 				$iCount2 += 1
+;~ 				If $iCount2 >= 30 Then
+;~ 					ExitLoop
+;~ 				EndIf
+;~ 			WEnd
 
-	Local $result
-	SetLog("Testing checkArmyCamp()", $COLOR_INFO)
-	$result = checkArmyCamp()
-	If @error Then $result = "Error " & @error & ", " & @extended & ", " & ((IsArray($result)) ? (_ArrayToString($result, ",")) : ($result))
-	SetLog("Result checkArmyCamp() = " & $result, $COLOR_INFO)
+	;CheckAvailableCCUnit()
+	;CheckAvailableCCSpellUnit()
+;~ 	$tempDisableTrain = False
+;~ 	$tempDisableBrewSpell = False
+;~ 	TroopsAndSpellsChecker($tempDisableTrain, $tempDisableBrewSpell, False)
 
-	SetLog("Testing getArmyHeroTime()", $COLOR_INFO)
-	$result = getArmyHeroTime("all")
-	If @error Then $result = "Error " & @error & ", " & @extended & ", " & ((IsArray($result)) ? (_ArrayToString($result, ",")) : ($result))
-	SetLog("Result getArmyHeroTime() = " & $result, $COLOR_INFO)
-	SetLog("Testing Train DONE", $COLOR_INFO)
+ 	SetLog("===END===")
 
-	EndImageTest()
+
+;~ 	BeginImageTest()
+
+;~ 	Local $result
+;~ 	SetLog("Testing checkArmyCamp()", $COLOR_INFO)
+;~ 	$result = checkArmyCamp()
+;~ 	If @error Then $result = "Error " & @error & ", " & @extended & ", " & ((IsArray($result)) ? (_ArrayToString($result, ",")) : ($result))
+;~ 	SetLog("Result checkArmyCamp() = " & $result, $COLOR_INFO)
+
+;~ 	SetLog("Testing getArmyHeroTime()", $COLOR_INFO)
+;~ 	$result = getArmyHeroTime("all")
+;~ 	If @error Then $result = "Error " & @error & ", " & @extended & ", " & ((IsArray($result)) ? (_ArrayToString($result, ",")) : ($result))
+;~ 	SetLog("Result getArmyHeroTime() = " & $result, $COLOR_INFO)
+;~ 	SetLog("Testing Train DONE", $COLOR_INFO)
+
+;~ 	EndImageTest()
 
 	$g_iDebugOcr = $currentOCR
 	$g_bRunState = $currentRunState

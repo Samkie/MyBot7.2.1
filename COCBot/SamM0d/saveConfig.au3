@@ -217,7 +217,24 @@ If GUICtrlRead($chkWait4CC) = $GUI_CHECKED Then
 Else
 	IniWriteS($g_sProfileConfigPath, "Wait4CC", "Enable", 0)
 EndIf
+IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlot1", _GUICtrlComboBox_GetCurSel($cmbCCTroopSlot1))
+IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlot2", _GUICtrlComboBox_GetCurSel($cmbCCTroopSlot2))
+IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlot3", _GUICtrlComboBox_GetCurSel($cmbCCTroopSlot3))
+IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty1", GUICtrlRead($txtCCTroopSlotQty1))
+IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty2", GUICtrlRead($txtCCTroopSlotQty2))
+IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty3", GUICtrlRead($txtCCTroopSlotQty3))
 IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCStrength", GUICtrlRead($txtCCStrength))
+
+If GUICtrlRead($chkWait4CCSpell) = $GUI_CHECKED Then
+	IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "Enable", 1)
+Else
+	IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "Enable", 0)
+EndIf
+IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlot1", _GUICtrlComboBox_GetCurSel($cmbCCSpellSlot1))
+IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlot2", _GUICtrlComboBox_GetCurSel($cmbCCSpellSlot2))
+IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlotQty1", GUICtrlRead($txtCCSpellSlotQty1))
+IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlotQty2", GUICtrlRead($txtCCSpellSlotQty2))
+
 
 ; check 4 cc
 If GUICtrlRead($chkCheck4CC) = $GUI_CHECKED Then

@@ -422,7 +422,7 @@ $yStart = 55
 
 Local $x = $xStart, $y = $yStart
 
-	$grpSpells = GUICtrlCreateGroup(GetTranslatedFileIni("sam m0d", 65, "My Spells"), $x, $y, 430, 385)
+	$grpSpells = GUICtrlCreateGroup(GetTranslatedFileIni("sam m0d", 65, "My Spells"), $x, $y, 430, 365)
 		$lblTotalSpell = GUICtrlCreateLabel(GetTranslatedFileIni("MBR GUI Design Child Attack - Troops", "SpellCapacity", "Spell Capacity"), $x+3 , $y + 24, -1, -1, $SS_RIGHT)
 		$txtTotalCountSpell2 = GUICtrlCreateCombo("", $x + 125, $y+20 , 35, 21, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("MBR GUI Design Child Attack - Troops", "TxtTotalCountSpell_Info_01", "Enter the No. of Spells Capacity. Set to ZERO if you don't want any Spells"))
@@ -559,6 +559,112 @@ $chkForcePreBrewSpell = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "F
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 
+GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", "My Clan Castle", "My Clan Castle"))
+
+Local $xStart, $yStart
+
+$xStart = 10
+$yStart = 35
+
+Local $x = $xStart, $y = $yStart
+
+	$grpClanCastle = GUICtrlCreateGroup(GetTranslatedFileIni("sam m0d", "My Clan Castle" , "My Clan Castle"), $x, $y, 430, 385)
+
+$x = 10
+$y += 30
+$chkWait4CC = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 35, "Wait CC Troops for all mode. Troops Strength:"), $x+10, $y, 240, 25)
+	GUICtrlSetOnEvent(-1, "chkWait4CC")
+	GUICtrlSetState(-1, $GUI_UNCHECKED)
+
+$txtCCStrength = GUICtrlCreateInput("100", $x + 255, $y+2, 31, 20, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+	$sTxtTip = "CC Troops Strength"
+	_GUICtrlSetTip(-1, $sTxtTip)
+	GUICtrlSetLimit(-1, 3)
+	GUICtrlSetState(-1, $GUI_DISABLE)
+	GUICtrlSetData(-1, 100)
+	GUICtrlSetOnEvent(-1, "chkWait4CC")
+	GUICtrlCreateLabel("%", $x + 286, $y+6, -1, -1)
+	_GUICtrlSetTip(-1, $sTxtTip)
+
+	$y += 35
+	GUICtrlCreateLabel(GetTranslatedFileIni("sam m0d", "RemoveClanCastleTroops", "Remove Clan Castle Troops If not is follow type or over quantity:"), $x + 10, $y, -1, -1)
+
+
+	Local $asTroopsList[20]
+	Local $sComboData= GetTranslatedFileIni("sam m0d", "Un specify","Un specify")
+	For $i = 1 To UBound($MyTroops)
+		$sComboData =  $sComboData & "|" & Eval("sTxt" & StringReplace(MyNameOfTroop($i - 1,2)," ",""))
+	Next
+
+	$y += 20
+	$cmbCCTroopSlot1 = GUICtrlCreateCombo("", $x+30, $y, 124, 20, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+	GUICtrlSetData(-1, $sComboData, GetTranslatedFileIni("sam m0d", "Un specify","Un specify"))
+	GUICtrlSetOnEvent(-1, "chkWait4CC")
+
+	$txtCCTroopSlotQty1 = GUICtrlCreateInput("0", $x + 160, $y+1, 31, 20, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+	_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "Unit Quantity", "Unit Quantity"))
+	GUICtrlSetLimit(-1, 3)
+	GUICtrlSetOnEvent(-1, "chkWait4CC")
+
+	$y += 20
+	$cmbCCTroopSlot2 = GUICtrlCreateCombo("", $x+30, $y, 124, 20, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+	GUICtrlSetData(-1, $sComboData, GetTranslatedFileIni("sam m0d", "Un specify","Un specify"))
+	GUICtrlSetOnEvent(-1, "chkWait4CC")
+
+	$txtCCTroopSlotQty2 = GUICtrlCreateInput("0", $x + 160, $y+1, 31, 20, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+	_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "Unit Quantity", "Unit Quantity"))
+	GUICtrlSetLimit(-1, 3)
+	GUICtrlSetOnEvent(-1, "chkWait4CC")
+
+	$y += 20
+	$cmbCCTroopSlot3 = GUICtrlCreateCombo("", $x+30, $y, 124, 20, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+	GUICtrlSetData(-1, $sComboData, GetTranslatedFileIni("sam m0d", "Un specify","Un specify"))
+	GUICtrlSetOnEvent(-1, "chkWait4CC")
+
+	$txtCCTroopSlotQty3 = GUICtrlCreateInput("0", $x + 160, $y+1, 31, 20, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+	_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "Unit Quantity", "Unit Quantity"))
+	GUICtrlSetLimit(-1, 3)
+	GUICtrlSetOnEvent(-1, "chkWait4CC")
+
+
+	Local $asTroopsList[11]
+	Local $sComboData= GetTranslatedFileIni("sam m0d", "Un specify","Un specify")
+	For $i = 1 To UBound($MySpells)
+		$sComboData =  $sComboData & "|" & Eval("sTxt" & StringReplace(MyNameOfTroop($i - 1 + 23,2)," ",""))
+	Next
+
+	$y += 55
+	$chkWait4CCSpell = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "WaitForCCSpell", "Wait For Clan Castle Spells."), $x+10, $y, -1, -1)
+	GUICtrlSetOnEvent(-1, "chkWait4CCSpell")
+	GUICtrlSetState(-1, $GUI_UNCHECKED)
+
+	$y += 35
+	GUICtrlCreateLabel(GetTranslatedFileIni("sam m0d", "RemoveClanCastleSpells", "Remove Clan Castle Spells If not is follow type or over quantity:"), $x + 10, $y, -1, -1)
+
+	$y += 20
+	$cmbCCSpellSlot1 = GUICtrlCreateCombo("", $x+30, $y, 124, 20, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+	GUICtrlSetData(-1, $sComboData, GetTranslatedFileIni("sam m0d", "Un specify","Un specify"))
+	GUICtrlSetOnEvent(-1, "chkWait4CCSpell")
+
+	$txtCCSpellSlotQty1 = GUICtrlCreateInput("0", $x + 160, $y+1, 31, 20, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+	_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "Unit Quantity", "Unit Quantity"))
+	GUICtrlSetLimit(-1, 3)
+	GUICtrlSetOnEvent(-1, "chkWait4CCSpell")
+
+	$y += 20
+	$cmbCCSpellSlot2 = GUICtrlCreateCombo("", $x+30, $y, 124, 20, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
+	GUICtrlSetData(-1, $sComboData, GetTranslatedFileIni("sam m0d", "Un specify","Un specify"))
+	GUICtrlSetOnEvent(-1, "chkWait4CCSpell")
+
+	$txtCCSpellSlotQty2 = GUICtrlCreateInput("0", $x + 160, $y+1, 31, 20, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+	_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "Unit Quantity", "Unit Quantity"))
+	GUICtrlSetLimit(-1, 3)
+	GUICtrlSetOnEvent(-1, "chkWait4CCSpell")
+
+
+	GUICtrlCreateGroup("", -99, -99, 1, 1)
+
+
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", 14, "Other"))
 
 Local $x = 10, $y = 30
@@ -590,22 +696,6 @@ $chkEnableCustomOCR4CCRequest = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam 
 	GUICtrlSetOnEvent(-1, "chkEnableCustomOCR4CCRequest")
 	_GUICtrlSetTip(-1, $sTxtTip)
 	GUICtrlSetState(-1, $GUI_UNCHECKED)
-
-$x = 10
-$y += 25
-$chkWait4CC = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 35, "Wait CC Troops for all mode. Troops Strength:"), $x+10, $y, 240, 25)
-	GUICtrlSetOnEvent(-1, "chkWait4CC")
-	GUICtrlSetState(-1, $GUI_UNCHECKED)
-
-$txtCCStrength = GUICtrlCreateInput("100", $x + 255, $y+2, 31, 20, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
-	$sTxtTip = "CC Troops Strength"
-	_GUICtrlSetTip(-1, $sTxtTip)
-	GUICtrlSetLimit(-1, 3)
-	GUICtrlSetState(-1, $GUI_DISABLE)
-	GUICtrlSetData(-1, 100)
-	GUICtrlSetOnEvent(-1, "chkWait4CC")
-	GUICtrlCreateLabel("%", $x + 286, $y+6, -1, -1)
-	_GUICtrlSetTip(-1, $sTxtTip)
 
 $x = 10
 $y += 25

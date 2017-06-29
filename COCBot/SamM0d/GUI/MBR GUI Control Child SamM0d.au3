@@ -157,17 +157,6 @@ Func btnResetOrder()
 	chkMyTroopOrder()
 EndFunc
 
-Func chkWait4CC()
-	If GUICtrlRead($chkWait4CC) = $GUI_CHECKED Then
-		$ichkWait4CC = 1
-		GUICtrlSetState($txtCCStrength, $GUI_ENABLE)
-	Else
-		$ichkWait4CC = 0
-		GUICtrlSetState($txtCCStrength, $GUI_DISABLE)
-	EndIf
-	$CCStrength = GUICtrlRead($txtCCStrength)
-EndFunc
-
 Func chkUnitFactor()
 	If GUICtrlRead($chkUnitFactor) = $GUI_CHECKED Then
 		$ichkUnitFactor = 1
@@ -356,6 +345,7 @@ Func chkCheck4CC()
 	If GUICtrlRead($chkCheck4CC) = $GUI_CHECKED Then
 		$ichkCheck4CC = 1
 		GUICtrlSetState($txtCheck4CCWaitTime, $GUI_ENABLE)
+
 	Else
 		$ichkCheck4CC = 0
 		GUICtrlSetState($txtCheck4CCWaitTime, $GUI_DISABLE)
@@ -365,6 +355,56 @@ Func chkCheck4CC()
 		$itxtCheck4CCWaitTime = 7
 		GUICtrlSetData($txtCheck4CCWaitTime,$itxtCheck4CCWaitTime)
 	EndIf
+EndFunc
+
+Func chkWait4CC()
+	If GUICtrlRead($chkWait4CC) = $GUI_CHECKED Then
+		$g_iChkWait4CC = 1
+		GUICtrlSetState($txtCCStrength, $GUI_ENABLE)
+		GUICtrlSetState($cmbCCTroopSlot1, $GUI_ENABLE)
+		GUICtrlSetState($cmbCCTroopSlot2, $GUI_ENABLE)
+		GUICtrlSetState($cmbCCTroopSlot3, $GUI_ENABLE)
+		GUICtrlSetState($txtCCTroopSlotQty1, $GUI_ENABLE)
+		GUICtrlSetState($txtCCTroopSlotQty2, $GUI_ENABLE)
+		GUICtrlSetState($txtCCTroopSlotQty3, $GUI_ENABLE)
+	Else
+		$g_iChkWait4CC = 0
+		GUICtrlSetState($txtCCStrength, $GUI_DISABLE)
+		GUICtrlSetState($cmbCCTroopSlot1, $GUI_DISABLE)
+		GUICtrlSetState($cmbCCTroopSlot2, $GUI_DISABLE)
+		GUICtrlSetState($cmbCCTroopSlot3, $GUI_DISABLE)
+		GUICtrlSetState($txtCCTroopSlotQty1, $GUI_DISABLE)
+		GUICtrlSetState($txtCCTroopSlotQty2, $GUI_DISABLE)
+		GUICtrlSetState($txtCCTroopSlotQty3, $GUI_DISABLE)
+	EndIf
+	$CCStrength = GUICtrlRead($txtCCStrength)
+
+	$iCCTroopSlot1 = _GUICtrlComboBox_GetCurSel($cmbCCTroopSlot1)
+	$iCCTroopSlot2 = _GUICtrlComboBox_GetCurSel($cmbCCTroopSlot2)
+	$iCCTroopSlot3 = _GUICtrlComboBox_GetCurSel($cmbCCTroopSlot3)
+	$iCCTroopSlotQty1 = GUICtrlRead($txtCCTroopSlotQty1)
+	$iCCTroopSlotQty2 = GUICtrlRead($txtCCTroopSlotQty2)
+	$iCCTroopSlotQty3 = GUICtrlRead($txtCCTroopSlotQty3)
+EndFunc
+
+Func chkWait4CCSpell()
+	If GUICtrlRead($chkWait4CCSpell) = $GUI_CHECKED Then
+		$g_iChkWait4CCSpell = 1
+		GUICtrlSetState($cmbCCSpellSlot1, $GUI_ENABLE)
+		GUICtrlSetState($cmbCCSpellSlot2, $GUI_ENABLE)
+		GUICtrlSetState($txtCCSpellSlotQty1, $GUI_ENABLE)
+		GUICtrlSetState($txtCCSpellSlotQty2, $GUI_ENABLE)
+	Else
+		$g_iChkWait4CCSpell = 0
+		GUICtrlSetState($cmbCCSpellSlot1, $GUI_DISABLE)
+		GUICtrlSetState($cmbCCSpellSlot2, $GUI_DISABLE)
+		GUICtrlSetState($txtCCSpellSlotQty1, $GUI_DISABLE)
+		GUICtrlSetState($txtCCSpellSlotQty2, $GUI_DISABLE)
+	EndIf
+	$iCCSpellSlot1 = _GUICtrlComboBox_GetCurSel($cmbCCSpellSlot1)
+	$iCCSpellSlot2 = _GUICtrlComboBox_GetCurSel($cmbCCSpellSlot2)
+	$iCCSpellSlotQty1 = GUICtrlRead($txtCCSpellSlotQty1)
+	$iCCSpellSlotQty2 = GUICtrlRead($txtCCSpellSlotQty2)
 EndFunc
 
 Func txtStickToTrainWindow()

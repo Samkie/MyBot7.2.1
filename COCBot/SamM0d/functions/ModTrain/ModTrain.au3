@@ -81,12 +81,15 @@ Func ModTrain($ForcePreTrain = False)
 	If gotoArmy() = False Then Return
 
 	getMyArmyHeroCount()
-	If _Sleep(50) Then Return ; 10ms improve pause button response
-
+	If _Sleep(50) Then Return ; 50ms improve pause button response
+	CheckAvailableCCUnit()
+	If _Sleep(50) Then Return ; 50ms improve pause button response
 	getMyArmyCCCapacity()
-	If _Sleep(50) Then Return ; 10ms improve pause button response
-
-	Local $bFullArmyCCSpells = IsFullClanCastleSpells()
+	If _Sleep(50) Then Return ; 50ms improve pause button response
+	CheckAvailableCCSpellUnit()
+	If _Sleep(50) Then Return ; 50ms improve pause button response
+	getMyArmyCCSpellCapacity()
+	If _Sleep(50) Then Return ; 50ms improve pause button response
 
 	If $ichkEnableMySwitch = 1 Then
 		Local $iKTime[5] = [0,0,0,0,0]
@@ -140,7 +143,7 @@ Func ModTrain($ForcePreTrain = False)
 	EndIf
 
 	getArmyCCStatus()
-	If _Sleep(50) Then Return ; 10ms improve pause button response
+	If _Sleep(50) Then Return ; 50ms improve pause button response
 
 	If $g_iSamM0dDebug = 1 Then Setlog("Fullarmy = " & $g_bFullArmy & " CurCamp = " & $g_CurrentCampUtilization & " TotalCamp = " & $g_iTotalCampSpace & " - result = " & ($g_bFullArmy = True And $g_CurrentCampUtilization = $g_iTotalCampSpace), $COLOR_DEBUG)
 	If $g_bFullArmy = True Then
@@ -151,7 +154,6 @@ Func ModTrain($ForcePreTrain = False)
 	If _Sleep(200) Then Return
 	ClickP($aAway, 1, 250, "#0504")
 	If _Sleep(250) Then Return
-	;ClickP($aAway, 1, 250, "#0504")
 
 	$g_bFirstStart = False
 
@@ -168,10 +170,10 @@ Func ModTrain($ForcePreTrain = False)
 	If $g_iSamM0dDebug Then SetLog("$g_bfullArmy: " & $g_bfullArmy)
 	If $g_iSamM0dDebug Then SetLog("$g_bFullArmyHero: " & $g_bFullArmyHero)
 	If $g_iSamM0dDebug Then SetLog("$g_bFullArmySpells: " & $g_bFullArmySpells)
-	If $g_iSamM0dDebug Then SetLog("$bFullArmyCCSpells: " & $bFullArmyCCSpells)
+	If $g_iSamM0dDebug Then SetLog("$g_bFullCCSpells: " & $g_bFullCCSpells)
 	If $g_iSamM0dDebug Then SetLog("$FullCCTroops: " & $FullCCTroops)
 
-	If $FullCCTroops = False Or $bFullArmyCCSpells = False Then
+	If $FullCCTroops = False Or $g_bFullCCSpells = False Then
 		If $ichkEnableMySwitch = 1 Then
 			; If waiting for cc or cc spell, ignore stay to the account, cause you don't know when the cc or spell will be ready.
 			If $g_iSamM0dDebug Then SetLog("Disable Avoid Switch cause of waiting cc or cc spell enable.")
@@ -179,7 +181,7 @@ Func ModTrain($ForcePreTrain = False)
 		EndIf
 	EndIf
 
-	If $g_bFullArmy = True And $g_bFullArmyHero = True And $g_bFullArmySpells = True And $bFullArmyCCSpells = True And $FullCCTroops = True Then
+	If $g_bFullArmy = True And $g_bFullArmyHero = True And $g_bFullArmySpells = True And $g_bFullCCSpells = True And $FullCCTroops = True Then
 		$g_bIsFullArmywithHeroesAndSpells = True
 	Else
 		$g_bIsFullArmywithHeroesAndSpells = False
@@ -212,9 +214,9 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 		;---------------------------------------------------
 		DeleteTrainHBitmap()
 		If gotoArmy() = False Then ExitLoop
-		If _Sleep(100) Then ExitLoop
+		If _Sleep(250) Then ExitLoop
 		$iCount2 = 0
-		While IsQueueBlockByMsg() ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
+		While IsQueueBlockByMsg($iCount2) ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
 			If _Sleep(1000) Then ExitLoop
 			$iCount2 += 1
 			If $iCount2 >= 30 Then
@@ -245,7 +247,7 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 			If gotoTrainTroops() = False Then ExitLoop
 			If _Sleep(100) Then ExitLoop
 			$iCount2 = 0
-			While IsQueueBlockByMsg() ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
+			While IsQueueBlockByMsg($iCount2) ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
 				If _Sleep(1000) Then ExitLoop
 				$iCount2 += 1
 				If $iCount2 >= 30 Then
@@ -349,7 +351,7 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 			If gotoBrewSpells() = False Then ExitLoop
 			If _Sleep(100) Then ExitLoop
 			$iCount2 = 0
-			While IsQueueBlockByMsg() ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
+			While IsQueueBlockByMsg($iCount2) ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
 				If _Sleep(1000) Then ExitLoop
 				$iCount2 += 1
 				If $iCount2 >= 30 Then
@@ -371,9 +373,6 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 			Else
 				If CheckAvailableSpellUnit($g_hHBitmapArmyTab) Then
 					If CheckOnBrewUnit($g_hHBitmapBrewTab) Then
-
-						$ichkForcePreBrewSpell
-
 						Local $bOrPrebrewspell
 						For $i = $enumLightning To $enumSkeleton
 							$bOrPrebrewspell = BitOR($bOrPrebrewspell, Eval("ichkPre" & $MySpells[$i][0]))
@@ -429,10 +428,9 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 	If $g_iSamM0dDebug Then SetLog("$hTimer: " & Round(__TimerDiff($hTimer) / 1000, 2))
 EndFunc
 
-Func IsQueueBlockByMsg()
+Func IsQueueBlockByMsg($iCount)
 	ForceCaptureRegion()
 	_CaptureRegion()
-
 	Select
 		; Msg: Troops removed
 		Case _ColorCheck(_GetPixelColor(391, 215, $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 6) And _ColorCheck(_GetPixelColor(487, 215, $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 6)
@@ -473,24 +471,18 @@ Func IsQueueBlockByMsg()
 		Case Else
 			For $i = 130 To 240 Step + 2
 				If _ColorCheck(_GetPixelColor($i, 215, $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 6) And _ColorCheck(_GetPixelColor($i + 42, 215, $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 6) Then
+					If $iCount = 0 And ($g_iChkWait4CC Or $g_iChkWait4CCSpell) Then
+						Local $hClone = _GDIPlus_BitmapCloneArea($g_hBitmap, 20, 198, 820, 24, $GDIP_PXF24RGB)
+						Local $Date = @YEAR & "-" & @MON & "-" & @MDAY
+						Local $Time = @HOUR & "." & @MIN & "." & @SEC
+						Local $filename = String(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\Msg Block_" & $Date & "_" & $Time & ".png")
+						_GDIPlus_ImageSaveToFile($hClone, $filename)
+						_GDIPlus_BitmapDispose($hClone)
+					EndIf
 					Return SetLogAndReturn(99)
 				EndIf
 			Next
 	EndSelect
-
-;~ 	If (_ColorCheck(_GetPixelColor(228, 160 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 5) And _ColorCheck(_GetPixelColor(326, 160 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 5)) Or _
-;~ 		_ColorCheck(_GetPixelColor(538, 182 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFFFFFF, 6), 5) Or _
-;~ 		_ColorCheck(_GetPixelColor(465, 182 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFFFFFF, 6), 5) Or _
-;~ 		_ColorCheck(_GetPixelColor(498, 184 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFFFFFF, 6), 5) Or _
-;~ 		_ColorCheck(_GetPixelColor(357, 183 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFFFFFF, 6), 5) Or _
-;~ 		_ColorCheck(_GetPixelColor(538, 185 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFFFFFF, 6), 5) Or _
-;~ 		_ColorCheck(_GetPixelColor(243, 179 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFF1919, 6), 5) Or _
-;~ 		_ColorCheck(_GetPixelColor(244, 180 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFF1919, 6), 5) Or _
-;~ 		_ColorCheck(_GetPixelColor(245, 179 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFF1919, 6), 5) Or _
-;~ 		_ColorCheck(_GetPixelColor(320, 185 + $g_iMidOffsetY , $g_bNoCapturePixel), Hex(0xFFFFFF, 6), 5) Then
-;~ 		If $g_iSamM0dDebug = 1 Then SetLog("Donate or other message blocked army queue.",$COLOR_RED)
-;~ 		$bGotBlock = True
-;~ 	EndIf
 	If _Sleep(1000) Then Return	False
 	Return False
 EndFunc

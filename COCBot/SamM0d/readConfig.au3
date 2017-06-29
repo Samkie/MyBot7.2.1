@@ -100,8 +100,21 @@ IniReadS($isldSelectedCSVSpeed[$DB], $g_sProfileConfigPath, "attack", "CSVSpeedD
 IniReadS($isldSelectedCSVSpeed[$LB], $g_sProfileConfigPath, "attack", "CSVSpeedAB", 3)
 
 ; Wait 4 CC
-IniReadS($ichkWait4CC, $g_sProfileConfigPath, "Wait4CC", "Enable", "0")
-IniReadS($CCStrength, $g_sProfileConfigPath, "Wait4CC", "CCStrength", "100")
+IniReadS($g_iChkWait4CC, $g_sProfileConfigPath, "Wait4CC", "Enable", "0", "Int")
+IniReadS($CCStrength, $g_sProfileConfigPath, "Wait4CC", "CCStrength", "100", "Int")
+IniReadS($iCCTroopSlot1, $g_sProfileConfigPath, "Wait4CC", "CCTroopSlot1", "0", "Int")
+IniReadS($iCCTroopSlot2, $g_sProfileConfigPath, "Wait4CC", "CCTroopSlot2", "0", "Int")
+IniReadS($iCCTroopSlot3, $g_sProfileConfigPath, "Wait4CC", "CCTroopSlot3", "0", "Int")
+IniReadS($iCCTroopSlotQty1, $g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty1", "0", "Int")
+IniReadS($iCCTroopSlotQty2, $g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty2", "0", "Int")
+IniReadS($iCCTroopSlotQty3, $g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty3", "0", "Int")
+
+IniReadS($g_iChkWait4CCSpell, $g_sProfileConfigPath, "Wait4CCSpell", "Enable", "0", "Int")
+IniReadS($iCCSpellSlot1, $g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlot1", "0", "Int")
+IniReadS($iCCSpellSlot2, $g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlot2", "0", "Int")
+IniReadS($iCCSpellSlotQty1, $g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlotQty1", "0", "Int")
+IniReadS($iCCSpellSlotQty2, $g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlotQty2", "0", "Int")
+
 
 ; check 4 cc
 $ichkCheck4CC = IniRead($g_sProfileConfigPath, "Check4CC", "Enable", "0")

@@ -154,7 +154,7 @@ EndFunc
 
 Func getMyOcrCCSpellCap()
 	; clan castle capacity from army overview page, bottom right
-	Local $sResult = getMyOcr(0,528,438 + $g_iMidOffsetY,40,15,"armycap")
+	Local $sResult = getMyOcr(0,530,438 + $g_iMidOffsetY,40,15,"armycap")
 	Return $sResult
 EndFunc
 

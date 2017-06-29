@@ -46,6 +46,8 @@
 #include "SamM0d\functions\ModTrain\MyNameOfTroop.au3"
 #include "SamM0d\functions\ModTrain\TrainArmyPageControl.au3"
 #include "SamM0d\functions\ModTrain\MyTrainClick.au3"
+#include "SamM0d\functions\ModTrain\CheckAvailableCCUnit.au3"
+#include "SamM0d\functions\ModTrain\CheckAvailableCCSpellUnit.au3"
 ;---------------------------------------------------------------
 
 #include "SamM0d\functions\Other\_debugSaveHBitmapToImage.au3"

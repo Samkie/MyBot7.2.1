@@ -45,6 +45,7 @@ Func CheckAvailableUnit($hHBitmap)
 		;SetLog("_GetPixelColor(Int(30 + (74 * $i)),205,False): " & _GetPixelColor(Int(30 + (74 * $i)),205,False))
 		If _ColorCheck(_GetPixelColor(Int(30 + (74 * $i)),205,False), Hex(0X4689C8, 6), 20) Then
 			Assign("g_hHBitmap_Av_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 20) / 2)), $g_aiArmyAvailableSlot[1] - 2, Int(22 + (74* $i) + ((74- 20) / 2) + 20), $g_aiArmyAvailableSlot[3] + 2))
+			Assign("g_hHBitmap_Capture_Av_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 16) / 2)), $g_aiArmyAvailableSlot[1], Int(22 + (74* $i) + ((74- 16) / 2) + 16), $g_aiArmyAvailableSlot[3]))
 
 			Local $result = findMultiImage(Eval("g_hHBitmap_Av_Slot" & $i + 1), $sDirectory ,"FV" ,"FV", 0, 1000, 1 , $returnProps)
 			Local $bExitLoopFlag = False
@@ -57,7 +58,7 @@ Func CheckAvailableUnit($hHBitmap)
 						If UBound($aPropsValues) = 1 then
 							$aiTroopsInfo[$i][0] = $aPropsValues[0] ; objectname
 							;SetLog("objectname: " & $aiTroopsInfo[$i][0], $COLOR_DEBUG)
-							$aiTroopsInfo[$i][1] = $i + 1
+							$aiTroopsInfo[$i][2] = $i + 1
 						EndIf
 					ElseIf $j = 1 Then
 						$aPropsValues = $result[$j]
@@ -71,7 +72,16 @@ Func CheckAvailableUnit($hHBitmap)
 				Next
 				If $aPropsValues[0]  = "0" Then $bExitLoopFlag = True
 			Else
+				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 30) / 2)), $g_aiArmyAvailableSlot[1] - 7, Int(22 + (74* $i) + ((74 - 30) / 2) + 30), $g_aiArmyAvailableSlot[3] + 7)
+				_debugSaveHBitmapToImage($temphHBitmap, "Troop_Av_Slot_" & $i + 1, True)
+				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_Slot" & $i + 1), "Troop_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
+				If $temphHBitmap <> 0 Then
+					GdiDeleteHBitmap($temphHBitmap)
+				EndIf
 				SetLog("Error: Cannot detect what troops on slot: " & $i + 1 , $COLOR_ERROR)
+				SetLog("Please check the filename: Troop_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
+				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
+				SetLog("Rename the correct filename and replace back to file location: " & $sDirectory, $COLOR_ERROR)
 				$bContinueNextLoop = True
 			EndIf
 
@@ -83,40 +93,40 @@ Func CheckAvailableUnit($hHBitmap)
 
 			Assign("g_hHBitmap_Av_SlotQty" & $i + 1, GetHHBitmapArea($hHBitmap, Int(24 + (74* $i) + ((74- 60) / 2)), $g_aiArmyAvailableSlotQty[1], Int(24 + (74* $i) + ((74- 60) / 2) + 60), $g_aiArmyAvailableSlotQty[3]))
 
-			$aiTroopsInfo[$i][2] = getMyOcr(Eval("g_hHBitmap_Av_SlotQty" & $i + 1),0,0,0,0,"ArmyQTY", True)
+			$aiTroopsInfo[$i][1] = getMyOcr(Eval("g_hHBitmap_Av_SlotQty" & $i + 1),0,0,0,0,"ArmyQTY", True)
 
-			If $aiTroopsInfo[$i][2] <> 0 Then
-				SetLog(" - No. of Available " & MyNameOfTroop(Eval("e" & $aiTroopsInfo[$i][0]), $aiTroopsInfo[$i][2]) & ": " & $aiTroopsInfo[$i][2], (Eval("e" & $aiTroopsInfo[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
-				Assign("cur" & $aiTroopsInfo[$i][0], $aiTroopsInfo[$i][2])
+			If $aiTroopsInfo[$i][1] <> 0 Then
+				SetLog(" - No. of Available " & MyNameOfTroop(Eval("e" & $aiTroopsInfo[$i][0]), $aiTroopsInfo[$i][1]) & ": " & $aiTroopsInfo[$i][1], (Eval("e" & $aiTroopsInfo[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
+				Assign("cur" & $aiTroopsInfo[$i][0], $aiTroopsInfo[$i][1])
 
 				; assign variable for drop trophy troops type
 				For $j = 0 To UBound($g_avDTtroopsToBeUsed) - 1
 					If $g_avDTtroopsToBeUsed[$j][0] = $aiTroopsInfo[$i][0] Then
-						$g_avDTtroopsToBeUsed[$j][1] = $aiTroopsInfo[$i][2]
+						$g_avDTtroopsToBeUsed[$j][1] = $aiTroopsInfo[$i][1]
 						ExitLoop
 					EndIf
 				Next
 
-				$AvailableCamp += ($aiTroopsInfo[$i][2] * $MyTroops[Eval("e" & $aiTroopsInfo[$i][0])][2])
+				$AvailableCamp += ($aiTroopsInfo[$i][1] * $MyTroops[Eval("e" & $aiTroopsInfo[$i][0])][2])
 
 				If $ichkEnableDeleteExcessTroops = 1 Then
-					If $aiTroopsInfo[$i][2] > $MyTroops[Eval("e" & $aiTroopsInfo[$i][0])][3] Then
+					If $aiTroopsInfo[$i][1] > $MyTroops[Eval("e" & $aiTroopsInfo[$i][0])][3] Then
 						$bDeletedExcess = True
-						SetLog(" >>> excess: " & $aiTroopsInfo[$i][2] - $MyTroops[Eval("e" & $aiTroopsInfo[$i][0])][3],$COLOR_RED)
-						Assign("RemSlot" & $aiTroopsInfo[$i][1],$aiTroopsInfo[$i][2] - $MyTroops[Eval("e" & $aiTroopsInfo[$i][0])][3])
-						If $g_iSamM0dDebug = 1 Then SetLog("Set Remove Slot: " & $aiTroopsInfo[$i][1])
+						SetLog(" >>> excess: " & $aiTroopsInfo[$i][1] - $MyTroops[Eval("e" & $aiTroopsInfo[$i][0])][3],$COLOR_RED)
+						Assign("RemSlot" & $aiTroopsInfo[$i][2],$aiTroopsInfo[$i][1] - $MyTroops[Eval("e" & $aiTroopsInfo[$i][0])][3])
+						If $g_iSamM0dDebug = 1 Then SetLog("Set Remove Slot: " & $aiTroopsInfo[$i][2])
 					EndIf
 				EndIf
 
 				; assign variable for drop trophy troops type
 				For $j = 0 To UBound($g_avDTtroopsToBeUsed) - 1
 					If $g_avDTtroopsToBeUsed[$j][0] = $aiTroopsInfo[$i][0] Then
-						$g_avDTtroopsToBeUsed[$j][1] = $aiTroopsInfo[$i][2]
+						$g_avDTtroopsToBeUsed[$j][1] = $aiTroopsInfo[$i][1]
 						ExitLoop
 					EndIf
 				Next
 			Else
-				SetLog("Error detect quantity no. On Troop: " & MyNameOfTroop(Eval("e" & $aiTroopsInfo[$i][0]), $aiTroopsInfo[$i][2]),$COLOR_RED)
+				SetLog("Error detect quantity no. On Troop: " & MyNameOfTroop(Eval("e" & $aiTroopsInfo[$i][0]), $aiTroopsInfo[$i][1]),$COLOR_RED)
 				ExitLoop
 			EndIf
 		EndIf
@@ -149,7 +159,7 @@ Func CheckAvailableUnit($hHBitmap)
 					Local $RemoveSlotQty = Eval("RemSlot" & $i + 1)
 					If $g_iSamM0dDebug = 1 Then SetLog($i & " $RemoveSlotQty: " & $RemoveSlotQty)
 					If $RemoveSlotQty > 0 Then
-						Local $iRx = (80 + (73 * $i))
+						Local $iRx = (80 + (74 * $i))
 						Local $iRy = 240 + $g_iMidOffsetY
 						For $j = 1 To $RemoveSlotQty
 							Click(Random($iRx-2,$iRx+2,1),Random($iRy-2,$iRy+2,1))
@@ -170,17 +180,19 @@ Func CheckAvailableUnit($hHBitmap)
 
 			ClickOkay()
 			$g_bRestartCheckTroop = True
+			If WaitforPixel($aButtonEditArmy[4],$aButtonEditArmy[5],$aButtonEditArmy[4]+1,$aButtonEditArmy[5]+1,Hex($aButtonEditArmy[6], 6), $aButtonEditArmy[7],20) Then
+				Return False
+			Else
+				If _Sleep(1000) Then Return False
+			EndIf
 			Return False
 		EndIf
-
 		If $g_hHBitmap <> 0 Then
 			GdiDeleteHBitmap($g_hHBitmap)
 		EndIf
-		$g_hHBitmap = GetHHBitmapArea($hHBitmap)
 		If $g_hBitmap <> 0 Then
 			GdiDeleteBitmap($g_hBitmap)
 		EndIf
-
 		Return True
 	EndIf
 	Return False

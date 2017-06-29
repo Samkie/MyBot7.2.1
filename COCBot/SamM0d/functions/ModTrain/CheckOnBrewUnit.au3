@@ -63,6 +63,8 @@ Func CheckOnBrewUnit($hHBitmap)
 			$iCount += 1
 		Else
 			Local $bIsQueueSpell = False
+			Local $bContinueNextLoop = False
+
 			If _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
 				$sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Spells\Queue\"
 				$bIsQueueSpell = True
@@ -71,6 +73,7 @@ Func CheckOnBrewUnit($hHBitmap)
 			EndIf
 
 			Assign("g_hHBitmap_OB_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(65 + (70.5 * $i) + ((70.5 - 20) / 2)), $g_aiArmyOnBrewSlot[1] - 2, Int(65 + (70.5* $i) + ((70.5 - 20) / 2) + 20), $g_aiArmyOnBrewSlot[3] + 2))
+			Assign("g_hHBitmap_Capture_OB_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 16) / 2)), $g_aiArmyOnBrewSlot[1], Int(22 + (74* $i) + ((74- 16) / 2) + 16), $g_aiArmyOnBrewSlot[3]))
 
 			Local $result = findMultiImage(Eval("g_hHBitmap_OB_Slot" & $i + 1), $sDirectory ,"FV" ,"FV", 0, 1000, 1 , $returnProps)
 
@@ -95,10 +98,23 @@ Func CheckOnBrewUnit($hHBitmap)
 				Next
 
 			Else
+				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 30) / 2)), $g_aiArmyOnBrewSlot[1] - 7, Int(22 + (74* $i) + ((74 - 30) / 2) + 30), $g_aiArmyOnBrewSlot[3] + 7)
+				_debugSaveHBitmapToImage($temphHBitmap, "Spell_OnQ_Slot_" & $i + 1, True)
+				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_OB_Slot" & $i + 1), "Spell_OnQ_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
+				If $temphHBitmap <> 0 Then
+					GdiDeleteHBitmap($temphHBitmap)
+				EndIf
 				SetLog("Error: Cannot detect what spells on slot: " & $i + 1 , $COLOR_ERROR)
+				SetLog("Please check the filename: Spell_OnQ_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
+				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
+				SetLog("Rename the correct filename and replace back to file location: " & $sDirectory, $COLOR_ERROR)
+				$bContinueNextLoop = True
 			EndIf
 
-			;If $bExitLoopFlag = True Then ExitLoop
+			If $bContinueNextLoop Then
+				$i += 1
+				ContinueLoop
+			EndIf
 
 			Assign("g_hHBitmap_OB_SlotQty" & $i + 1, GetHHBitmapArea($hHBitmap, Int(67 + (70.5 * $i)), $g_aiArmyOnBrewSlotQty[1], Int(67 + (70.5* $i) + 40), $g_aiArmyOnBrewSlotQty[3]))
 
@@ -108,7 +124,7 @@ Func CheckOnBrewUnit($hHBitmap)
 				$iQty = getMyOcr(Eval("g_hHBitmap_OB_SlotQty" & $i + 1),0,0,0,0,"spellqtybrew", True)
 			EndIf
 
-			If $iQty <> 0 Then
+			If $iQty <> 0 And $sObjectname <> "" Then
 				$aiSpellInfo[$i][0] = $sObjectname
 				$aiSpellInfo[$i][1] = $iQty
 				$aiSpellInfo[$i][2] = $i + 1
@@ -128,7 +144,6 @@ Func CheckOnBrewUnit($hHBitmap)
 	If $g_hHBitmap <> 0 Then
 		GdiDeleteHBitmap($g_hHBitmap)
 	EndIf
-	$g_hHBitmap = GetHHBitmapArea($hHBitmap)
 	If $g_hBitmap <> 0 Then
 		GdiDeleteBitmap($g_hBitmap)
 	EndIf

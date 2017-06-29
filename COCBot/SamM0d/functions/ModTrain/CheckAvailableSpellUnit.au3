@@ -41,11 +41,10 @@ Func CheckAvailableSpellUnit($hHBitmap)
 	Local $bDeletedExcess = False
 
 	For $i = 0 To 6
-		;SetLog("_GetPixelColor(Int(30 + (74 * $i)),205,False): " & _GetPixelColor(Int(30 + (74 * $i)),205,False))
 		If _ColorCheck(_GetPixelColor(Int(30 + (74 * $i)),345,False), Hex(0X7856E0, 6), 20) Then
 			Assign("g_hHBitmap_Av_Spell_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 20) / 2)), $g_aiArmyAvailableSpellSlot[1] - 2, Int(22 + (74* $i) + ((74- 20) / 2) + 20), $g_aiArmyAvailableSpellSlot[3] + 2))
-			;SetLog("--------------------------------------------------")
-			;SetLog("Check slot " & $i + 1)
+			Assign("g_hHBitmap_Capture_Av_Spell_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 16) / 2)), $g_aiArmyAvailableSpellSlot[1], Int(22 + (74* $i) + ((74- 16) / 2) + 16), $g_aiArmyAvailableSpellSlot[3]))
+
 			Local $result = findMultiImage(Eval("g_hHBitmap_Av_Spell_Slot" & $i + 1), $sDirectory ,"FV" ,"FV", 0, 1000, 1 , $returnProps)
 			Local $bExitLoopFlag = False
 			Local $bContinueNextLoop = False
@@ -57,7 +56,7 @@ Func CheckAvailableSpellUnit($hHBitmap)
 						If UBound($aPropsValues) = 1 then
 							$aiSpellsInfo[$i][0] = $aPropsValues[0] ; objectname
 							;SetLog("objectname: " & $aiSpellsInfo[$i][0], $COLOR_DEBUG)
-							$aiSpellsInfo[$i][1] = $i + 1
+							$aiSpellsInfo[$i][2] = $i + 1
 						EndIf
 					ElseIf $j = 1 Then
 						$aPropsValues = $result[$j]
@@ -71,14 +70,17 @@ Func CheckAvailableSpellUnit($hHBitmap)
 				Next
 				If $aPropsValues[0]  = "0" Then $bExitLoopFlag = True
 			Else
+				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 30) / 2)), $g_aiArmyAvailableSpellSlot[1] - 7, Int(22 + (74* $i) + ((74 - 30) / 2) + 30), $g_aiArmyAvailableSpellSlot[3] + 7)
+				_debugSaveHBitmapToImage($temphHBitmap, "Spell_Av_Slot_" & $i + 1, True)
+				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_Spell_Slot" & $i + 1), "Spell_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
+				If $temphHBitmap <> 0 Then
+					GdiDeleteHBitmap($temphHBitmap)
+				EndIf
 				SetLog("Error: Cannot detect what spells on slot: " & $i + 1 , $COLOR_ERROR)
+				SetLog("Please check the filename: Spell_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
+				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
+				SetLog("Rename the correct filename and replace back to file location: " & $sDirectory, $COLOR_ERROR)
 				$bContinueNextLoop = True
-			EndIf
-
-			If Eval("g_hHBitmap_Av_Spell_Slot" & $i + 1) <> 0 Then
-				Local $Result = _WinAPI_DeleteObject(Eval("g_hHBitmap_Av_Spell_Slot" & $i + 1))
-				If ($Result <> True Or @error) Then SetLog("_WinAPI_DeleteObject not deleted: " & Eval("g_hHBitmap_Av_Spell_Slot" & $i + 1), $COLOR_ERROR)
-				Assign("g_hHBitmap_Av_Spell_Slot" & $i + 1,0)
 			EndIf
 
 			If $bExitLoopFlag = True Then ExitLoop
@@ -89,25 +91,24 @@ Func CheckAvailableSpellUnit($hHBitmap)
 
 			Assign("g_hHBitmap_Av_Spell_SlotQty" & $i + 1, GetHHBitmapArea($hHBitmap, Int(24 + (74* $i) + ((74- 60) / 2)), $g_aiArmyAvailableSpellSlotQty[1], Int(24 + (74* $i) + ((74- 60) / 2) + 60), $g_aiArmyAvailableSpellSlotQty[3]))
 
-			$aiSpellsInfo[$i][2] = getMyOcr(Eval("g_hHBitmap_Av_Spell_SlotQty" & $i + 1),0,0,0,0,"SpellQTY", True)
+			$aiSpellsInfo[$i][1] = getMyOcr(Eval("g_hHBitmap_Av_Spell_SlotQty" & $i + 1),0,0,0,0,"SpellQTY", True)
 
-			If $aiSpellsInfo[$i][2] <> 0 Then
-				SetLog(" - No. of Available " & MyNameOfTroop(Eval("enum" & $aiSpellsInfo[$i][0]) + 23, $aiSpellsInfo[$i][2]) & ": " & $aiSpellsInfo[$i][2], (Eval("enum" & $aiSpellsInfo[$i][0]) > 5 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
-				Assign("cur" & $aiSpellsInfo[$i][0] & "Spell", $aiSpellsInfo[$i][2])
-				Assign("Cur" & $g_asSpellShortNames[Eval("enum" & $aiSpellsInfo[$i][0])], Eval("cur" & $aiSpellsInfo[$i][0]))
+			If $aiSpellsInfo[$i][1] <> 0 Then
+				SetLog(" - No. of Available " & MyNameOfTroop(Eval("enum" & $aiSpellsInfo[$i][0]) + 23, $aiSpellsInfo[$i][1]) & ": " & $aiSpellsInfo[$i][1], (Eval("enum" & $aiSpellsInfo[$i][0]) > 5 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
+				Assign("cur" & $aiSpellsInfo[$i][0] & "Spell", $aiSpellsInfo[$i][1])
 
-				$AvailableCamp += ($aiSpellsInfo[$i][2] * $MySpells[Eval("enum" & $aiSpellsInfo[$i][0])][2])
+				$AvailableCamp += ($aiSpellsInfo[$i][1] * $MySpells[Eval("enum" & $aiSpellsInfo[$i][0])][2])
 
 				If $ichkEnableDeleteExcessSpells = 1 Then
-					If $aiSpellsInfo[$i][2] > $MySpells[Eval("enum" & $aiSpellsInfo[$i][0])][3] Then
+					If $aiSpellsInfo[$i][1] > $MySpells[Eval("enum" & $aiSpellsInfo[$i][0])][3] Then
 						$bDeletedExcess = True
-						SetLog(" >>> excess: " & $aiSpellsInfo[$i][2] - $MySpells[Eval("enum" & $aiSpellsInfo[$i][0])][3],$COLOR_RED)
-						Assign("RemSpellSlot" & $aiSpellsInfo[$i][1],$aiSpellsInfo[$i][2] - $MySpells[Eval("enum" & $aiSpellsInfo[$i][0])][3])
-						If $g_iSamM0dDebug = 1 Then SetLog("Set Remove Slot: " & $aiSpellsInfo[$i][1])
+						SetLog(" >>> excess: " & $aiSpellsInfo[$i][1] - $MySpells[Eval("enum" & $aiSpellsInfo[$i][0])][3],$COLOR_RED)
+						Assign("RemSpellSlot" & $aiSpellsInfo[$i][2],$aiSpellsInfo[$i][1] - $MySpells[Eval("enum" & $aiSpellsInfo[$i][0])][3])
+						If $g_iSamM0dDebug = 1 Then SetLog("Set Remove Slot: " & $aiSpellsInfo[$i][2])
 					EndIf
 				EndIf
 			Else
-				SetLog("Error detect quantity no. On Spell: " & MyNameOfTroop(Eval("enum" & $aiSpellsInfo[$i][0]) + 23, $aiSpellsInfo[$i][2]),$COLOR_RED)
+				SetLog("Error detect quantity no. On Spell: " & MyNameOfTroop(Eval("enum" & $aiSpellsInfo[$i][0]) + 23, $aiSpellsInfo[$i][1]),$COLOR_RED)
 				ExitLoop
 			EndIf
 		EndIf
@@ -141,7 +142,7 @@ Func CheckAvailableSpellUnit($hHBitmap)
 					Local $RemoveSlotQty = Eval("RemSpellSlot" & $i + 1)
 					If $g_iSamM0dDebug = 1 Then SetLog($i & " $RemoveSlotQty: " & $RemoveSlotQty)
 					If $RemoveSlotQty > 0 Then
-						Local $iRx = (80 + (73 * $i))
+						Local $iRx = (80 + (74 * $i))
 						Local $iRy = 386 + $g_iMidOffsetY
 						For $j = 1 To $RemoveSlotQty
 							Click(Random($iRx-2,$iRx+2,1),Random($iRy-2,$iRy+2,1))
@@ -162,17 +163,20 @@ Func CheckAvailableSpellUnit($hHBitmap)
 
 			ClickOkay()
 			$g_bRestartCheckTroop = True
+
+			If WaitforPixel($aButtonEditArmy[4],$aButtonEditArmy[5],$aButtonEditArmy[4]+1,$aButtonEditArmy[5]+1,Hex($aButtonEditArmy[6], 6), $aButtonEditArmy[7],20) Then
+				Return False
+			Else
+				If _Sleep(1000) Then Return False
+			EndIf
 			Return False
 		EndIf
-
 		If $g_hHBitmap <> 0 Then
 			GdiDeleteHBitmap($g_hHBitmap)
 		EndIf
-		$g_hHBitmap = GetHHBitmapArea($hHBitmap)
 		If $g_hBitmap <> 0 Then
 			GdiDeleteBitmap($g_hBitmap)
 		EndIf
-
 		Return True
 	EndIf
 	Return False
