@@ -28,6 +28,7 @@ Func CheckAvailableCCUnit()
 		Local $returnProps="objectname"
 		Local $aPropsValues
 		Local $bDeletedExcess = False
+		Local $iTroopsCount = 0
 
 		DeleteHBitmap4CheckAvailableCCUnit()
 		If _Sleep(250) Then ExitLoop
@@ -54,6 +55,7 @@ Func CheckAvailableCCUnit()
 						If UBound($aPropsValues) = 1 then
 							$aiTroopsInfo[$i][0] = $aPropsValues[0] ; objectname
 							$aiTroopsInfo[$i][2] = $i + 1
+							$iTroopsCount += 1
 						EndIf
 					ElseIf $j = 1 Then
 						$aPropsValues = $result[$j]
@@ -97,6 +99,11 @@ Func CheckAvailableCCUnit()
 				ExitLoop
 			EndIf
 		Next
+
+		If $iTroopsCount = 0 Then
+			SetLog("No Army On Clan Castle.",$COLOR_ERROR)
+			ExitLoop
+		EndIf
 
 		For $i = 0 To UBound($MyTroops) - 1
 			Local $itempTotal = Eval("curCC" & $MyTroops[$i][0])

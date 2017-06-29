@@ -66,6 +66,7 @@ Func CheckAvailableCCSpellUnit()
 		Local $aPropsValues
 		Local $bDeletedExcess = False
 		Local $iOffsetSlot = 0
+		Local $iSpellsCount = 0
 
 		; reset variable
 		For $i = 0 To UBound($MySpells) - 1
@@ -97,6 +98,7 @@ Func CheckAvailableCCSpellUnit()
 						If UBound($aPropsValues) = 1 then
 							$aiSpellsInfo[$i][0] = $aPropsValues[0] ; objectname
 							$aiSpellsInfo[$i][2] = $i + 1
+							$iSpellsCount += 1
 						EndIf
 					ElseIf $j = 1 Then
 						$aPropsValues = $result[$j]
@@ -140,6 +142,11 @@ Func CheckAvailableCCSpellUnit()
 				ExitLoop
 			EndIf
 		Next
+
+		If $iSpellsCount = 0 Then
+			SetLog("No Spell On Clan Castle.",$COLOR_ERROR)
+			ExitLoop
+		EndIf
 
 		For $i = 0 To UBound($MySpells) - 1
 			Local $itempTotal = Eval("curCCSpell" & $MySpells[$i][0])

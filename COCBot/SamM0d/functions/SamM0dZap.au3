@@ -50,10 +50,6 @@ Func SamM0dZap()
 		SetLog("Your Dark Elixir Storage is full, no need to zap!", $COLOR_FUCHSIA)
 		Return $performedZap
 	; Check to make sure the account is high enough level to store DE.
-	ElseIf $g_iTownHallLevel < 7 Then
-		SetLog("You do not have the ability to store Dark Elixir, time to go home!", $COLOR_FUCHSIA)
-		Return $performedZap
-	; Check to ensure there is at least the minimum amount of DE available.
 	ElseIf (Number($searchDark) < Number($itxtMinDE)) Then
 		SetLog("Dark Elixir is below minimum value, exiting now!", $COLOR_FUCHSIA)
 		Return $performedZap
