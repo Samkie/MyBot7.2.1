@@ -220,7 +220,7 @@ Func CheckOnTrainUnit($hHBitmap)
 				$iOnQueueCamp += $itempTotal * $MyTroops[$i][2]
 			EndIf
 		Next
-		If $bGotOnQueueFlag And $bGotOnTrainFlag Then
+		If $bGotOnQueueFlag And Not $bGotOnTrainFlag Then
 			If $iAvailableCamp <> $iMyTroopsCampSize Or $ichkDisablePretrainTroops Then
 				If $ichkDisablePretrainTroops Then
 					SetLog("Pre-Train troops disable by user, remove all pre-train troops.", $COLOR_ERROR)

@@ -161,6 +161,7 @@ Func DoRevampTroops($bDoPreTrain = False)
 			Next
 	EndIf
 	If $bDoPreTrain Then
+		; all troops and pre-train troops already made, temparary disable check the troops until the donate make.
 		$tempDisableTrain = True
 	EndIf
 EndFunc

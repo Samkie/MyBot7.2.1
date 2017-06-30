@@ -50,6 +50,7 @@ Func ModTrain($ForcePreTrain = False)
 	While 1
 		; 读取造兵剩余时间
 		getArmyTroopTime()
+		;getArmySpellTime()
 		If _Sleep(50) Then Return
 		; getArmyTroopTime() 读取后会保存造兵时间在变量 $g_aiTimeTrain[0]
 		If $g_aiTimeTrain[0] > $itxtStickToTrainWindow Or $g_aiTimeTrain[0] <= 0 Then

@@ -228,7 +228,7 @@ Func CheckOnBrewUnit($hHBitmap)
 			EndIf
 		Next
 
-		If $bGotOnQueueFlag And $bGotOnBrewFlag Then
+		If $bGotOnQueueFlag And Not $bGotOnBrewFlag Then
 			If $iAvailableCamp <> $iMySpellsCampSize Then
 				SetLog("Error: Spells size not correct but pretrain already." & $iMySpellsCampSize, $COLOR_ERROR)
 				SetLog("Error: Detected Spells size = " & $iAvailableCamp & ", My Spells size = " & $iMySpellsCampSize, $COLOR_ERROR)

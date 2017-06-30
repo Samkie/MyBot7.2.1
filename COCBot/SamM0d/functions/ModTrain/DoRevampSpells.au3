@@ -141,6 +141,7 @@ Func DoRevampSpells($bDoPreTrain = False)
 			Next
 	EndIf
 	If $bDoPreTrain Then
+		; all spells and pre-brew spells already made, temparary disable check the spells until the spell donate make.
 		$tempDisableBrewSpell = True
 	EndIf
 EndFunc
