@@ -267,7 +267,7 @@ Func CheckOnBrewUnit($hHBitmap)
 		EndIf
 
 		; if don't have on brew spell then i check the pre brew spell size
-		If $bGotOnBrewFlag = False And $bGotOnQueueFlag Then
+		If $bGotOnQueueFlag And Not $bGotOnBrewFlag Then
 			If $aiSpellInfo[0][1] > 0 Then
 				If $iOnQueueCamp <> $iMyPreBrewSpellSize Then
 					SetLog("Error: Pre-Brew Spells size not correct.", $COLOR_ERROR)
