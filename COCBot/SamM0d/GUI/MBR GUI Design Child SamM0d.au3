@@ -363,7 +363,7 @@ For $i = 0 To UBound($MyTroops) - 1
 	Assign("txtMy" & $MyTroops[$i][0], GUICtrlCreateInput("0", $x + 94, $y, 30, -1, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER)))
 		_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & Eval("sTxt" & StringReplace(MyNameOfTroop($i,2)," ","")))
 		GUICtrlSetLimit(-1, 3)
-		GUICtrlSetOnEvent(-1, "chkMyTroopOrder")
+		GUICtrlSetOnEvent(-1, "UpdateTroopSetting")
 	Assign("cmbMy"& $MyTroops[$i][0] & "Order", GUICtrlCreateCombo("", $x+126, $y, 36, 18, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL)))
 		GUICtrlSetData(-1, $sComboData, $i + 1)
 		GUICtrlSetOnEvent(-1, "chkMyTroopOrder")
@@ -436,7 +436,7 @@ Local $x = $xStart, $y = $yStart
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & GetTranslatedFileIni("MBR Global GUI Design Names Spells", "TxtLightningSpells", "Lightning Spell") & " " & GetTranslatedFileIni("sam m0d", "txtQty", "Spells to make."))
 			GUICtrlSetLimit(-1, 2)
 			;GUICtrlSetState(-1, $GUI_DISABLE)
-			GUICtrlSetOnEvent(-1, "lblMyTotalCountSpell")
+			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblTimesLightS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 
 		$y +=25
@@ -446,7 +446,7 @@ Local $x = $xStart, $y = $yStart
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & GetTranslatedFileIni("MBR Global GUI Design Names Spells", "TxtHealingSpells", "Healing Spell") & " " & GetTranslatedFileIni("sam m0d", "txtQty", "Spells to make."))
 			GUICtrlSetLimit(-1, 2)
 			;GUICtrlSetState(-1, $GUI_DISABLE)
-			GUICtrlSetOnEvent(-1, "lblMyTotalCountSpell")
+			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblTimesHealS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 		$y +=25
 		$lblRageIcon=GUICtrlCreateIcon ($g_sLibIconPath, $eIcnRageSpell, $x + 10, $y, 24, 24)
@@ -455,7 +455,7 @@ Local $x = $xStart, $y = $yStart
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & GetTranslatedFileIni("MBR Global GUI Design Names Spells", "TxtRageSpells", "Rage Spell") & " " & GetTranslatedFileIni("sam m0d", "txtQty", "Spells to make."))
 			GUICtrlSetLimit(-1, 2)
 			;GUICtrlSetState(-1, $GUI_DISABLE)
-			GUICtrlSetOnEvent(-1, "lblMyTotalCountSpell")
+			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblTimesRageS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 		$y +=25
 		$lblJumpSpellIcon=GUICtrlCreateIcon ($g_sLibIconPath, $eIcnJumpSpell, $x + 10, $y, 24, 24)
@@ -464,7 +464,7 @@ Local $x = $xStart, $y = $yStart
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & GetTranslatedFileIni("MBR Global GUI Design Names Spells", "TxtJumpSpells", "Jump Spell") & " " & GetTranslatedFileIni("sam m0d", "txtQty", "Spells to make."))
 			GUICtrlSetLimit(-1, 2)
 			;GUICtrlSetState(-1, $GUI_DISABLE)
-			GUICtrlSetOnEvent(-1, "lblMyTotalCountSpell")
+			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblTimesJumpS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 		$y +=25
 		$lblFreezeIcon=GUICtrlCreateIcon ($g_sLibIconPath, $eIcnFreezeSpell, $x + 10, $y, 24, 24)
@@ -473,7 +473,7 @@ Local $x = $xStart, $y = $yStart
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & GetTranslatedFileIni("MBR Global GUI Design Names Spells", "TxtFreezeSpells", "Freeze Spell") & " " & GetTranslatedFileIni("sam m0d", "txtQty", "Spells to make."))
 			GUICtrlSetLimit(-1, 2)
 			;GUICtrlSetState(-1, $GUI_DISABLE)
-			GUICtrlSetOnEvent(-1, "lblMyTotalCountSpell")
+			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblFreezeS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 		$y +=25
 		$lblCloneIcon=GUICtrlCreateIcon ($g_sLibIconPath, $eIcnCloneSpell, $x + 10, $y, 24, 24)
@@ -482,7 +482,7 @@ Local $x = $xStart, $y = $yStart
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & GetTranslatedFileIni("MBR Global GUI Design Names Spells", "TxtCloneSpells", "Clone Spell") & " " & GetTranslatedFileIni("sam m0d", "txtQty", "Spells to make."))
 			GUICtrlSetLimit(-1, 2)
 			;GUICtrlSetState(-1, $GUI_DISABLE)
-			GUICtrlSetOnEvent(-1, "lblMyTotalCountSpell")
+			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblCloneS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 		$y +=25
 		$lblPoisonIcon = GUICtrlCreateIcon ($g_sLibIconPath, $eIcnPoisonSpell, $x + 10, $y, 24, 24)
@@ -491,7 +491,7 @@ Local $x = $xStart, $y = $yStart
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & GetTranslatedFileIni("MBR Global GUI Design Names Spells", "TxtPoisonSpells", "Poison Spell") & " " & GetTranslatedFileIni("sam m0d", "txtQty", "Spells to make."))
 			GUICtrlSetLimit(-1, 2)
 			;GUICtrlSetState(-1, $GUI_DISABLE)
-			GUICtrlSetOnEvent(-1, "lblMyTotalCountSpell")
+			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblTimesPoisonS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 		$y +=25
 		$lblEarthquakeIcon = GUICtrlCreateIcon ($g_sLibIconPath, $eIcnEarthquakeSpell, $x + 10, $y, 24, 24)
@@ -500,7 +500,7 @@ Local $x = $xStart, $y = $yStart
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & GetTranslatedFileIni("MBR Global GUI Design Names Spells", "TxtEarthQuakeSpells", "EarthQuake Spell") & " " & GetTranslatedFileIni("sam m0d", "txtQty", "Spells to make."))
 			GUICtrlSetLimit(-1, 2)
 			;GUICtrlSetState(-1, $GUI_DISABLE)
-			GUICtrlSetOnEvent(-1, "lblMyTotalCountSpell")
+			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblTimesEarthquakeS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 		$y +=25
 		$lblHasteIcon = GUICtrlCreateIcon ($g_sLibIconPath, $eIcnHasteSpell, $x + 10, $y, 24, 24)
@@ -509,7 +509,7 @@ Local $x = $xStart, $y = $yStart
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & GetTranslatedFileIni("MBR Global GUI Design Names Spells", "TxtHasteSpells", "Haste Spell") & " " & GetTranslatedFileIni("sam m0d", "txtQty", "Spells to make."))
 			GUICtrlSetLimit(-1, 2)
 			;GUICtrlSetState(-1, $GUI_DISABLE)
-			GUICtrlSetOnEvent(-1, "lblMyTotalCountSpell")
+			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblTimesHasteS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 		$y +=25
 		$lblSkeletonIcon = GUICtrlCreateIcon ($g_sLibIconPath, $eIcnSkeletonSpell, $x + 10, $y, 24, 24)
@@ -518,7 +518,7 @@ Local $x = $xStart, $y = $yStart
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "txtNoOf", "Enter the No. of") & " " & GetTranslatedFileIni("MBR Global GUI Design Names Spells", "TxtSkeletonSpells", "Skeleton Spell") & " " & GetTranslatedFileIni("sam m0d", "txtQty", "Spells to make."))
 			GUICtrlSetLimit(-1, 2)
 			;GUICtrlSetState(-1, $GUI_DISABLE)
-			GUICtrlSetOnEvent(-1, "lblMyTotalCountSpell")
+			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblTimesSkeletonS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 
 Local $x = 190, $y = 110
@@ -534,6 +534,7 @@ Next
 	For $i = 0 To UBound($MySpells) - 1
 		Assign("chkPre" & $MySpells[$i][0], GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 77 + $i, "Pre-Brew " & $MySpells[$i][0]) , $x + 40, $y, -1, -1))
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", 87 + $i, "Pre-Brew " & $MySpells[$i][0] & " after available spell prepare finish."))
+			GUICtrlSetOnEvent(-1, "UpdatePreSpellSetting")
 
 		Assign("cmbMy"& $MySpells[$i][0] & "Order", GUICtrlCreateCombo("", $x, $y, 36, 18, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL)))
 			GUICtrlSetData(-1, $sComboSpellData, $i + 1)

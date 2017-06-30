@@ -297,8 +297,8 @@ Func CheckOnTrainUnit($hHBitmap)
 				Local $tempTroops[19][5]
 				$tempTroops	= $MyTroops
 				_ArraySort($tempTroops,0,0,0,1)
-				_ArraySort($aiTroopInfo, 0, 0, 0, 2) ; sort to make remove start from left to right
-				For $i =  UBound($aiTroopInfo) - 1 To 0 Step -1
+				_ArraySort($aiTroopInfo, 1, 0, 0, 2)
+				For $i = 0 To UBound($aiTroopInfo) - 1
 					If $aiTroopInfo[$i][3] = True Then
 						If $aiTroopInfo[$i][0] <> $tempTroops[0][0] Then
 							SetLog("Pre-Train first slot: " & MyNameOfTroop(Eval("e" & $aiTroopInfo[$i][0]), $aiTroopInfo[$i][1]), $COLOR_ERROR)

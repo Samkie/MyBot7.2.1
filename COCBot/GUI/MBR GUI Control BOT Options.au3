@@ -281,6 +281,9 @@ Func btnTestTrain()
 ;~ 		setlog($MySpells[$i][0] & " Cost: " & getSpellCost($MySpells[$i][0]))
 ;~ 	Next
 	SetLog("===START===")
+	$g_bRestart = False
+	$tempDisableTrain=False
+	$tempDisableBrewSpell=False
     ModTrain()
 
 ;~ 			Local $iCount2 = 0

@@ -155,7 +155,7 @@ Func CheckOnBrewUnit($hHBitmap)
 
 	$bGotOnBrewFlag = False
 	For $i = 0 To UBound($MySpells) - 1
-		Local $itempTotal = Eval("cur" & $MySpells[$i][0]) + Eval("OnT" & $MySpells[$i][0])
+		Local $itempTotal = Eval("cur" & $MySpells[$i][0] & "Spell") + Eval("OnT" & $MySpells[$i][0] & "Spell")
 		If Eval("OnT" & $MySpells[$i][0] & "Spell") > 0 Then
 			SetLog(" - No. of On Brew " & MyNameOfTroop(Eval("enum" & $MySpells[$i][0]) + 23,  Eval("OnT" & $MySpells[$i][0] & "Spell")) & ": " &  Eval("OnT" & $MySpells[$i][0] & "Spell"), (Eval("enum" & $MySpells[$i][0]) > 5 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 			$bGotOnBrewFlag = True
@@ -292,12 +292,12 @@ Func CheckOnBrewUnit($hHBitmap)
 				Local $tempSpells[10][5]
 				$tempSpells	= $MySpells
 				_ArraySort($tempSpells,0,0,0,1)
-				_ArraySort($aiSpellInfo, 0, 0, 0, 2) ; sort to make remove start from left to right
-				For $i = UBound($aiSpellInfo) - 1 To 0 Step -1
+				_ArraySort($aiSpellInfo, 1, 0, 0, 2)
+				For $i = 0 To UBound($aiSpellInfo) - 1
 					If $aiSpellInfo[$i][3] = True Then
 						If $aiSpellInfo[$i][0] <> $tempSpells[0][0] Then
 							SetLog("Pre-Brew Spell first slot: " & MyNameOfTroop(Eval("enum" & $aiSpellInfo[$i][0])+23, $aiSpellInfo[$i][1]), $COLOR_ERROR)
-							SetLog("My first order spells: " & MyNameOfTroop(Eval("enum" & $tempSpells[0][0]), $tempSpells[0][3]), $COLOR_ERROR)
+							SetLog("My first order spells: " & MyNameOfTroop(Eval("enum" & $tempSpells[0][0])+23, $tempSpells[0][3]), $COLOR_ERROR)
 							SetLog("Remove and re-brew by order.", $COLOR_ERROR)
 							RemoveAllPreTrainTroops()
 							$g_bRestartCheckTroop = True

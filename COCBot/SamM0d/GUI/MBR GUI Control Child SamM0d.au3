@@ -19,7 +19,8 @@ Func chkMyTroopOrder()
 		EndIf
 	Next
 	For $i = 0 To 18
-		$MyTroops[$i][1] = Number($tempOrder[$i])
+		$MyTroopsSetting[$icmbTroopSetting][$i][1] = Number($tempOrder[$i])
+		$MyTroops[$i][1] =  $MyTroopsSetting[$icmbTroopSetting][$i][1]
 		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MyTroops[$i][0] & "Order"), $MyTroops[$i][1]-1)
 		$g_iMyTroopsSize += GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0])) * $MyTroops[$i][2]
 	Next
@@ -44,6 +45,13 @@ Func chkMyTroopOrder()
 	If $g_iSamM0dDebug Then SetLog("$g_iMyTroopsSize: " & $g_iMyTroopsSize)
 EndFunc
 
+Func UpdateTroopSetting()
+	For $i = 0 To UBound($MyTroops) - 1
+		$MyTroopsSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0]))
+		$MyTroops[$i][3] =  $MyTroopsSetting[$icmbTroopSetting][$i][0]
+	Next
+EndFunc
+
 Func chkMySpellOrder()
 	Local $tempOrder[10]
 	Local $tempSwap
@@ -64,7 +72,8 @@ Func chkMySpellOrder()
 		EndIf
 	Next
 	For $i = 0 To 9
-		$MySpells[$i][1] = Number($tempOrder[$i])
+		$MySpellSetting[$icmbTroopSetting][$i][1] = Number($tempOrder[$i])
+		$MySpells[$i][1] =  $MySpellSetting[$icmbTroopSetting][$i][1]
 		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "Order"), $MySpells[$i][1]-1)
 		$g_iMySpellsSize += GUICtrlRead(Eval("txtNum" & $MySpells[$i][0] & "Spell")) * $MySpells[$i][2]
 	Next
@@ -135,6 +144,24 @@ Func cmbTroopSetting()
 	chkMyTroopOrder()
 	chkMySpellOrder()
 	lblMyTotalCountSpell()
+EndFunc
+
+Func UpdatePreSpellSetting()
+	For $i = 0 To UBound($MySpells) - 1
+		If GUICtrlRead(Eval("chkPre" & $MySpells[$i][0])) = $GUI_CHECKED Then
+			$MySpellSetting[$icmbTroopSetting][$i][2] = 1
+		Else
+			$MySpellSetting[$icmbTroopSetting][$i][2] = 0
+		EndIf
+		Assign("ichkPre" & $MySpells[$i][0],  $MySpellSetting[$icmbTroopSetting][$i][2])
+	Next
+EndFunc
+
+Func UpdateSpellSetting()
+	For $i = 0 To UBound($MySpells) - 1
+		$MySpellSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtNum" & $MySpells[$i][0] & "Spell"))
+		$MySpells[$i][3] = $MySpellSetting[$icmbTroopSetting][$i][0]
+	Next
 EndFunc
 
 Func cmbMyQuickTrain()
@@ -339,6 +366,7 @@ Func lblMyTotalCountSpell()
 		_GUI_Value_STATE("SHOW", $groupMyClone)
 	EndIf
 	If $g_iSamM0dDebug Then SetLog("$g_iMySpellsSize: " & $g_iMySpellsSize)
+
 EndFunc   ;==>lblTotalCountSpell
 
 Func chkCheck4CC()
