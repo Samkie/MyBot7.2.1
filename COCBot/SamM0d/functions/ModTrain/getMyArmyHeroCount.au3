@@ -126,7 +126,7 @@ Func getMyArmyHeroCount($bSetLog = True)
 EndFunc   ;==>getMyArmyHeroCount
 
 Func myArmyHeroStatus($iHeroSlot)
-	Local $sDirectory = @ScriptDir & "\COCBot\SamM0d\images\HeroStatus\"
+	Local $sDirectory = @ScriptDir & "\Profiles\SamM0d\HeroStatus\"
 	Local $returnProps="objectname"
 	Local $aPropsValues
 	Local Const $aHeroesRect[3][4] = [[656, 344, 677, 364], [730, 344, 751, 364], [804, 344, 825, 364]]

@@ -26,7 +26,7 @@
 ;~ #include "SamM0d\functions\RemoveSpecialObstacleBB.au3"
 #include "SamM0d\functions\AreCollectorsNearRedline.au3"
 #include "SamM0d\functions\HLFClick.au3"
-#include "SamM0d\functions\OCR\getMyOcr.au3"
+#include "SamM0d\functions\getMyOcr.au3"
 #include "SamM0d\functions\MySwitch\MySwitch.au3"
 
 ;#include "SamM0d\functions\CreateArmy\CustomSpell.au3"

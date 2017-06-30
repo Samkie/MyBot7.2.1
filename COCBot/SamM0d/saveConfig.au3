@@ -256,6 +256,9 @@ IniWrite($g_sProfileConfigPath, "GlobalDelay", "DelayPercentage", GUICtrlRead($t
 IniWrite($g_sProfileConfigPath, "StickToTrainPage", "Minutes", GUICtrlRead($txtStickToTrainWindow))
 
 ; My Troops
+IniWriteS($g_sProfileConfigPath, "MyTroops", "ForcePreTrainTroop", (GUICtrlRead($chkForcePreTrainTroops) = $GUI_CHECKED ? 1 : 0))
+IniWrite($g_sProfileConfigPath, "MyTroops", "ForcePreTrainStrength", GUICtrlRead($txtForcePreTrainStrength))
+
 If GUICtrlRead($chkDisablePretrainTroops) = $GUI_CHECKED Then
 	IniWriteS($g_sProfileConfigPath, "MyTroops", "NoPreTrain", 1)
 Else

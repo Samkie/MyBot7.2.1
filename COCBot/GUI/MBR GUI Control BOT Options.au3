@@ -265,61 +265,39 @@ Func btnTestTrain()
 	Local $currentOCR = $g_iDebugOcr
 	Local $currentRunState = $g_bRunState
 	$g_bRunState = True
-
-;~ 	;$tempDisableTrain = False
-;~ 	;$tempDisableBrewSpell = False
-;~ 	;TroopsAndSpellsChecker($tempDisableTrain, $tempDisableBrewSpell, False)
-;~ 	For $i = 0 To 18
-;~ 		CheckNeedSwipe(Eval("e" & $MyTroops[$i][0]))
-;~ 		setlog($MyTroops[$i][0] & " Cost: " & getTroopCost($MyTroops[$i][0]))
-;~ 	Next
-
-;~ 	If gotoBrewSpells() = False Then Return
-
-;~ 	For $i = 0 to 9
-
-;~ 		setlog($MySpells[$i][0] & " Cost: " & getSpellCost($MySpells[$i][0]))
-;~ 	Next
 	SetLog("===START===")
+	Local $hTimer = __TimerInit()
+
+
+;~ 	Local $sDirectory = @ScriptDir & "\Profiles\SamM0d\images\Troops\"
+
+;~ 	Local $x = 100
+;~ 	Local $y = 100
+;~ 	_CaptureRegion2()
+;~ 	If $g_iDebugSetlog = 1 Then Setlog("Search into whitelist...", $color_purple)
+;~ 	Local $xyz = _FileListToArrayRec($sDirectory, "*.png", $FLTAR_FILES, $FLTAR_NORECUR, $FLTAR_SORT, $FLTAR_NOPATH)
+;~ 	If UBound($xyz) > 1 Then
+;~ 		For $i = 1 To UBound($xyz) - 1
+;~ 			Setlog("$xyz[$i]: " & $xyz[$i])
+;~ 			Local $result = FindImageInPlace("TEST", $sDirectory & $xyz[$i], "0," & $y - 90 & "," & $x - 30 & "," & $y, False)
+;~ 			If StringInStr($result, ",") > 0 Then
+;~ 				If $g_iCmbDonateFilter = 2 Then Setlog("WHITE LIST: image match! " & $xyz[$i], $COLOR_SUCCESS)
+;~ 				If $g_iCmbDonateFilter = 2 Then Return True ; <=== return DONATE if name found in white list
+;~ 				ExitLoop
+;~ 			EndIf
+;~ 		Next
+;~ 	EndIf
+
+;~ 	SetLog("===START===")
 	$g_bRestart = False
 	$tempDisableTrain=False
 	$tempDisableBrewSpell=False
     ModTrain()
-
-;~ 			Local $iCount2 = 0
-;~ 			While IsQueueBlockByMsg($iCount2) ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
-;~ 				If _Sleep(1000) Then ExitLoop
-;~ 				$iCount2 += 1
-;~ 				If $iCount2 >= 30 Then
-;~ 					ExitLoop
-;~ 				EndIf
-;~ 			WEnd
-
-	;CheckAvailableCCUnit()
-	;CheckAvailableCCSpellUnit()
-;~ 	$tempDisableTrain = False
-;~ 	$tempDisableBrewSpell = False
-;~ 	TroopsAndSpellsChecker($tempDisableTrain, $tempDisableBrewSpell, False)
-
- 	SetLog("===END===")
+;~  	SetLog("===END===")
 
 
-;~ 	BeginImageTest()
-
-;~ 	Local $result
-;~ 	SetLog("Testing checkArmyCamp()", $COLOR_INFO)
-;~ 	$result = checkArmyCamp()
-;~ 	If @error Then $result = "Error " & @error & ", " & @extended & ", " & ((IsArray($result)) ? (_ArrayToString($result, ",")) : ($result))
-;~ 	SetLog("Result checkArmyCamp() = " & $result, $COLOR_INFO)
-
-;~ 	SetLog("Testing getArmyHeroTime()", $COLOR_INFO)
-;~ 	$result = getArmyHeroTime("all")
-;~ 	If @error Then $result = "Error " & @error & ", " & @extended & ", " & ((IsArray($result)) ? (_ArrayToString($result, ",")) : ($result))
-;~ 	SetLog("Result getArmyHeroTime() = " & $result, $COLOR_INFO)
-;~ 	SetLog("Testing Train DONE", $COLOR_INFO)
-
-;~ 	EndImageTest()
-
+	SetLog("$hTimer: " & Round(__TimerDiff($hTimer) / 1000, 2))
+	SetLog("===END===")
 	$g_iDebugOcr = $currentOCR
 	$g_bRunState = $currentRunState
 EndFunc   ;==>btnTestTrain

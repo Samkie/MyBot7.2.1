@@ -37,7 +37,7 @@ Func getMyOcr($hHOCRBitmap, $x, $y, $width, $height, $OCRType, $bReturnAsNumber 
 
 	Local $tempOCRType = StringLower($OCRType)
 
-	$sDirectory = @ScriptDir & "\COCBot\SamM0d\functions\OCR\" & $tempOCRType
+	$sDirectory = @ScriptDir & "\Profiles\SamM0d\OCR\" & $tempOCRType
 
 	If $hHOCRBitmap = 0 Then
 		ForceCaptureRegion()

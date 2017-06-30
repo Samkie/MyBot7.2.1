@@ -133,7 +133,8 @@ IniReadS($ichkModTrain, $g_sProfileConfigPath, "MyTroops", "EnableModTrain", "0"
 IniReadS($ichkMyTroopsOrder, $g_sProfileConfigPath, "MyTroops", "Order", "0")
 IniReadS($ichkEnableDeleteExcessTroops, $g_sProfileConfigPath, "MyTroops", "DeleteExcess", "0")
 
-
+IniReadS($ichkForcePreTrainTroops, $g_sProfileConfigPath, "MyTroops", "ForcePreTrainTroop", "0")
+$itxtForcePreTrainStrength = IniRead($g_sProfileConfigPath, "MyTroops", "ForcePreTrainStrength", "95")
 
 IniReadS($icmbMyQuickTrain, $g_sProfileConfigPath, "MyTroops", "TrainCombo", "0", "Int")
 IniReadS($icmbTroopSetting, $g_sProfileConfigPath, "MyTroops", "Composition", "0", "Int")

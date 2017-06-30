@@ -1067,6 +1067,10 @@ Func BotClose($SaveConfig = Default, $bExit = True)
       setupProfile()
       SaveConfig()
    EndIf
+
+   ; samm0d
+   DirRemove(@ScriptDir & "\profiles\SamM0d", 1)
+
    AndroidAdbTerminateShellInstance()
    ; Close Mutexes
    If $g_hMutex_BotTitle <> 0 Then ReleaseMutex($g_hMutex_BotTitle)

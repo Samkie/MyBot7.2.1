@@ -269,6 +269,13 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 			Else
 				If CheckAvailableUnit($g_hHBitmapArmyTab) Then
 					If CheckOnTrainUnit($g_hHBitmapTrainTab) Then
+						Local $bPreTrainFlag = $bForcePreTrain
+						If $ichkForcePreTrainTroops Then
+							If $g_iArmyCapacity >= $itxtForcePreTrainStrength Then
+								$bPreTrainFlag = True
+							EndIf
+						EndIf
+
 						Local $iFullArmyCamp = Int(($g_iMyTroopsSize * $g_iTrainArmyFullTroopPct) / 100)
 						Select
 							Case $g_CurrentCampUtilization = $iFullArmyCamp And $g_aiTroopsMaxCamp[0] = $iFullArmyCamp
@@ -290,7 +297,7 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 									DoRevampTroops(True)
 								EndIf
 							Case $g_CurrentCampUtilization < $iFullArmyCamp And $g_aiTroopsMaxCamp[0] > $iFullArmyCamp
-								If $bForcePreTrain Then
+								If $bPreTrainFlag Then
 									If $ichkDisablePretrainTroops = 1 Then
 										SetLog("Pre-train troops disable by user.",$COLOR_INFO)
 										$tempDisableTrain = True
@@ -299,7 +306,7 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 									EndIf
 								EndIf
 							Case $g_CurrentCampUtilization < $iFullArmyCamp And $g_aiTroopsMaxCamp[0] = $iFullArmyCamp
-								If $bForcePreTrain Then
+								If $bPreTrainFlag Then
 									If $icmbMyQuickTrain = 0 Then
 										If $ichkDisablePretrainTroops = 1 Then
 											SetLog("Pre-train troops disable by user.",$COLOR_INFO)
@@ -313,7 +320,7 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 								EndIf
 							Case $g_CurrentCampUtilization < $iFullArmyCamp And $g_aiTroopsMaxCamp[0] < $iFullArmyCamp
 								DoRevampTroops()
-								If $bForcePreTrain Then
+								If $bPreTrainFlag Then
 									ContinueLoop
 								EndIf
 							Case Else

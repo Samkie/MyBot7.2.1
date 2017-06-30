@@ -61,7 +61,7 @@ Func CheckAvailableCCSpellUnit()
 
 		Local $aiSpellsInfo[2][3]
 		Local $AvailableCamp = 0
-		Local $sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Spells\CC\"
+		Local $sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\CC\"
 		Local $returnProps="objectname"
 		Local $aPropsValues
 		Local $bDeletedExcess = False

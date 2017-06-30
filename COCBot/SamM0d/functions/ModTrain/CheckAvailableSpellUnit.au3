@@ -35,7 +35,7 @@ Func CheckAvailableSpellUnit($hHBitmap)
 
 	Local $aiSpellsInfo[7][3]
 	Local $AvailableCamp = 0
-	Local $sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Spells\"
+	Local $sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\"
 	Local $returnProps="objectname"
 	Local $aPropsValues
 	Local $bDeletedExcess = False

@@ -510,19 +510,20 @@ Func chkSmartUpdateWall()
 EndFunc
 
 Func chkDropCCFirst()
-	If GUICtrlRead($chkDropCCFirst) = $GUI_CHECKED Then
-		$ichkDropCCFirst = 1
-	Else
-		$ichkDropCCFirst = 0
-	EndIf
+	$ichkDropCCFirst = (GUICtrlRead($chkDropCCFirst) = $GUI_CHECKED ? 1 : 0)
 EndFunc
 
+Func ForcePretrainTroops()
+	$ichkForcePreTrainTroops = (GUICtrlRead($chkForcePreTrainTroops) = $GUI_CHECKED ? 1: 0)
+	$itxtForcePreTrainStrength = GUICtrlRead($txtForcePreTrainStrength)
+EndFunc
+
+;~ Func chkEnableCacheTroopImageFirst()
+;~ 	$ichkEnableCacheTroopImageFirst	= (GUICtrlRead($chkEnableCacheTroopImageFirst) = $GUI_CHECKED ? 1: 0)
+;~ EndFunc
+
 Func chkEnableCustomOCR4CCRequest()
-	If GUICtrlRead($chkEnableCustomOCR4CCRequest) = $GUI_CHECKED Then
-		$ichkEnableCustomOCR4CCRequest = 1
-	Else
-		$ichkEnableCustomOCR4CCRequest = 0
-	EndIf
+	$ichkEnableCustomOCR4CCRequest = (GUICtrlRead($chkEnableCustomOCR4CCRequest) = $GUI_CHECKED ? 1 : 0)
 EndFunc
 
 ;~ Func chkRemoveSpecialObstacleBB()

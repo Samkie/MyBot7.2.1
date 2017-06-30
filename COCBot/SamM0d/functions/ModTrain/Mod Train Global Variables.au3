@@ -1,5 +1,5 @@
 Global $chkModTrain, $lblMyQuickTrain, $cmbMyQuickTrain, $grpOtherTroops, $chkMyTroopsOrder, $cmbTroopSetting, $btnResetTroops, $btnResetOrder, $lblTotalCapacityOfMyTroops, $idProgressbar, _
-$chkDisablePretrainTroops, $chkEnableDeleteExcessTroops, $lblStickToTrainWindow, $txtStickToTrainWindow
+$chkDisablePretrainTroops, $chkEnableDeleteExcessTroops, $lblStickToTrainWindow, $txtStickToTrainWindow, $chkForcePreTrainTroops, $txtForcePreTrainStrength
 Global $grpSpells,$lblTotalSpell,$txtTotalCountSpell2
 
 Global $lblLightningIcon,$lblHealIcon,$lblRageIcon,$lblJumpSpellIcon,$lblFreezeIcon,$lblCloneIcon,$lblPoisonIcon,$lblEarthquakeIcon,$lblHasteIcon,$lblSkeletonIcon
@@ -19,6 +19,8 @@ Global $bTempDisAddIdleTime = False ;disable add train idle when train finish so
 Global $ichkMyTroopsOrder = 0
 Global $ichkDisablePretrainTroops = 0
 Global $ichkEnableDeleteExcessTroops = 0
+Global $ichkForcePreTrainTroops = 0
+Global $itxtForcePreTrainStrength = 95
 Global $bRestartCustomTrain = False
 
 Global $icmbTroopSetting = 0

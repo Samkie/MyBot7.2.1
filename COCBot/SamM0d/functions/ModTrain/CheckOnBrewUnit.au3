@@ -66,10 +66,10 @@ Func CheckOnBrewUnit($hHBitmap)
 			Local $bContinueNextLoop = False
 
 			If _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
-				$sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Spells\Queue\"
+				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\Queue\"
 				$bIsQueueSpell = True
 			Else
-				$sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Spells\Brew\"
+				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\Brew\"
 			EndIf
 
 			Assign("g_hHBitmap_OB_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(65 + (70.5 * $i) + ((70.5 - 20) / 2)), $g_aiArmyOnBrewSlot[1] - 2, Int(65 + (70.5* $i) + ((70.5 - 20) / 2) + 20), $g_aiArmyOnBrewSlot[3] + 2))

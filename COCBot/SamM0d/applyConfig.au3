@@ -286,6 +286,8 @@ Else
 	GUICtrlSetState($chkModTrain, $GUI_UNCHECKED)
 EndIf
 
+GUICtrlSetState($chkForcePreTrainTroops, ($ichkForcePreTrainTroops = 1 ? $GUI_CHECKED : $GUI_UNCHECKED))
+GUICtrlSetData($txtForcePreTrainStrength, $itxtForcePreTrainStrength)
 
 ; My Troops
 If $ichkMyTroopsOrder = 1 Then

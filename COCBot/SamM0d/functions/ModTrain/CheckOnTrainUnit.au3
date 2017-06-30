@@ -69,10 +69,10 @@ Func CheckOnTrainUnit($hHBitmap)
 			Local $bContinueNextLoop = False
 			; if color check is pink at the troop header that mean pre train unit
 			If _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
-				$sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Troops\Queue\"
+				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Troops\Queue\"
 				$bIsQueueTroop = True
 			Else
-				$sDirectory = @ScriptDir & "\COCBot\SamM0d\images\Troops\Train\"
+				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Troops\Train\"
 			EndIf
 			; clone the area for let imgloc to search later
 			Assign("g_hHBitmap_OT_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(65 + (70.5 * $i) + ((70.5 - 20) / 2)), $g_aiArmyOnTrainSlot[1] - 2, Int(65 + (70.5* $i) + ((70.5 - 20) / 2) + 20), $g_aiArmyOnTrainSlot[3] + 2))

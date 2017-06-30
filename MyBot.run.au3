@@ -69,7 +69,7 @@ InitializeBot()
 MainLoop()
 
 Func UpdateBotTitle()
-	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.8.4 "
+	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.8.5 "
 	If $g_sBotTitle = "" Then
 		$g_sBotTitle = $sTitle
 	Else
@@ -179,6 +179,10 @@ Func InitializeBot()
 		DirCreate(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug")
 		DirCreate(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images")
 	EndIf
+
+	DirRemove(@ScriptDir & "\profiles\SamM0d", 1)
+	DirCreate(@ScriptDir & "\profiles\SamM0d")
+	DirCopy(@ScriptDir & "\COCBot\SamM0d\Images",@ScriptDir & "\profiles\SamM0d", $FC_OVERWRITE)
 
 	; samm0d log translate
 	#include "COCBot\SamM0d\Log Msg.au3"

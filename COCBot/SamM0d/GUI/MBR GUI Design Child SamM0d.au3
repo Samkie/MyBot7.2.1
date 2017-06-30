@@ -347,7 +347,7 @@ $yStart = 55
 
 Local $x = $xStart, $y = $yStart
 
-$grpOtherTroops = GUICtrlCreateGroup(GetTranslatedFileIni("sam m0d", 64, "My Troops"), $x, $y, 430, 335)
+$grpOtherTroops = GUICtrlCreateGroup(GetTranslatedFileIni("sam m0d", 64, "My Troops"), $x, $y, 430, 375)
 $chkMyTroopsOrder = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 67, "By Order"), $x+136, $y+15, -1, -1)
 _GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", 68, "ReVamp or Train will be follow the order you had set."))
 GUICtrlSetOnEvent(-1, "chkMyTroopOrder")
@@ -410,6 +410,19 @@ $txtStickToTrainWindow = GUICtrlCreateInput("2", $x, $y-2, 30, 20, BitOR($GUI_SS
 	GUICtrlSetOnEvent(-1, "txtStickToTrainWindow")
 	GUICtrlCreateLabel(GetTranslatedFileIni("sam m0d", 61, "minute(s)"), $x+35, $y, -1, -1)
 	_GUICtrlSetTip(-1, $sTxtTip)
+
+$y += 25
+$x = 10
+$chkForcePreTrainTroops = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "ForcePreTrainTroops", "Force pre-train troops when army strength over percentage: "), $x+10, $y, -1, -1)
+GUICtrlSetOnEvent(-1, "ForcePretrainTroops")
+$txtForcePreTrainStrength = GUICtrlCreateInput("0", $x + 340, $y, 30, -1, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER))
+GUICtrlSetLimit(-1, 3)
+GUICtrlSetOnEvent(-1, "ForcePretrainTroops")
+
+;~ $y += 20
+;~ $chkEnableCacheTroopImageFirst = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "CacheTroopAndSpellFirst", "Cache Troops and Spells image at start."), $x+10, $y, -1, -1)
+;~ GUICtrlSetOnEvent(-1, "chkEnableCacheTroopImageFirst")
+
 
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
