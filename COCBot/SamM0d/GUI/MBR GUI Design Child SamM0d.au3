@@ -366,7 +366,7 @@ For $i = 0 To UBound($MyTroops) - 1
 		GUICtrlSetOnEvent(-1, "UpdateTroopSetting")
 	Assign("cmbMy"& $MyTroops[$i][0] & "Order", GUICtrlCreateCombo("", $x+126, $y, 36, 18, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL)))
 		GUICtrlSetData(-1, $sComboData, $i + 1)
-		GUICtrlSetOnEvent(-1, "chkMyTroopOrder")
+		GUICtrlSetOnEvent(-1, "cmbMyTroopOrder")
 	$y +=24
 	If $i = 11 Then
 		$x = 205
@@ -551,7 +551,7 @@ Next
 
 		Assign("cmbMy"& $MySpells[$i][0] & "Order", GUICtrlCreateCombo("", $x, $y, 36, 18, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL)))
 			GUICtrlSetData(-1, $sComboSpellData, $i + 1)
-			GUICtrlSetOnEvent(-1, "chkMySpellOrder")
+			GUICtrlSetOnEvent(-1, "cmbMySpellOrder")
 		$y +=25
 	Next
 

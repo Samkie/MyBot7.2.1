@@ -1,9 +1,17 @@
-
 Func chkMyTroopOrder()
+	If GUICtrlRead($chkMyTroopsOrder) = $GUI_CHECKED Then
+		$ichkMyTroopsOrder = 1
+	Else
+		$ichkMyTroopsOrder = 0
+	EndIf
+	;SetLog("$ichkMyTroopsOrder: " & $ichkMyTroopsOrder)
+EndFunc
+
+Func cmbMyTroopOrder()
 	Local $tempOrder[19]
 	Local $tempSwap
 	Local $tempSwapTo
-	$g_iMyTroopsSize = 0
+
 	For $i = 0 To 18
 		$tempOrder[$i] = GUICtrlRead(Eval("cmbMy" & $MyTroops[$i][0] & "Order"))
 	Next
@@ -22,15 +30,30 @@ Func chkMyTroopOrder()
 		$MyTroopsSetting[$icmbTroopSetting][$i][1] = Number($tempOrder[$i])
 		$MyTroops[$i][1] =  $MyTroopsSetting[$icmbTroopSetting][$i][1]
 		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MyTroops[$i][0] & "Order"), $MyTroops[$i][1]-1)
-		$g_iMyTroopsSize += GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0])) * $MyTroops[$i][2]
+	Next
+EndFunc
+
+Func UpdateTroopSetting()
+
+
+	For $i = 0 To UBound($MyTroops) - 1
+		$MyTroopsSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0]))
+		$MyTroops[$i][3] =  $MyTroopsSetting[$icmbTroopSetting][$i][0]
+
 	Next
 
-	If GUICtrlRead($chkMyTroopsOrder) = $GUI_CHECKED Then
-		$ichkMyTroopsOrder = 1
-	Else
-		$ichkMyTroopsOrder = 0
-	EndIf
-	;SetLog("$ichkMyTroopsOrder: " & $ichkMyTroopsOrder)
+	UpdateTroopSize()
+	If $g_iSamM0dDebug Then SetLog("$g_iMyTroopsSize: " & $g_iMyTroopsSize)
+
+EndFunc
+
+Func UpdateTroopSize()
+	$g_iMyTroopsSize = 0
+
+	For $i = 0 To UBound($MyTroops) - 1
+		$g_iMyTroopsSize += $MyTroops[$i][3] * $MyTroops[$i][2]
+	Next
+
 	$g_iTrainArmyFullTroopPct = Int(GUICtrlRead($g_hTxtFullTroop))
 	GUICtrlSetData($lblTotalCapacityOfMyTroops,GetTranslatedFileIni("sam m0d", 76, "Total") & ": " & $g_iMyTroopsSize & "/" & Int(($g_iTotalCampSpace * $g_iTrainArmyFullTroopPct) / 100))
 	If $g_iMyTroopsSize > (($g_iTotalCampSpace * $g_iTrainArmyFullTroopPct) / 100) Then
@@ -42,21 +65,13 @@ Func chkMyTroopOrder()
 		GUICtrlSetData($idProgressbar, Int(($g_iMyTroopsSize / (($g_iTotalCampSpace * $g_iTrainArmyFullTroopPct) / 100)) * 100))
 		_SendMessage(GUICtrlGetHandle($idProgressbar), $PBM_SETSTATE, 1) ; green
 	EndIf
-	If $g_iSamM0dDebug Then SetLog("$g_iMyTroopsSize: " & $g_iMyTroopsSize)
 EndFunc
 
-Func UpdateTroopSetting()
-	For $i = 0 To UBound($MyTroops) - 1
-		$MyTroopsSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0]))
-		$MyTroops[$i][3] =  $MyTroopsSetting[$icmbTroopSetting][$i][0]
-	Next
-EndFunc
-
-Func chkMySpellOrder()
+Func cmbMySpellOrder()
 	Local $tempOrder[10]
 	Local $tempSwap
 	Local $tempSwapTo
-	$g_iMySpellsSize = 0
+
 	For $i = 0 To 9
 		$tempOrder[$i] = GUICtrlRead(Eval("cmbMy" & $MySpells[$i][0] & "Order"))
 	Next
@@ -75,7 +90,26 @@ Func chkMySpellOrder()
 		$MySpellSetting[$icmbTroopSetting][$i][1] = Number($tempOrder[$i])
 		$MySpells[$i][1] =  $MySpellSetting[$icmbTroopSetting][$i][1]
 		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "Order"), $MySpells[$i][1]-1)
-		$g_iMySpellsSize += GUICtrlRead(Eval("txtNum" & $MySpells[$i][0] & "Spell")) * $MySpells[$i][2]
+	Next
+EndFunc
+
+Func UpdatePreSpellSetting()
+	For $i = 0 To UBound($MySpells) - 1
+		If GUICtrlRead(Eval("chkPre" & $MySpells[$i][0])) = $GUI_CHECKED Then
+			$MySpellSetting[$icmbTroopSetting][$i][2] = 1
+		Else
+			$MySpellSetting[$icmbTroopSetting][$i][2] = 0
+		EndIf
+		Assign("ichkPre" & $MySpells[$i][0],  $MySpellSetting[$icmbTroopSetting][$i][2])
+	Next
+EndFunc
+
+Func UpdateSpellSetting()
+	$g_iMySpellsSize = 0
+	For $i = 0 To UBound($MySpells) - 1
+		$MySpellSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtNum" & $MySpells[$i][0] & "Spell"))
+		$MySpells[$i][3] = $MySpellSetting[$icmbTroopSetting][$i][0]
+		$g_iMySpellsSize += $MySpells[$i][3] * $MySpells[$i][2]
 	Next
 	If $g_iSamM0dDebug Then SetLog("$g_iMySpellsSize: " & $g_iMySpellsSize)
 EndFunc
@@ -141,27 +175,10 @@ Func cmbTroopSetting()
 		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "Order"), $MySpells[$i][1]-1)
 	Next
 
-	chkMyTroopOrder()
-	chkMySpellOrder()
+	;cmbMyTroopOrder()
+	;cmbMySpellOrder()
+	UpdateTroopSize()
 	lblMyTotalCountSpell()
-EndFunc
-
-Func UpdatePreSpellSetting()
-	For $i = 0 To UBound($MySpells) - 1
-		If GUICtrlRead(Eval("chkPre" & $MySpells[$i][0])) = $GUI_CHECKED Then
-			$MySpellSetting[$icmbTroopSetting][$i][2] = 1
-		Else
-			$MySpellSetting[$icmbTroopSetting][$i][2] = 0
-		EndIf
-		Assign("ichkPre" & $MySpells[$i][0],  $MySpellSetting[$icmbTroopSetting][$i][2])
-	Next
-EndFunc
-
-Func UpdateSpellSetting()
-	For $i = 0 To UBound($MySpells) - 1
-		$MySpellSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtNum" & $MySpells[$i][0] & "Spell"))
-		$MySpells[$i][3] = $MySpellSetting[$icmbTroopSetting][$i][0]
-	Next
 EndFunc
 
 Func cmbMyQuickTrain()

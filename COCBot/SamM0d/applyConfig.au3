@@ -307,7 +307,9 @@ For $i = 0 To UBound($MyTroops)-1
 	_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MyTroops[$i][0] & "Order"), $MyTroops[$i][1]-1)
 Next
 
-chkMyTroopOrder()
+UpdateTroopSize()
+
+;cmbMyTroopOrder()
 
 If $ichkMySpellsOrder = 1 Then
 	GUICtrlSetState($chkMySpellsOrder, $GUI_CHECKED)
@@ -337,7 +339,7 @@ For $i = 0 To UBound($MySpells)-1
 	_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "Order"), $MySpells[$i][1]-1)
 Next
 
-chkMySpellOrder()
+;cmbMySpellOrder()
 
 GUICtrlSetData($txtTotalCountSpell2, $g_iTotalSpellValue)
 
