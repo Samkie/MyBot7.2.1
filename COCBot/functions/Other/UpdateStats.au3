@@ -517,6 +517,36 @@ Func UpdateStats()
 				GUICtrlSetState($g_hPicHourlyStatsDark, $GUI_HIDE)
 			EndIf
 
+			If $g_iFirstAttack = 2 Then
+				Local $iTotalGain[4] = [0,0,"",0]
+				For $i = 0 To 7
+					If $ichkEnableAcc[$i] = 1 Then
+						Local $tempGain = [0,0,"",0]
+						$tempGain = $aProfileStats[33][$i+1]
+						$iTotalGain[0] += $tempGain[0]
+						$iTotalGain[1] += $tempGain[1]
+						If $tempGain[2] <> "" Then
+							$iTotalGain[2] += $tempGain[2]
+						EndIf
+						$iTotalGain[3] += $tempGain[3]
+					EndIf
+				Next
+
+				GUICtrlSetData($g_ahLblStatsSwitchTotal[$eLootGold], $iTotalGain[$eLootGold])
+				GUICtrlSetData($g_ahLblStatsSwitchTotal[$eLootElixir], $iTotalGain[$eLootElixir])
+				GUICtrlSetData($g_ahLblStatsSwitchTotal[$eLootDarkElixir], $iTotalGain[$eLootDarkElixir])
+				GUICtrlSetData($g_ahLblStatsSwitchTotal[$eLootTrophy], $iTotalGain[$eLootTrophy])
+
+				GUICtrlSetData($g_ahLblStatsSwitchGPH[$eLootGold], _NumberFormat(Round($iTotalGain[$eLootGold] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "k / h")
+				GUICtrlSetData($g_ahLblStatsSwitchGPH[$eLootElixir], _NumberFormat(Round($iTotalGain[$eLootElixir] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600)) & "k / h")
+				If $g_ahLblStatsSwitchGPH[$eLootDarkElixir] <> "" Then
+					GUICtrlSetData($g_ahLblStatsSwitchGPH[$eLootDarkElixir], _NumberFormat(Round($iTotalGain[$eLootDarkElixir] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h")
+				EndIf
+				GUICtrlSetData($g_ahLblStatsSwitchGPH[$eLootTrophy], _NumberFormat(Round($iTotalGain[$eLootTrophy] / (Int(__TimerDiff($g_hTimerSinceStarted) + $g_iTimePassed)) * 3600 * 1000)) & " / h")
+
+			EndIf
+
+
 			If $bUpdateStats = True Then
 				If $aSwitchList[$iCurStep][4] <> $iCurActiveAcc Then
 					For $i = 0 To UBound($aSwitchList) - 1

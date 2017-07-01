@@ -128,8 +128,6 @@ Func getMyOcr($hHOCRBitmap, $x, $y, $width, $height, $OCRType, $bReturnAsNumber 
 		EndIf
 	EndIf
 
-	$hHOCRBitmap = 0
-
 	If $bReturnAsNumber Then
 		If $sReturn = "" Then $sReturn = "0"
 		Return Number($sReturn)
@@ -225,7 +223,6 @@ Func findMultiImage($hBitmap4Find, $directory, $sCocDiamond, $redLines, $minLeve
 	; Perform the search
 
 	Local $result = DllCallMyBot("SearchMultipleTilesBetweenLevels", "handle", $hBitmap4Find, "str", $directory, "str", $sCocDiamond, "Int", $maxReturnPoints, "str", $redLines, "Int", $minLevel, "Int", $maxLevel)
-	$hBitmap4Find = 0
 	$error = @error ; Store error values as they reset at next function call
 	$extError = @extended
 	If $error Then

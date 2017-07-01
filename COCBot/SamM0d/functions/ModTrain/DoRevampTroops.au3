@@ -126,6 +126,8 @@ Func DoRevampTroops($bDoPreTrain = False)
 						$bFlagOutOfResource = True
 						; use eval and not $i to compare because of maybe after array sort $tempTroops
 						Setlog($CustomTrain_MSG_8 & " " & (Eval("e" & $tempTroops[$i][0]) > 11 ? $CustomTrain_MSG_DarkElixir : $CustomTrain_MSG_Elixir) & " " & $CustomTrain_MSG_9 & " " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]),0), $COLOR_ERROR)
+						SetLog("Train cost: " & $iBuildCost, $COLOR_ERROR)
+						SetLog("Total need: " & $Troop4Add * $iCost, $COLOR_ERROR)
 					EndIf
 
 					If $bFlagOutOfResource Then

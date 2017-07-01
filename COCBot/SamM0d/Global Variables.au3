@@ -227,6 +227,10 @@ Global $grpScriptSpeedDB, $lbltxtSelectedSpeedDB, $sldSelectedSpeedDB, $grpScrip
 Global $btnAttNowDB, $btnAttNowLB
 
 ; MySwitch
+; GUI
+Global $g_ahLblStatsSwitchTotal[4]
+Global $g_ahLblStatsSwitchGPH[4]
+
 Global $ichkUseADBLoadVillage = 0
 Global $iSelectAccError = 0
 Global $iTotalDonateType = 0
