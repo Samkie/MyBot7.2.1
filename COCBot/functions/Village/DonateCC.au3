@@ -1262,21 +1262,21 @@ Func DetectSlotTroop(Const $iTroopIndex)
 		$FullTemp = SearchImgloc(@ScriptDir & "\imgxml\DonateCC\Troops\", $x, $y, $x1, $y1)
 		If $g_iDebugSetlog = 1 Then Setlog("Troop Slot: " & $Slot & " SearchImgloc returned:" & $FullTemp[0] & ".", $COLOR_DEBUG)
 
-		;If StringInStr($FullTemp[0] & " ", "empty") > 0 Then ExitLoop
-
-		If $FullTemp[0] <> "" Then
-			For $i = $eTroopBarbarian To $eTroopBowler
-				Local $sTmp = StringStripWS(StringLeft($g_asTroopNames[$i], 4), $STR_STRIPTRAILING)
-				;If $g_iDebugSetlog = 1 Then Setlog($g_asTroopNames[$i] & " = " & $sTmp, $COLOR_DEBUG)
-				If StringInStr($FullTemp[0] & " ", $sTmp) > 0 Then
-					If $g_iDebugSetlog = 1 Then Setlog("Detected " & $g_asTroopNames[$i], $COLOR_DEBUG)
-					If $iTroopIndex = $i Then Return $Slot
-					ExitLoop
-				EndIf
-				If $i = $eTroopBowler Then ; detection failed
-					If $g_iDebugSetlog = 1 Then Setlog("Slot: " & $Slot & "Troop Detection Failed", $COLOR_DEBUG)
-				EndIf
-			Next
+		If StringInStr($FullTemp[0] & " ", "empty") <= 0 Then
+			If $FullTemp[0] <> "" Then
+				For $i = $eTroopBarbarian To $eTroopBowler
+					Local $sTmp = StringStripWS(StringLeft($g_asTroopNames[$i], 4), $STR_STRIPTRAILING)
+					;If $g_iDebugSetlog = 1 Then Setlog($g_asTroopNames[$i] & " = " & $sTmp, $COLOR_DEBUG)
+					If StringInStr($FullTemp[0] & " ", $sTmp) > 0 Then
+						If $g_iDebugSetlog = 1 Then Setlog("Detected " & $g_asTroopNames[$i], $COLOR_DEBUG)
+						If $iTroopIndex = $i Then Return $Slot
+						ExitLoop
+					EndIf
+					If $i = $eTroopBowler Then ; detection failed
+						If $g_iDebugSetlog = 1 Then Setlog("Slot: " & $Slot & "Troop Detection Failed", $COLOR_DEBUG)
+					EndIf
+				Next
+			EndIf
 		EndIf
 	Next
 
@@ -1289,21 +1289,21 @@ Func DetectSlotTroop(Const $iTroopIndex)
 		$FullTemp = SearchImgloc(@ScriptDir & "\imgxml\DonateCC\Troops\", $x, $y, $x1, $y1)
 		If $g_iDebugSetlog = 1 Then Setlog("Troop Slot: " & $Slot & " SearchImgloc returned:" & $FullTemp[0] & ".", $COLOR_DEBUG)
 
-		;If StringInStr($FullTemp[0] & " ", "empty") > 0 Then ExitLoop
-
-		If $FullTemp[0] <> "" Then
-			For $i = $eTroopBalloon To $eTroopBowler
-				Local $sTmp = StringStripWS(StringLeft($g_asTroopNames[$i], 4), $STR_STRIPTRAILING)
-				;If $g_iDebugSetlog = 1 Then Setlog($g_asTroopNames[$i] & " = " & $sTmp, $COLOR_DEBUG)
-				If StringInStr($FullTemp[0] & " ", $sTmp) > 0 Then
-					If $g_iDebugSetlog = 1 Then Setlog("Detected " & $g_asTroopNames[$i], $COLOR_DEBUG)
-					If $iTroopIndex = $i Then Return $Slot
-					ExitLoop
-				EndIf
-				If $i = $eTroopBowler Then ; detection failed
-					If $g_iDebugSetlog = 1 Then Setlog("Slot: " & $Slot & "Troop Detection Failed", $COLOR_DEBUG)
-				EndIf
-			Next
+		If StringInStr($FullTemp[0] & " ", "empty") <= 0 Then
+			If $FullTemp[0] <> "" Then
+				For $i = $eTroopBalloon To $eTroopBowler
+					Local $sTmp = StringStripWS(StringLeft($g_asTroopNames[$i], 4), $STR_STRIPTRAILING)
+					;If $g_iDebugSetlog = 1 Then Setlog($g_asTroopNames[$i] & " = " & $sTmp, $COLOR_DEBUG)
+					If StringInStr($FullTemp[0] & " ", $sTmp) > 0 Then
+						If $g_iDebugSetlog = 1 Then Setlog("Detected " & $g_asTroopNames[$i], $COLOR_DEBUG)
+						If $iTroopIndex = $i Then Return $Slot
+						ExitLoop
+					EndIf
+					If $i = $eTroopBowler Then ; detection failed
+						If $g_iDebugSetlog = 1 Then Setlog("Slot: " & $Slot & "Troop Detection Failed", $COLOR_DEBUG)
+					EndIf
+				Next
+			EndIf
 		EndIf
 	Next
 
