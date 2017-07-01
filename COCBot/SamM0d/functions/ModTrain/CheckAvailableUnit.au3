@@ -37,6 +37,7 @@ Func CheckAvailableUnit($hHBitmap)
 	Local $aiTroopsInfo[11][3]
 	Local $AvailableCamp = 0
 	Local $sDirectory = @ScriptDir & "\Profiles\SamM0d\Troops\"
+	Local $sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Troops\"
 	Local $returnProps="objectname"
 	Local $aPropsValues
 	Local $bDeletedExcess = False
@@ -81,7 +82,8 @@ Func CheckAvailableUnit($hHBitmap)
 				SetLog("Error: Cannot detect what troops on slot: " & $i + 1 , $COLOR_ERROR)
 				SetLog("Please check the filename: Troop_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
 				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
-				SetLog("Rename the correct filename and replace back to file location: " & $sDirectory, $COLOR_ERROR)
+				SetLog("Rename the correct filename and replace back to file location: " & $sOriDirectory, $COLOR_ERROR)
+				SetLog("And then restart the bot.", $COLOR_ERROR)
 				$bContinueNextLoop = True
 			EndIf
 

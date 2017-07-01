@@ -36,6 +36,7 @@ Func CheckAvailableSpellUnit($hHBitmap)
 	Local $aiSpellsInfo[7][3]
 	Local $AvailableCamp = 0
 	Local $sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\"
+	Local $sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Spells\"
 	Local $returnProps="objectname"
 	Local $aPropsValues
 	Local $bDeletedExcess = False
@@ -79,7 +80,8 @@ Func CheckAvailableSpellUnit($hHBitmap)
 				SetLog("Error: Cannot detect what spells on slot: " & $i + 1 , $COLOR_ERROR)
 				SetLog("Please check the filename: Spell_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
 				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
-				SetLog("Rename the correct filename and replace back to file location: " & $sDirectory, $COLOR_ERROR)
+				SetLog("Rename the correct filename and replace back to file location: " & $sOriDirectory, $COLOR_ERROR)
+				SetLog("And then restart the bot.", $COLOR_ERROR)
 				$bContinueNextLoop = True
 			EndIf
 

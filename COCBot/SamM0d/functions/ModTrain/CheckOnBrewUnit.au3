@@ -47,6 +47,7 @@ Func CheckOnBrewUnit($hHBitmap)
 	Local $iMyPreBrewSpellSize = 0
 
 	Local $sDirectory
+	Local $sOriDirectory
 	Local $returnProps="objectname"
 	Local $aPropsValues
 	Local $bDeletedExcess = False
@@ -67,9 +68,11 @@ Func CheckOnBrewUnit($hHBitmap)
 
 			If _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
 				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\Queue\"
+				$sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Spells\Queue\"
 				$bIsQueueSpell = True
 			Else
 				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\Brew\"
+				$sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Spells\Brew\"
 			EndIf
 
 			Assign("g_hHBitmap_OB_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(65 + (70.5 * $i) + ((70.5 - 20) / 2)), $g_aiArmyOnBrewSlot[1] - 2, Int(65 + (70.5* $i) + ((70.5 - 20) / 2) + 20), $g_aiArmyOnBrewSlot[3] + 2))
@@ -107,7 +110,8 @@ Func CheckOnBrewUnit($hHBitmap)
 				SetLog("Error: Cannot detect what spells on slot: " & $i + 1 , $COLOR_ERROR)
 				SetLog("Please check the filename: Spell_OnQ_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
 				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
-				SetLog("Rename the correct filename and replace back to file location: " & $sDirectory, $COLOR_ERROR)
+				SetLog("Rename the correct filename and replace back to file location: " & $sOriDirectory, $COLOR_ERROR)
+				SetLog("And then restart the bot.", $COLOR_ERROR)
 				$bContinueNextLoop = True
 			EndIf
 

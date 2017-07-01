@@ -62,6 +62,7 @@ Func CheckAvailableCCSpellUnit()
 		Local $aiSpellsInfo[2][3]
 		Local $AvailableCamp = 0
 		Local $sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\CC\"
+		Local $sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Spells\CC\"
 		Local $returnProps="objectname"
 		Local $aPropsValues
 		Local $bDeletedExcess = False
@@ -121,7 +122,8 @@ Func CheckAvailableCCSpellUnit()
 				SetLog("Error: Cannot detect what cc spells on slot: " & $i + 1 , $COLOR_ERROR)
 				SetLog("Please check the filename: Spell_Av_CC_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
 				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
-				SetLog("Rename the correct filename and replace back to file location: " & $sDirectory, $COLOR_ERROR)
+				SetLog("Rename the correct filename and replace back to file location: " & $sOriDirectory, $COLOR_ERROR)
+				SetLog("And then restart the bot.", $COLOR_ERROR)
 				$bContinueNextLoop = True
 			EndIf
 

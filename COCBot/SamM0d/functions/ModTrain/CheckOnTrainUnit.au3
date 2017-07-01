@@ -46,7 +46,7 @@ Func CheckOnTrainUnit($hHBitmap)
 	Local $iOnQueueCamp = 0 		; store the pretrain troops (second troop) camp size
 	Local $iMyTroopsCampSize = 0 	; store the troops camp size of what troop you need to train
 	Local $sDirectory				; image directory for use to search troops.
-
+	Local $sOriDirectory
 	Local $returnProps="objectname"
 	Local $aPropsValues
 
@@ -70,9 +70,11 @@ Func CheckOnTrainUnit($hHBitmap)
 			; if color check is pink at the troop header that mean pre train unit
 			If _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
 				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Troops\Queue\"
+				$sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Troops\Queue"
 				$bIsQueueTroop = True
 			Else
 				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Troops\Train\"
+				$sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Troops\Train\"
 			EndIf
 			; clone the area for let imgloc to search later
 			Assign("g_hHBitmap_OT_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(65 + (70.5 * $i) + ((70.5 - 20) / 2)), $g_aiArmyOnTrainSlot[1] - 2, Int(65 + (70.5* $i) + ((70.5 - 20) / 2) + 20), $g_aiArmyOnTrainSlot[3] + 2))
@@ -115,7 +117,8 @@ Func CheckOnTrainUnit($hHBitmap)
 				SetLog("Error: Cannot detect what troops on slot: " & $i + 1 , $COLOR_ERROR)
 				SetLog("Please check the filename: Troop_OnT_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
 				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
-				SetLog("Rename the correct filename and replace back to file location: " & $sDirectory, $COLOR_ERROR)
+				SetLog("Rename the correct filename and replace back to file location: " & $sOriDirectory, $COLOR_ERROR)
+				SetLog("And then restart the bot.", $COLOR_ERROR)
 				$bContinueNextLoop = True
 			EndIf
 
