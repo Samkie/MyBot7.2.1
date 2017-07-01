@@ -77,16 +77,17 @@ Func CheckAvailableCCSpellUnit()
 
 		Local $iSlotCount = 0
 		If _ColorCheck(_GetPixelColor(540,510,False), Hex(0XCFCFC8, 6), 10) And _ColorCheck(_GetPixelColor(615,510,False), Hex(0XCFCFC8, 6), 10) = False Then
-			$iOffsetSlot = 553
+			$iOffsetSlot = $g_aiArmyAvailableCCSpellSlot[0] + 39
 			$iSlotCount = 0
 		Else
-			$iOffsetSlot = 514
+			$iOffsetSlot = $g_aiArmyAvailableCCSpellSlot[0]
 			$iSlotCount = 1
 		EndIf
 
 		For $i = 0 To $iSlotCount
-			Assign("g_hHBitmap_Av_CC_Spell_Slot" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int($iOffsetSlot + (74* $i) + ((74 - 20) / 2)), $g_aiArmyAvailableCCSpellSlot[1] - 2, Int($iOffsetSlot + (74* $i) + ((74 - 20) / 2) + 20), $g_aiArmyAvailableCCSpellSlot[3] + 2))
-			Assign("g_hHBitmap_Capture_Av_CC_Spell_Slot" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int($iOffsetSlot + (74* $i) + ((74 - 16) / 2)), $g_aiArmyAvailableCCSpellSlot[1], Int($iOffsetSlot + (74* $i) + ((74 - 16) / 2) + 16), $g_aiArmyAvailableCCSpellSlot[3]))
+			Local $iPixelDivider = ($g_iArmy_RegionSizeForScan - ($g_aiArmyAvailableCCSpellSlot[3] - $g_aiArmyAvailableCCSpellSlot[1])) / 2
+			Assign("g_hHBitmap_Av_CC_Spell_Slot" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int($iOffsetSlot + ($g_iArmy_Av_CC_Spell_Slot_Width* $i) + (($g_iArmy_Av_CC_Spell_Slot_Width - $g_iArmy_RegionSizeForScan) / 2)), $g_aiArmyAvailableCCSpellSlot[1] - $iPixelDivider, Int($iOffsetSlot + ($g_iArmy_Av_CC_Spell_Slot_Width* $i) + (($g_iArmy_Av_CC_Spell_Slot_Width - $g_iArmy_RegionSizeForScan) / 2) + $g_iArmy_RegionSizeForScan), $g_aiArmyAvailableCCSpellSlot[3] + $iPixelDivider))
+			Assign("g_hHBitmap_Capture_Av_CC_Spell_Slot" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int($iOffsetSlot + ($g_iArmy_Av_CC_Spell_Slot_Width* $i) + (($g_iArmy_Av_CC_Spell_Slot_Width - $g_iArmy_ImageSizeForScan) / 2)), $g_aiArmyAvailableCCSpellSlot[1], Int($iOffsetSlot + ($g_iArmy_Av_CC_Spell_Slot_Width* $i) + (($g_iArmy_Av_CC_Spell_Slot_Width - $g_iArmy_ImageSizeForScan) / 2) + $g_iArmy_ImageSizeForScan), $g_aiArmyAvailableCCSpellSlot[3]))
 
 			Local $result = findMultiImage(Eval("g_hHBitmap_Av_CC_Spell_Slot" & $i + 1), $sDirectory ,"FV" ,"FV", 0, 1000, 1 , $returnProps)
 			Local $bExitLoopFlag = False
@@ -113,7 +114,8 @@ Func CheckAvailableCCSpellUnit()
 				Next
 				If $aPropsValues[0]  = "0" Then $bExitLoopFlag = True
 			Else
-				Local $temphHBitmap = GetHHBitmapArea($g_hHBitmap2, Int($iOffsetSlot + (74* $i) + ((74 - 30) / 2)), $g_aiArmyAvailableCCSpellSlot[1] - 7, Int($iOffsetSlot + (74* $i) + ((74 - 30) / 2) + 30), $g_aiArmyAvailableCCSpellSlot[3] + 7)
+				Local $iPixelDivider = ($g_iArmy_EnlargeRegionSizeForScan - ($g_aiArmyAvailableCCSpellSlot[3] - $g_aiArmyAvailableCCSpellSlot[1])) / 2
+				Local $temphHBitmap = GetHHBitmapArea($g_hHBitmap2, Int($iOffsetSlot + ($g_iArmy_Av_CC_Spell_Slot_Width* $i) + (($g_iArmy_Av_CC_Spell_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2)), $g_aiArmyAvailableCCSpellSlot[1] - $iPixelDivider, Int($iOffsetSlot + ($g_iArmy_Av_CC_Spell_Slot_Width* $i) + (($g_iArmy_Av_CC_Spell_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2) + $g_iArmy_EnlargeRegionSizeForScan), $g_aiArmyAvailableCCSpellSlot[3] + $iPixelDivider)
 				_debugSaveHBitmapToImage($temphHBitmap, "Spell_Av_CC_Slot_" & $i + 1, True)
 				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_CC_Spell_Slot" & $i + 1), "Spell_Av_CC_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
 				If $temphHBitmap <> 0 Then
@@ -129,11 +131,10 @@ Func CheckAvailableCCSpellUnit()
 
 			If $bExitLoopFlag = True Then ExitLoop
 			If $bContinueNextLoop Then
-				$i += 1
 				ContinueLoop
 			EndIf
 
-			Assign("g_hHBitmap_Av_CC_Spell_SlotQty" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int($iOffsetSlot + (74* $i) + ((74- 60) / 2)), $g_aiArmyAvailableCCSpellSlotQty[1], Int($iOffsetSlot + (74* $i) + ((74- 60) / 2) + 60), $g_aiArmyAvailableCCSpellSlotQty[3]))
+			Assign("g_hHBitmap_Av_CC_Spell_SlotQty" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int($iOffsetSlot + ($g_iArmy_Av_CC_Spell_Slot_Width* $i) + (($g_iArmy_Av_CC_Spell_Slot_Width- $g_iArmy_QtyWidthForScan) / 2)), $g_aiArmyAvailableCCSpellSlotQty[1], Int($iOffsetSlot + ($g_iArmy_Av_CC_Spell_Slot_Width* $i) + (($g_iArmy_Av_CC_Spell_Slot_Width- $g_iArmy_QtyWidthForScan) / 2) + $g_iArmy_QtyWidthForScan), $g_aiArmyAvailableCCSpellSlotQty[3]))
 
 			$aiSpellsInfo[$i][1] = getMyOcr(Eval("g_hHBitmap_Av_CC_Spell_SlotQty" & $i + 1),0,0,0,0,"ArmyQTY", True)
 

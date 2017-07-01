@@ -57,7 +57,7 @@ Func CheckOnTrainUnit($hHBitmap)
 	Local $iCount = 0
 
 	For $i = 10 To 0 Step -1
-		If _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),196,False), Hex(0XCFCFC8, 6), 10) And _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),186,False), Hex(0XCFCFC8, 6), 10) Then
+		If _ColorCheck(_GetPixelColor(Int($g_aiArmyOnTrainSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i) + ($g_iArmy_OnT_Troop_Slot_Width / 2)),196,False), Hex(0XCFCFC8, 6), 10) And _ColorCheck(_GetPixelColor(Int($g_aiArmyOnTrainSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i) + ($g_iArmy_OnT_Troop_Slot_Width / 2)),186,False), Hex(0XCFCFC8, 6), 10) Then
 			; Is Empty Slot
 			$aiTroopInfo[$i][0] = ""
 			$aiTroopInfo[$i][1] = 0
@@ -68,7 +68,7 @@ Func CheckOnTrainUnit($hHBitmap)
 			Local $bIsQueueTroop = False
 			Local $bContinueNextLoop = False
 			; if color check is pink at the troop header that mean pre train unit
-			If _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
+			If _ColorCheck(_GetPixelColor(Int($g_aiArmyOnTrainSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i) + ($g_iArmy_OnT_Troop_Slot_Width / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
 				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Troops\Queue\"
 				$sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Troops\Queue"
 				$bIsQueueTroop = True
@@ -77,9 +77,10 @@ Func CheckOnTrainUnit($hHBitmap)
 				$sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Troops\Train\"
 			EndIf
 			; clone the area for let imgloc to search later
-			Assign("g_hHBitmap_OT_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(65 + (70.5 * $i) + ((70.5 - 20) / 2)), $g_aiArmyOnTrainSlot[1] - 2, Int(65 + (70.5* $i) + ((70.5 - 20) / 2) + 20), $g_aiArmyOnTrainSlot[3] + 2))
+			Local $iPixelDivider = ($g_iArmy_RegionSizeForScan - ($g_aiArmyOnTrainSlot[3] - $g_aiArmyOnTrainSlot[1])) / 2
+			Assign("g_hHBitmap_OT_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int($g_aiArmyOnTrainSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_RegionSizeForScan) / 2)), $g_aiArmyOnTrainSlot[1] - $iPixelDivider, Int($g_aiArmyOnTrainSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_RegionSizeForScan) / 2) + $g_iArmy_RegionSizeForScan), $g_aiArmyOnTrainSlot[3] + $iPixelDivider))
 			; clone the area if need we cannot find what type of troop then we use this to use for detect the troop
-			Assign("g_hHBitmap_Capture_OT_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 16) / 2)), $g_aiArmyOnTrainSlot[1], Int(22 + (74* $i) + ((74- 16) / 2) + 16), $g_aiArmyOnTrainSlot[3]))
+			Assign("g_hHBitmap_Capture_OT_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int($g_aiArmyOnTrainSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_ImageSizeForScan) / 2)), $g_aiArmyOnTrainSlot[1], Int($g_aiArmyOnTrainSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width- $g_iArmy_ImageSizeForScan) / 2) + $g_iArmy_ImageSizeForScan), $g_aiArmyOnTrainSlot[3]))
 
 			Local $result = findMultiImage(Eval("g_hHBitmap_OT_Slot" & $i + 1), $sDirectory ,"FV" ,"FV", 0, 1000, 1 , $returnProps)
 
@@ -108,7 +109,8 @@ Func CheckOnTrainUnit($hHBitmap)
 				; for debug use, if cannot detect what type of troop is, then we capture the area and make the png file, then you can use this png file to detect the troops type.
 				; $temphHBitmap use for make large the photo then we know what type of troop is, cause the area use for detect is small size only
 				; then the RenameThis, this the file to rename and put to the correct directory will mention at setlog.
-				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 30) / 2)), $g_aiArmyOnTrainSlot[1] - 7, Int(22 + (74* $i) + ((74 - 30) / 2) + 30), $g_aiArmyOnTrainSlot[3] + 7)
+				Local $iPixelDivider = ($g_iArmy_EnlargeRegionSizeForScan - ($g_aiArmyOnTrainSlot[3] - $g_aiArmyOnTrainSlot[1])) / 2
+				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int($g_aiArmyOnTrainSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2)), $g_aiArmyOnTrainSlot[1] - $iPixelDivider, Int($g_aiArmyOnTrainSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2) + $g_iArmy_EnlargeRegionSizeForScan), $g_aiArmyOnTrainSlot[3] + $iPixelDivider)
 				_debugSaveHBitmapToImage($temphHBitmap, "Troop_OnT_Slot_" & $i + 1, True)
 				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_OT_Slot" & $i + 1), "Troop_OnT_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
 				If $temphHBitmap <> 0 Then
@@ -124,12 +126,11 @@ Func CheckOnTrainUnit($hHBitmap)
 
 			If $bContinueNextLoop = True Then
 				; sinc we cannot get any type of the troop, then we direct continue next loop, skip for quantity detect
-				$i += 1
 				ContinueLoop
 			EndIf
 
 			; set the area for quantity detect.
-			Assign("g_hHBitmap_OT_SlotQty" & $i + 1, GetHHBitmapArea($hHBitmap, Int(67 + (70.5 * $i)), $g_aiArmyOnTrainSlotQty[1], Int(67 + (70.5* $i) + 40), $g_aiArmyOnTrainSlotQty[3]))
+			Assign("g_hHBitmap_OT_SlotQty" & $i + 1, GetHHBitmapArea($hHBitmap, Int($g_aiArmyOnTrainSlotQty[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i)), $g_aiArmyOnTrainSlotQty[1], Int($g_aiArmyOnTrainSlotQty[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + $g_iArmy_OnTrainQtyWidthForScan), $g_aiArmyOnTrainSlotQty[3]))
 
 			; set what font to use for detect the quantity, cause of on train troops and pre-train troops font color abit diffent.
 			If $bIsQueueTroop Then

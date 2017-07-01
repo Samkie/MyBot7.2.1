@@ -19,6 +19,7 @@ Func CheckAvailableCCUnit()
 	If $g_iChkWait4CC = 0 Then Return True
 	SetLog("Start check available clan castle unit...", $COLOR_INFO)
 	Local $iCount = 0
+
 	While 1
 		$iCount += 1
 		If $iCount > 3 then ExitLoop
@@ -42,8 +43,9 @@ Func CheckAvailableCCUnit()
 		Next
 
 		For $i = 0 To 5
-			Assign("g_hHBitmap_Av_CC_Slot" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int(22 + (74* $i) + ((74 - 20) / 2)), $g_aiArmyAvailableCCSlot[1] - 2, Int(22 + (74* $i) + ((74- 20) / 2) + 20), $g_aiArmyAvailableCCSlot[3] + 2))
-			Assign("g_hHBitmap_Capture_Av_CC_Slot" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int(22 + (74* $i) + ((74 - 16) / 2)), $g_aiArmyAvailableCCSlot[1], Int(22 + (74* $i) + ((74- 16) / 2) + 16), $g_aiArmyAvailableCCSlot[3]))
+			Local $iPixelDivider = ($g_iArmy_RegionSizeForScan - ($g_aiArmyAvailableCCSlot[3] - $g_aiArmyAvailableCCSlot[1])) / 2
+			Assign("g_hHBitmap_Av_CC_Slot" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int($g_aiArmyAvailableCCSlot[0] + ($g_iArmy_Av_CC_Slot_Width * $i) + (($g_iArmy_Av_CC_Slot_Width - $g_iArmy_RegionSizeForScan) / 2)), $g_aiArmyAvailableCCSlot[1] - $iPixelDivider, Int($g_aiArmyAvailableCCSlot[0] + ($g_iArmy_Av_CC_Slot_Width * $i) + (($g_iArmy_Av_CC_Slot_Width - $g_iArmy_RegionSizeForScan) / 2) + $g_iArmy_RegionSizeForScan), $g_aiArmyAvailableCCSlot[3] + $iPixelDivider))
+			Assign("g_hHBitmap_Capture_Av_CC_Slot" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int($g_aiArmyAvailableCCSlot[0] + ($g_iArmy_Av_CC_Slot_Width* $i) + (($g_iArmy_Av_CC_Slot_Width - $g_iArmy_ImageSizeForScan) / 2)), $g_aiArmyAvailableCCSlot[1], Int($g_aiArmyAvailableCCSlot[0] + ($g_iArmy_Av_CC_Slot_Width* $i) + (($g_iArmy_Av_CC_Slot_Width- $g_iArmy_ImageSizeForScan) / 2) + $g_iArmy_ImageSizeForScan), $g_aiArmyAvailableCCSlot[3]))
 
 			Local $result = findMultiImage(Eval("g_hHBitmap_Av_CC_Slot" & $i + 1), $sDirectory ,"FV" ,"FV", 0, 1000, 1 , $returnProps)
 			Local $bExitLoopFlag = False
@@ -70,7 +72,8 @@ Func CheckAvailableCCUnit()
 				Next
 				If $aPropsValues[0]  = "0" Then $bExitLoopFlag = True
 			Else
-				Local $temphHBitmap = GetHHBitmapArea($g_hHBitmap2, Int(22 + (74* $i) + ((74 - 30) / 2)), $g_aiArmyAvailableCCSlot[1] - 7, Int(22 + (74* $i) + ((74 - 30) / 2) + 30), $g_aiArmyAvailableCCSlot[3] + 7)
+				Local $iPixelDivider = ($g_iArmy_EnlargeRegionSizeForScan - ($g_aiArmyAvailableCCSlot[3] - $g_aiArmyAvailableCCSlot[1])) / 2
+				Local $temphHBitmap = GetHHBitmapArea($g_hHBitmap2, Int($g_aiArmyAvailableCCSlot[0] + ($g_iArmy_Av_CC_Slot_Width * $i) + (($g_iArmy_Av_CC_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2)), $g_aiArmyAvailableCCSlot[1] - $iPixelDivider, Int($g_aiArmyAvailableCCSlot[0] + ($g_iArmy_Av_CC_Slot_Width* $i) + (($g_iArmy_Av_CC_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2) + $g_iArmy_EnlargeRegionSizeForScan), $g_aiArmyAvailableCCSlot[3] + $iPixelDivider)
 				_debugSaveHBitmapToImage($temphHBitmap, "Troop_Av_CC_Slot_" & $i + 1, True)
 				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_CC_Slot" & $i + 1), "Troop_Av_CC_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
 				If $temphHBitmap <> 0 Then
@@ -86,11 +89,10 @@ Func CheckAvailableCCUnit()
 
 			If $bExitLoopFlag = True Then ExitLoop
 			If $bContinueNextLoop Then
-				$i += 1
 				ContinueLoop
 			EndIf
 
-			Assign("g_hHBitmap_Av_CC_SlotQty" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int(24 + (74* $i) + ((74- 60) / 2)), $g_aiArmyAvailableCCSlotQty[1], Int(24 + (74* $i) + ((74- 60) / 2) + 60), $g_aiArmyAvailableCCSlotQty[3]))
+			Assign("g_hHBitmap_Av_CC_SlotQty" & $i + 1, GetHHBitmapArea($g_hHBitmap2, Int($g_aiArmyAvailableCCSlotQty[0] + ($g_iArmy_Av_CC_Slot_Width* $i) + (($g_iArmy_Av_CC_Slot_Width - $g_iArmy_QtyWidthForScan) / 2)), $g_aiArmyAvailableCCSlotQty[1], Int($g_aiArmyAvailableCCSlotQty[0] + ($g_iArmy_Av_CC_Slot_Width* $i) + (($g_iArmy_Av_CC_Slot_Width- $g_iArmy_QtyWidthForScan) / 2) + $g_iArmy_QtyWidthForScan), $g_aiArmyAvailableCCSlotQty[3]))
 
 			$aiTroopsInfo[$i][1] = getMyOcr(Eval("g_hHBitmap_Av_CC_SlotQty" & $i + 1),0,0,0,0,"ArmyQTY", True)
 

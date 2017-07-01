@@ -55,7 +55,7 @@ Func CheckOnBrewUnit($hHBitmap)
 	Local $bGotOnQueueFlag = False
 	Local $iCount = 0
 	For $i = 10 To 0 Step -1
-		If _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),196,False), Hex(0XCFCFC8, 6), 10) And _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),186,False), Hex(0XCFCFC8, 6), 10) Then
+		If _ColorCheck(_GetPixelColor(Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i) + ($g_iArmy_OnT_Troop_Slot_Width / 2)),196,False), Hex(0XCFCFC8, 6), 10) And _ColorCheck(_GetPixelColor(Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i) + ($g_iArmy_OnT_Troop_Slot_Width / 2)),186,False), Hex(0XCFCFC8, 6), 10) Then
 			; Is Empty Slot
 			$aiSpellInfo[$i][0] = ""
 			$aiSpellInfo[$i][1] = 0
@@ -66,7 +66,7 @@ Func CheckOnBrewUnit($hHBitmap)
 			Local $bIsQueueSpell = False
 			Local $bContinueNextLoop = False
 
-			If _ColorCheck(_GetPixelColor(Int(65 + (70.5 * $i) + (70.5 / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
+			If _ColorCheck(_GetPixelColor(Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i) + ($g_iArmy_OnT_Troop_Slot_Width / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
 				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\Queue\"
 				$sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Spells\Queue\"
 				$bIsQueueSpell = True
@@ -74,9 +74,9 @@ Func CheckOnBrewUnit($hHBitmap)
 				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\Brew\"
 				$sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Spells\Brew\"
 			EndIf
-
-			Assign("g_hHBitmap_OB_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(65 + (70.5 * $i) + ((70.5 - 20) / 2)), $g_aiArmyOnBrewSlot[1] - 2, Int(65 + (70.5* $i) + ((70.5 - 20) / 2) + 20), $g_aiArmyOnBrewSlot[3] + 2))
-			Assign("g_hHBitmap_Capture_OB_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 16) / 2)), $g_aiArmyOnBrewSlot[1], Int(22 + (74* $i) + ((74- 16) / 2) + 16), $g_aiArmyOnBrewSlot[3]))
+			Local $iPixelDivider = ($g_iArmy_RegionSizeForScan - ($g_aiArmyOnBrewSlot[3] - $g_aiArmyOnBrewSlot[1])) / 2
+			Assign("g_hHBitmap_OB_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_RegionSizeForScan) / 2)), $g_aiArmyOnBrewSlot[1] - $iPixelDivider, Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_RegionSizeForScan) / 2) + $g_iArmy_RegionSizeForScan), $g_aiArmyOnBrewSlot[3] + $iPixelDivider))
+			Assign("g_hHBitmap_Capture_OB_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_ImageSizeForScan) / 2)), $g_aiArmyOnBrewSlot[1], Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width- $g_iArmy_ImageSizeForScan) / 2) + $g_iArmy_ImageSizeForScan), $g_aiArmyOnBrewSlot[3]))
 
 			Local $result = findMultiImage(Eval("g_hHBitmap_OB_Slot" & $i + 1), $sDirectory ,"FV" ,"FV", 0, 1000, 1 , $returnProps)
 
@@ -101,7 +101,8 @@ Func CheckOnBrewUnit($hHBitmap)
 				Next
 
 			Else
-				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 30) / 2)), $g_aiArmyOnBrewSlot[1] - 7, Int(22 + (74* $i) + ((74 - 30) / 2) + 30), $g_aiArmyOnBrewSlot[3] + 7)
+				Local $iPixelDivider = ($g_iArmy_EnlargeRegionSizeForScan - ($g_aiArmyOnBrewSlot[3] - $g_aiArmyOnBrewSlot[1])) / 2
+				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2)), $g_aiArmyOnBrewSlot[1] - $iPixelDivider, Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2) + $g_iArmy_EnlargeRegionSizeForScan), $g_aiArmyOnBrewSlot[3] + $iPixelDivider)
 				_debugSaveHBitmapToImage($temphHBitmap, "Spell_OnQ_Slot_" & $i + 1, True)
 				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_OB_Slot" & $i + 1), "Spell_OnQ_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
 				If $temphHBitmap <> 0 Then
@@ -116,11 +117,10 @@ Func CheckOnBrewUnit($hHBitmap)
 			EndIf
 
 			If $bContinueNextLoop Then
-				$i += 1
 				ContinueLoop
 			EndIf
 
-			Assign("g_hHBitmap_OB_SlotQty" & $i + 1, GetHHBitmapArea($hHBitmap, Int(67 + (70.5 * $i)), $g_aiArmyOnBrewSlotQty[1], Int(67 + (70.5* $i) + 40), $g_aiArmyOnBrewSlotQty[3]))
+			Assign("g_hHBitmap_OB_SlotQty" & $i + 1, GetHHBitmapArea($hHBitmap, Int($g_aiArmyOnBrewSlotQty[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i)), $g_aiArmyOnBrewSlotQty[1], Int($g_aiArmyOnBrewSlotQty[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + 40), $g_aiArmyOnBrewSlotQty[3]))
 
 			If $bIsQueueSpell Then
 				$iQty = getMyOcr(Eval("g_hHBitmap_OB_SlotQty" & $i + 1),0,0,0,0,"spellqtypre", True)

@@ -42,9 +42,10 @@ Func CheckAvailableSpellUnit($hHBitmap)
 	Local $bDeletedExcess = False
 
 	For $i = 0 To 6
-		If _ColorCheck(_GetPixelColor(Int(30 + (74 * $i)),345,False), Hex(0X7856E0, 6), 20) Then
-			Assign("g_hHBitmap_Av_Spell_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 20) / 2)), $g_aiArmyAvailableSpellSlot[1] - 2, Int(22 + (74* $i) + ((74- 20) / 2) + 20), $g_aiArmyAvailableSpellSlot[3] + 2))
-			Assign("g_hHBitmap_Capture_Av_Spell_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 16) / 2)), $g_aiArmyAvailableSpellSlot[1], Int(22 + (74* $i) + ((74- 16) / 2) + 16), $g_aiArmyAvailableSpellSlot[3]))
+		If _ColorCheck(_GetPixelColor(Int(30 + ($g_iArmy_Av_Spell_Slot_Width * $i)),345,False), Hex(0X7856E0, 6), 20) Then
+			Local $iPixelDivider = ($g_iArmy_RegionSizeForScan - ($g_aiArmyAvailableSpellSlot[3] - $g_aiArmyAvailableSpellSlot[1])) / 2
+			Assign("g_hHBitmap_Av_Spell_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int($g_aiArmyAvailableSpellSlot[0] + ($g_iArmy_Av_Spell_Slot_Width* $i) + (($g_iArmy_Av_Spell_Slot_Width - $g_iArmy_RegionSizeForScan) / 2)), $g_aiArmyAvailableSpellSlot[1] - $iPixelDivider, Int($g_aiArmyAvailableSpellSlot[0] + ($g_iArmy_Av_Spell_Slot_Width* $i) + (($g_iArmy_Av_Spell_Slot_Width- $g_iArmy_RegionSizeForScan) / 2) + $g_iArmy_RegionSizeForScan), $g_aiArmyAvailableSpellSlot[3] + $iPixelDivider))
+			Assign("g_hHBitmap_Capture_Av_Spell_Slot" & $i + 1, GetHHBitmapArea($hHBitmap, Int($g_aiArmyAvailableSpellSlot[0] + ($g_iArmy_Av_Spell_Slot_Width* $i) + (($g_iArmy_Av_Spell_Slot_Width - $g_iArmy_ImageSizeForScan) / 2)), $g_aiArmyAvailableSpellSlot[1], Int($g_aiArmyAvailableSpellSlot[0] + ($g_iArmy_Av_Spell_Slot_Width* $i) + (($g_iArmy_Av_Spell_Slot_Width- $g_iArmy_ImageSizeForScan) / 2) + $g_iArmy_ImageSizeForScan), $g_aiArmyAvailableSpellSlot[3]))
 
 			Local $result = findMultiImage(Eval("g_hHBitmap_Av_Spell_Slot" & $i + 1), $sDirectory ,"FV" ,"FV", 0, 1000, 1 , $returnProps)
 			Local $bExitLoopFlag = False
@@ -71,7 +72,8 @@ Func CheckAvailableSpellUnit($hHBitmap)
 				Next
 				If $aPropsValues[0]  = "0" Then $bExitLoopFlag = True
 			Else
-				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int(22 + (74* $i) + ((74 - 30) / 2)), $g_aiArmyAvailableSpellSlot[1] - 7, Int(22 + (74* $i) + ((74 - 30) / 2) + 30), $g_aiArmyAvailableSpellSlot[3] + 7)
+				Local $iPixelDivider = ($g_iArmy_EnlargeRegionSizeForScan - ($g_aiArmyAvailableSpellSlot[3] - $g_aiArmyAvailableSpellSlot[1])) / 2
+				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int($g_aiArmyAvailableSpellSlot[0] + ($g_iArmy_Av_Spell_Slot_Width* $i) + (($g_iArmy_Av_Spell_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2)), $g_aiArmyAvailableSpellSlot[1] - $iPixelDivider, Int($g_aiArmyAvailableSpellSlot[0] + ($g_iArmy_Av_Spell_Slot_Width* $i) + (($g_iArmy_Av_Spell_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2) + $g_iArmy_EnlargeRegionSizeForScan), $g_aiArmyAvailableSpellSlot[3] + $iPixelDivider)
 				_debugSaveHBitmapToImage($temphHBitmap, "Spell_Av_Slot_" & $i + 1, True)
 				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_Spell_Slot" & $i + 1), "Spell_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
 				If $temphHBitmap <> 0 Then
@@ -87,11 +89,10 @@ Func CheckAvailableSpellUnit($hHBitmap)
 
 			If $bExitLoopFlag = True Then ExitLoop
 			If $bContinueNextLoop Then
-				$i += 1
 				ContinueLoop
 			EndIf
 
-			Assign("g_hHBitmap_Av_Spell_SlotQty" & $i + 1, GetHHBitmapArea($hHBitmap, Int(24 + (74* $i) + ((74- 60) / 2)), $g_aiArmyAvailableSpellSlotQty[1], Int(24 + (74* $i) + ((74- 60) / 2) + 60), $g_aiArmyAvailableSpellSlotQty[3]))
+			Assign("g_hHBitmap_Av_Spell_SlotQty" & $i + 1, GetHHBitmapArea($hHBitmap, Int($g_aiArmyAvailableSpellSlotQty[0] + ($g_iArmy_Av_Spell_Slot_Width* $i) + (($g_iArmy_Av_Spell_Slot_Width- $g_iArmy_QtyWidthForScan) / 2)), $g_aiArmyAvailableSpellSlotQty[1], Int($g_aiArmyAvailableSpellSlotQty[0] + ($g_iArmy_Av_Spell_Slot_Width* $i) + (($g_iArmy_Av_Spell_Slot_Width- $g_iArmy_QtyWidthForScan) / 2) + $g_iArmy_QtyWidthForScan), $g_aiArmyAvailableSpellSlotQty[3]))
 
 			$aiSpellsInfo[$i][1] = getMyOcr(Eval("g_hHBitmap_Av_Spell_SlotQty" & $i + 1),0,0,0,0,"SpellQTY", True)
 
@@ -144,7 +145,7 @@ Func CheckAvailableSpellUnit($hHBitmap)
 					Local $RemoveSlotQty = Eval("RemSpellSlot" & $i + 1)
 					If $g_iSamM0dDebug = 1 Then SetLog($i & " $RemoveSlotQty: " & $RemoveSlotQty)
 					If $RemoveSlotQty > 0 Then
-						Local $iRx = (80 + (74 * $i))
+						Local $iRx = (80 + ($g_iArmy_Av_Spell_Slot_Width * $i))
 						Local $iRy = 386 + $g_iMidOffsetY
 						For $j = 1 To $RemoveSlotQty
 							Click(Random($iRx-2,$iRx+2,1),Random($iRy-2,$iRy+2,1))
