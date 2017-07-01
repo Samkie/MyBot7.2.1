@@ -34,12 +34,13 @@ Func getMyOcr($hHOCRBitmap, $x, $y, $width, $height, $OCRType, $bReturnAsNumber 
 	Local $iMax = 0
 	Local $jMax = 0
 	Local $i, $j
-
+	Local $bDeleteHBitmapFlag = False
 	Local $tempOCRType = StringLower($OCRType)
 
 	$sDirectory = @ScriptDir & "\Profiles\SamM0d\OCR\" & $tempOCRType
 
 	If $hHOCRBitmap = 0 Then
+		$bDeleteHBitmapFlag = True
 		ForceCaptureRegion()
 		_CaptureRegion2(Int($x),Int($y),int($x+$width),Int($y+$height))
 		$hHOCRBitmap = GetHHBitmapArea($g_hHBitmap2,0,0,$width,$height)
@@ -117,6 +118,18 @@ Func getMyOcr($hHOCRBitmap, $x, $y, $width, $height, $OCRType, $bReturnAsNumber 
 		Local $Time = @HOUR & "." & @MIN & "." & @SEC
 		_debugSaveHBitmapToImage($hHOCRBitmap, "getMyOcr_" & $OCRType & "_" & $sReturn & "_" & $Time)
 	EndIf
+
+	If $bDeleteHBitmapFlag Then
+		If $hHOCRBitmap <> 0 Then
+			GdiDeleteHBitmap($hHOCRBitmap)
+		EndIf
+		If $g_hHBitmap2 <> 0 Then
+			GdiDeleteHBitmap($g_hHBitmap2)
+		EndIf
+	EndIf
+
+	$hHOCRBitmap = 0
+
 	If $bReturnAsNumber Then
 		If $sReturn = "" Then $sReturn = "0"
 		Return Number($sReturn)
@@ -180,7 +193,6 @@ Func getMyOcrCurElixirFromTrain()
 EndFunc
 
 Func findMultiImage($hBitmap4Find, $directory, $sCocDiamond, $redLines, $minLevel = 0, $maxLevel = 1000, $maxReturnPoints = 0, $returnProps = "objectname,objectlevel,objectpoints")
-	If $hBitmap4Find = 0 Then _CaptureGameScreen($hBitmap4Find)
 	; same has findButton, but allow custom area instead of button area decoding
 	; nice for dinamic locations
 	If $g_iSamM0dDebug = 1 And $g_iSamM0dDebugOCR = 1 Then
@@ -213,6 +225,7 @@ Func findMultiImage($hBitmap4Find, $directory, $sCocDiamond, $redLines, $minLeve
 	; Perform the search
 
 	Local $result = DllCallMyBot("SearchMultipleTilesBetweenLevels", "handle", $hBitmap4Find, "str", $directory, "str", $sCocDiamond, "Int", $maxReturnPoints, "str", $redLines, "Int", $minLevel, "Int", $maxLevel)
+	$hBitmap4Find = 0
 	$error = @error ; Store error values as they reset at next function call
 	$extError = @extended
 	If $error Then

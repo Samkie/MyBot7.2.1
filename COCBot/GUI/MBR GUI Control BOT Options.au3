@@ -268,33 +268,10 @@ Func btnTestTrain()
 	SetLog("===START===")
 	Local $hTimer = __TimerInit()
 
-
-;~ 	Local $sDirectory = @ScriptDir & "\Profiles\SamM0d\images\Troops\"
-
-;~ 	Local $x = 100
-;~ 	Local $y = 100
-;~ 	_CaptureRegion2()
-;~ 	If $g_iDebugSetlog = 1 Then Setlog("Search into whitelist...", $color_purple)
-;~ 	Local $xyz = _FileListToArrayRec($sDirectory, "*.png", $FLTAR_FILES, $FLTAR_NORECUR, $FLTAR_SORT, $FLTAR_NOPATH)
-;~ 	If UBound($xyz) > 1 Then
-;~ 		For $i = 1 To UBound($xyz) - 1
-;~ 			Setlog("$xyz[$i]: " & $xyz[$i])
-;~ 			Local $result = FindImageInPlace("TEST", $sDirectory & $xyz[$i], "0," & $y - 90 & "," & $x - 30 & "," & $y, False)
-;~ 			If StringInStr($result, ",") > 0 Then
-;~ 				If $g_iCmbDonateFilter = 2 Then Setlog("WHITE LIST: image match! " & $xyz[$i], $COLOR_SUCCESS)
-;~ 				If $g_iCmbDonateFilter = 2 Then Return True ; <=== return DONATE if name found in white list
-;~ 				ExitLoop
-;~ 			EndIf
-;~ 		Next
-;~ 	EndIf
-
-;~ 	SetLog("===START===")
 	$g_bRestart = False
 	$tempDisableTrain=False
 	$tempDisableBrewSpell=False
     ModTrain()
-;~  	SetLog("===END===")
-
 
 	SetLog("$hTimer: " & Round(__TimerDiff($hTimer) / 1000, 2))
 	SetLog("===END===")

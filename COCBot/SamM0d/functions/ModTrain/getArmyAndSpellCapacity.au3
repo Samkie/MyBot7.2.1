@@ -240,6 +240,10 @@ Func getMyArmyCapacityMini($hHBitmap, $bShowLog = True)
 	Else
 		$g_bfullArmy = False
 	EndIf
+;~ 	If $hHBitmap <> 0 Then
+;~ 		SetLog("Delete $hHBitmap")
+;~ 		GdiDeleteHBitmap($hHBitmap)
+;~ 	EndIf
 EndFunc
 
 Func getTrainArmyCapacityMini($hHBitmap, $bShowLog = True)
