@@ -120,7 +120,7 @@ Func DoRevampSpells($bDoPreTrain = False)
 						$bFlagOutOfResource = True
 						; use eval and not $i to compare because of maybe after array sort $tempTroops
 						Setlog("Not enough " & (Eval("enum" & $tempSpells[$i][0]) > 5 ? "Dark" : "") & " Elixir to brew " & MyNameOfTroop(Eval("enum" & $tempSpells[$i][0])+23,0), $COLOR_ERROR)
-						SetLog("Train cost: " & $iBuildCost, $COLOR_ERROR)
+						SetLog("Current " & (Eval("enum" & $tempSpells[$i][0]) > 5 ? "Dark" : "") & " Elixir: " & $iBuildCost, $COLOR_ERROR)
 						SetLog("Total need: " & $tempSpell * $iCost, $COLOR_ERROR)
 					EndIf
 					If $bFlagOutOfResource Then

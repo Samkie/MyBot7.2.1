@@ -114,9 +114,9 @@ Func getMyOcr($hHOCRBitmap, $x, $y, $width, $height, $OCRType, $bReturnAsNumber 
 	EndIf
 	If $g_iSamM0dDebugOCR = 1 Then SetLog("$sReturn: " & $sReturn, $COLOR_DEBUG)
 
-	If $g_iSamM0dDebugImage Then
+	If $g_iSamM0dDebugImage Or $sReturn = "" Then
 		Local $Time = @HOUR & "." & @MIN & "." & @SEC
-		_debugSaveHBitmapToImage($hHOCRBitmap, "getMyOcr_" & $OCRType & "_" & $sReturn & "_" & $Time)
+		_debugSaveHBitmapToImage($hHOCRBitmap, "getMyOcr_" & $OCRType & "_" & $sReturn & "_" & $Time, True)
 	EndIf
 
 	If $bDeleteHBitmapFlag Then

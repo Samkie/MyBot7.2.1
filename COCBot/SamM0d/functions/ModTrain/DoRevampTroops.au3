@@ -120,13 +120,14 @@ Func DoRevampTroops($bDoPreTrain = False)
 					If $g_iSamM0dDebug = 1 Then SetLog("$iCost: " & $iCost)
 
 					Local $iBuildCost = (Eval("e" & $tempTroops[$i][0]) > 11 ? getMyOcrCurDEFromTrain() : getMyOcrCurElixirFromTrain())
+
 					If $g_iSamM0dDebug = 1 Then SetLog("$iBuildCost: " & $iBuildCost)
 					If $g_iSamM0dDebug = 1 Then SetLog("Total need: " & ($Troop4Add * $iCost))
 					If ($Troop4Add * $iCost) > $iBuildCost Then
 						$bFlagOutOfResource = True
 						; use eval and not $i to compare because of maybe after array sort $tempTroops
 						Setlog($CustomTrain_MSG_8 & " " & (Eval("e" & $tempTroops[$i][0]) > 11 ? $CustomTrain_MSG_DarkElixir : $CustomTrain_MSG_Elixir) & " " & $CustomTrain_MSG_9 & " " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]),0), $COLOR_ERROR)
-						SetLog("Train cost: " & $iBuildCost, $COLOR_ERROR)
+						SetLog("Current " & (Eval("e" & $tempTroops[$i][0]) > 11 ? $CustomTrain_MSG_DarkElixir : $CustomTrain_MSG_Elixir)  & ": " & $iBuildCost, $COLOR_ERROR)
 						SetLog("Total need: " & $Troop4Add * $iCost, $COLOR_ERROR)
 					EndIf
 

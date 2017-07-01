@@ -266,7 +266,8 @@ Func CreateGainSubTab()
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 	$x = $xStart + 3
-	$y = $yStart + 195
+	; samm0d 195 to 185
+	$y = $yStart + 185
 	GUICtrlCreateGroup("", $x - 20, $y - 20, 422, 28)
 	GUICtrlCreateLabel(GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblLastAttack", "Last Attack") & ":", $x - 15, $y - 11, -1, -1)
 	$x += 85
@@ -307,7 +308,8 @@ Func CreateGainSubTab()
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 	$x = $xStart + 3
-	$y = $yStart + 220
+	; samm0d 220 to 210
+	$y = $yStart + 210
 	GUICtrlCreateGroup("", $x - 20, $y - 20, 422, 28)
 	GUICtrlCreateLabel(GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblLeagueBonus", "League Bonus") & ":", $x - 15, $y - 11, -1, -1)
 	$x += 85
@@ -339,7 +341,8 @@ Func CreateGainSubTab()
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 	$x = $xStart + 3
-	$y = $yStart + 265
+	; samm0d 265 to 245
+	$y = $yStart + 245
 	GUICtrlCreateGroup("", $x - 20, $y - 20, 422, 28)
 	GUICtrlCreateLabel(GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblTopLoot", "Top Loot") & ":", $x - 15, $y - 11, -1, -1)
 
@@ -380,14 +383,22 @@ Func CreateGainSubTab()
 	_GUICtrlSetTip(-1, $sTxtTip)
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 
+	; samm0d
+	;===============================================================================================================================
+
+	$x = $xStart + 3
+	$y = $yStart + 270
+	GUICtrlCreateLabel(GetTranslatedFileIni("sam m0d", "MySwitchTotalLoot", "My Switch - All Accounts"), $x - 20 , $y - 5, 300, -1)
+	GUICtrlSetFont(-1, 9, $FW_BOLD, Default, "Arial", $CLEARTYPE_QUALITY)
+
 	$x = $xStart + 3
 	$y = $yStart + 295
 	GUICtrlCreateGroup("", $x - 20, $y - 20, 422, 28)
-	GUICtrlCreateLabel(GetTranslatedFileIni("sam m0d", "MySwitchTotalLoot", "Switch Total Gain") & ":", $x - 15, $y - 11, -1, -1)
-
+	GUICtrlCreateLabel(GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblTotalGain", "Total Gain") & ":", $x - 15, $y - 11, -1, -1)
 	$x += 85
 	GUICtrlCreateIcon($g_sLibIconPath, $eIcnGold, $x + 50, $y - 12, 16, 16)
-	$sTxtTip = GetTranslatedFileIni("sam m0d", "MySwitchTotalLoot_01", "Gold Total Gain")
+	$sTxtTip = GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsTotalGain_Info_01", "The total amount of Gold you gained or lost while the Bot is running.") & @CRLF & _
+			GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsTotalGain_Info_02", "(This includes manual spending of resources on upgrade of buildings)")
 	_GUICtrlSetTip(-1, $sTxtTip)
 	$g_ahLblStatsSwitchTotal[$eLootGold] = GUICtrlCreateLabel("0", $x - 18, $y - 12, 65, 17, $SS_RIGHT)
 	GUICtrlSetFont(-1, 9, $FW_BOLD, Default, "Arial", $CLEARTYPE_QUALITY)
@@ -396,7 +407,8 @@ Func CreateGainSubTab()
 
 	$x += 85
 	GUICtrlCreateIcon($g_sLibIconPath, $eIcnElixir, $x + 50, $y - 12, 16, 16)
-	$sTxtTip = GetTranslatedFileIni("sam m0d", "MySwitchTotalLoot_02", "Elixir Total Gain")
+	$sTxtTip = GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsTotalGain_Info_03", "The total amount of Elixir you gained or lost while the Bot is running.") & @CRLF & _
+			GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsTotalGain_Info_02", "(This includes manual spending of resources on upgrade of buildings)")
 	_GUICtrlSetTip(-1, $sTxtTip)
 	$g_ahLblStatsSwitchTotal[$eLootElixir] = GUICtrlCreateLabel("0", $x - 18, $y - 12, 65, 17, $SS_RIGHT)
 	GUICtrlSetFont(-1, 9, $FW_BOLD, Default, "Arial", $CLEARTYPE_QUALITY)
@@ -404,8 +416,9 @@ Func CreateGainSubTab()
 	_GUICtrlSetTip(-1, $sTxtTip)
 
 	$x += 85
-	GUICtrlCreateIcon($g_sLibIconPath, $eIcnDark, $x + 50, $y - 12, 16, 16)
-	$sTxtTip = GetTranslatedFileIni("sam m0d", "MySwitchTotalLoot_03", "Dark Elixir Total Gain")
+	$g_hPicDarkLoot = GUICtrlCreateIcon($g_sLibIconPath, $eIcnDark, $x + 50, $y - 12, 16, 16)
+	$sTxtTip = GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsTotalGain_Info_04", "The total amount of Dark Elixir you gained or lost while the Bot is running.") & @CRLF & _
+			GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsTotalGain_Info_02", "(This includes manual spending of resources on upgrade of buildings)")
 	_GUICtrlSetTip(-1, $sTxtTip)
 	$g_ahLblStatsSwitchTotal[$eLootDarkElixir] = GUICtrlCreateLabel("0", $x - 18, $y - 12, 65, 17, $SS_RIGHT)
 	GUICtrlSetFont(-1, 9, $FW_BOLD, Default, "Arial", $CLEARTYPE_QUALITY)
@@ -414,7 +427,7 @@ Func CreateGainSubTab()
 
 	$x += 75
 	GUICtrlCreateIcon($g_sLibIconPath, $eIcnTrophy, $x + 50, $y - 12, 16, 16)
-	$sTxtTip = GetTranslatedFileIni("sam m0d", "MySwitchTotalLoot_04", "Trophy Total Gain")
+	$sTxtTip = GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsTotalGain_Info_05", "The amount of Trophies you gained or lost while the Bot is running.")
 	_GUICtrlSetTip(-1, $sTxtTip)
 	$g_ahLblStatsSwitchTotal[$eLootTrophy] = GUICtrlCreateLabel("0", $x - 18 + 5, $y - 12, 60, 17, $SS_RIGHT)
 	GUICtrlSetFont(-1, 9, $FW_BOLD, Default, "Arial", $CLEARTYPE_QUALITY)
@@ -425,44 +438,46 @@ Func CreateGainSubTab()
 	$x = $xStart + 3
 	$y = $yStart + 320
 	GUICtrlCreateGroup("", $x - 20, $y - 20, 422, 28)
-	GUICtrlCreateLabel(GetTranslatedFileIni("sam m0d", "MySwitchGPH", "Switch Gain per Hour") & ":", $x - 15, $y - 11, -1, -1)
+	GUICtrlCreateLabel(GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblGainPerHour", "Gain per Hour") & ":", $x - 15, $y - 11, -1, -1)
 
 	$x += 85
 	GUICtrlCreateIcon($g_sLibIconPath, $eIcnGold, $x + 50, $y - 12, 16, 16)
-	$sTxtTip = GetTranslatedFileIni("sam m0d", "MySwitchGPH_01", "Gold Gain per Hour")
+	$sTxtTip = GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsGainPerHour_Info_01", "Gold gain per hour")
 	_GUICtrlSetTip(-1, $sTxtTip)
-	$g_ahLblStatsSwitchGPH[$eLootGold] = GUICtrlCreateLabel("0", $x - 18, $y - 12, 65, 17, $SS_RIGHT)
+	$g_ahLblStatsSwitchGPH[$eLootGold] = GUICtrlCreateLabel("0/h", $x - 18, $y - 12, 65, 17, $SS_RIGHT)
 	GUICtrlSetFont(-1, 9, $FW_BOLD, Default, "Arial", $CLEARTYPE_QUALITY)
 	GUICtrlSetColor(-1, $COLOR_BLACK)
 	_GUICtrlSetTip(-1, $sTxtTip)
 
 	$x += 85
 	GUICtrlCreateIcon($g_sLibIconPath, $eIcnElixir, $x + 50, $y - 12, 16, 16)
-	$sTxtTip = GetTranslatedFileIni("sam m0d", "MySwitchGPH_02", "Elixir Gain per Hour")
+	$sTxtTip = GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsGainPerHour_Info_02", "Elixir gain per hour")
 	_GUICtrlSetTip(-1, $sTxtTip)
-	$g_ahLblStatsSwitchGPH[$eLootElixir] = GUICtrlCreateLabel("0", $x - 18, $y - 12, 65, 17, $SS_RIGHT)
+	$g_ahLblStatsSwitchGPH[$eLootElixir] = GUICtrlCreateLabel("0/h", $x - 18, $y - 12, 65, 17, $SS_RIGHT)
 	GUICtrlSetFont(-1, 9, $FW_BOLD, Default, "Arial", $CLEARTYPE_QUALITY)
 	GUICtrlSetColor(-1, $COLOR_BLACK)
 	_GUICtrlSetTip(-1, $sTxtTip)
 
 	$x += 85
-	GUICtrlCreateIcon($g_sLibIconPath, $eIcnDark, $x + 50, $y - 12, 16, 16)
-	$sTxtTip = GetTranslatedFileIni("sam m0d", "MySwitchGPH_03", "Dark Gain per Hour")
+	$g_hPicHourlyStatsDark = GUICtrlCreateIcon($g_sLibIconPath, $eIcnDark, $x + 50, $y - 12, 16, 16)
+	$sTxtTip = GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsGainPerHour_Info_03", "Dark Elixir gain per hour")
 	_GUICtrlSetTip(-1, $sTxtTip)
-	$g_ahLblStatsSwitchGPH[$eLootDarkElixir] = GUICtrlCreateLabel("0", $x - 18, $y - 12, 65, 17, $SS_RIGHT)
+	$g_ahLblStatsSwitchGPH[$eLootDarkElixir] = GUICtrlCreateLabel("0/h", $x - 18, $y - 12, 65, 17, $SS_RIGHT)
 	GUICtrlSetFont(-1, 9, $FW_BOLD, Default, "Arial", $CLEARTYPE_QUALITY)
 	GUICtrlSetColor(-1, $COLOR_BLACK)
 	_GUICtrlSetTip(-1, $sTxtTip)
 
 	$x += 75
 	GUICtrlCreateIcon($g_sLibIconPath, $eIcnTrophy, $x + 50, $y - 12, 16, 16)
-	$sTxtTip = GetTranslatedFileIni("sam m0d", "MySwitchGPH_04", "Trophy Gain per Hour")
+	$sTxtTip = GetTranslatedFileIni("MBR GUI Design Child Bot - Stats", "LblStatsGainPerHour_Info_04", "Trophy gain per hour")
 	_GUICtrlSetTip(-1, $sTxtTip)
-	$g_ahLblStatsSwitchGPH[$eLootTrophy] = GUICtrlCreateLabel("0", $x - 18 + 5, $y - 12, 60, 17, $SS_RIGHT)
+	$g_ahLblStatsSwitchGPH[$eLootTrophy] = GUICtrlCreateLabel("0/h", $x - 18 + 5, $y - 12, 60, 17, $SS_RIGHT)
 	GUICtrlSetFont(-1, 9, $FW_BOLD, Default, "Arial", $CLEARTYPE_QUALITY)
 	GUICtrlSetColor(-1, $COLOR_BLACK)
 	_GUICtrlSetTip(-1, $sTxtTip)
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
+
+;================================================================================
 
 EndFunc   ;==>CreateGainSubTab
 #EndRegion Gain SubTab

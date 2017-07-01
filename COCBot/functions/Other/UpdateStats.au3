@@ -521,14 +521,16 @@ Func UpdateStats()
 				Local $iTotalGain[4] = [0,0,"",0]
 				For $i = 0 To 7
 					If $ichkEnableAcc[$i] = 1 Then
-						Local $tempGain = [0,0,"",0]
-						$tempGain = $aProfileStats[33][$i+1]
-						$iTotalGain[0] += $tempGain[0]
-						$iTotalGain[1] += $tempGain[1]
-						If $tempGain[2] <> "" Then
-							$iTotalGain[2] += $tempGain[2]
+						if IsArray($aProfileStats[33][$i+1]) Then
+							Local $tempGain[4] = [0,0,"",0]
+							$tempGain = $aProfileStats[33][$i+1]
+							$iTotalGain[0] += $tempGain[0]
+							$iTotalGain[1] += $tempGain[1]
+							If $tempGain[2] <> "" Then
+								$iTotalGain[2] += $tempGain[2]
+							EndIf
+							$iTotalGain[3] += $tempGain[3]
 						EndIf
-						$iTotalGain[3] += $tempGain[3]
 					EndIf
 				Next
 
