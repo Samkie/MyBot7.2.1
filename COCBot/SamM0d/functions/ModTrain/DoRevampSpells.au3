@@ -113,7 +113,7 @@ Func DoRevampSpells($bDoPreTrain = False)
 					EndIf
 					$iCost = $tempSpells[$i][4]
 					If $g_iSamM0dDebug = 1 Then SetLog("$iCost: " & $iCost)
-						Local $iBuildCost = ($i > 5 ? getMyOcrCurDEFromTrain() : getMyOcrCurElixirFromTrain())
+						Local $iBuildCost = (Eval("enum" & $tempSpells[$i][0]) > 5 ? getMyOcrCurDEFromTrain() : getMyOcrCurElixirFromTrain())
 						If $g_iSamM0dDebug = 1 Then SetLog("$BuildCost: " & $iBuildCost)
 					If $g_iSamM0dDebug = 1 Then SetLog("Total need: " & ($tempSpell * $iCost))
 					If ($tempSpell * $iCost) > $iBuildCost Then
@@ -130,7 +130,7 @@ Func DoRevampSpells($bDoPreTrain = False)
 						Return ; We are out of Elixir stop training.
 					EndIf
 
-					SetLog("Ready to brew " & MyNameOfTroop(Eval("enum" & $tempSpells[$i][0])+23,$tempSpell) & " x" & $tempSpell & " with total " & ( $i > 5 ? "Dark " : "") & "Elixir: " & ($tempSpell * $iCost),($i > 5 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
+					SetLog("Ready to brew " & MyNameOfTroop(Eval("enum" & $tempSpells[$i][0])+23,$tempSpell) & " x" & $tempSpell & " with total " & ( Eval("enum" & $tempSpells[$i][0]) > 5 ? "Dark " : "") & "Elixir: " & ($tempSpell * $iCost),(Eval("enum" & $tempSpells[$i][0]) > 5 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 
 					If ($tempSpells[$i][2] * $tempSpell) <= $iRemainSpellsCapacity Then
 						MyTrainClick($tempButton, $tempSpell, $g_iTrainClickDelay,"#BS01")
