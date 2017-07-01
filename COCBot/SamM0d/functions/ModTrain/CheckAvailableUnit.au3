@@ -76,12 +76,12 @@ Func CheckAvailableUnit($hHBitmap)
 				Local $iPixelDivider = ($g_iArmy_EnlargeRegionSizeForScan - ($g_aiArmyAvailableSlot[3] - $g_aiArmyAvailableSlot[1])) / 2
 				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int($g_aiArmyAvailableSlot[0] + ($g_iArmy_Av_Troop_Slot_Width* $i) + (($g_iArmy_Av_Troop_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2)), $g_aiArmyAvailableSlot[1] - $iPixelDivider, Int($g_aiArmyAvailableSlot[0] + ($g_iArmy_Av_Troop_Slot_Width* $i) + (($g_iArmy_Av_Troop_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2) + $g_iArmy_EnlargeRegionSizeForScan), $g_aiArmyAvailableSlot[3] + $iPixelDivider)
 				_debugSaveHBitmapToImage($temphHBitmap, "Troop_Av_Slot_" & $i + 1, True)
-				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_Slot" & $i + 1), "Troop_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
+				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_Slot" & $i + 1), "Troop_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
 				If $temphHBitmap <> 0 Then
 					GdiDeleteHBitmap($temphHBitmap)
 				EndIf
 				SetLog("Error: Cannot detect what troops on slot: " & $i + 1 , $COLOR_ERROR)
-				SetLog("Please check the filename: Troop_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
+				SetLog("Please check the filename: Troop_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
 				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
 				SetLog("Rename the correct filename and replace back to file location: " & $sOriDirectory, $COLOR_ERROR)
 				SetLog("And then restart the bot.", $COLOR_ERROR)

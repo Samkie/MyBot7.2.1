@@ -103,13 +103,13 @@ Func CheckOnBrewUnit($hHBitmap)
 			Else
 				Local $iPixelDivider = ($g_iArmy_EnlargeRegionSizeForScan - ($g_aiArmyOnBrewSlot[3] - $g_aiArmyOnBrewSlot[1])) / 2
 				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2)), $g_aiArmyOnBrewSlot[1] - $iPixelDivider, Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width* $i) + (($g_iArmy_OnT_Troop_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2) + $g_iArmy_EnlargeRegionSizeForScan), $g_aiArmyOnBrewSlot[3] + $iPixelDivider)
-				_debugSaveHBitmapToImage($temphHBitmap, "Spell_OnQ_Slot_" & $i + 1, True)
-				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_OB_Slot" & $i + 1), "Spell_OnQ_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
+				_debugSaveHBitmapToImage($temphHBitmap, ($bIsQueueSpell = True ? "Spell_Queue_Slot_" : "Spell_Brew_Slot_") & $i + 1, True)
+				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_OB_Slot" & $i + 1), ($bIsQueueSpell = True ? "Spell_Queue_Slot_" : "Spell_Brew_Slot_") & $i + 1 & "_Unknown_RenameThis_92", True)
 				If $temphHBitmap <> 0 Then
 					GdiDeleteHBitmap($temphHBitmap)
 				EndIf
 				SetLog("Error: Cannot detect what spells on slot: " & $i + 1 , $COLOR_ERROR)
-				SetLog("Please check the filename: Spell_OnQ_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
+				SetLog("Please check the filename: " & ($bIsQueueSpell = True ? "Spell_Queue_Slot_" : "Spell_Brew_Slot_") & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
 				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
 				SetLog("Rename the correct filename and replace back to file location: " & $sOriDirectory, $COLOR_ERROR)
 				SetLog("And then restart the bot.", $COLOR_ERROR)

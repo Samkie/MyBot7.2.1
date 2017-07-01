@@ -75,12 +75,12 @@ Func CheckAvailableSpellUnit($hHBitmap)
 				Local $iPixelDivider = ($g_iArmy_EnlargeRegionSizeForScan - ($g_aiArmyAvailableSpellSlot[3] - $g_aiArmyAvailableSpellSlot[1])) / 2
 				Local $temphHBitmap = GetHHBitmapArea($hHBitmap, Int($g_aiArmyAvailableSpellSlot[0] + ($g_iArmy_Av_Spell_Slot_Width* $i) + (($g_iArmy_Av_Spell_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2)), $g_aiArmyAvailableSpellSlot[1] - $iPixelDivider, Int($g_aiArmyAvailableSpellSlot[0] + ($g_iArmy_Av_Spell_Slot_Width* $i) + (($g_iArmy_Av_Spell_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2) + $g_iArmy_EnlargeRegionSizeForScan), $g_aiArmyAvailableSpellSlot[3] + $iPixelDivider)
 				_debugSaveHBitmapToImage($temphHBitmap, "Spell_Av_Slot_" & $i + 1, True)
-				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_Spell_Slot" & $i + 1), "Spell_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
+				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_Spell_Slot" & $i + 1), "Spell_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
 				If $temphHBitmap <> 0 Then
 					GdiDeleteHBitmap($temphHBitmap)
 				EndIf
 				SetLog("Error: Cannot detect what spells on slot: " & $i + 1 , $COLOR_ERROR)
-				SetLog("Please check the filename: Spell_Av_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
+				SetLog("Please check the filename: Spell_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
 				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
 				SetLog("Rename the correct filename and replace back to file location: " & $sOriDirectory, $COLOR_ERROR)
 				SetLog("And then restart the bot.", $COLOR_ERROR)

@@ -75,12 +75,12 @@ Func CheckAvailableCCUnit()
 				Local $iPixelDivider = ($g_iArmy_EnlargeRegionSizeForScan - ($g_aiArmyAvailableCCSlot[3] - $g_aiArmyAvailableCCSlot[1])) / 2
 				Local $temphHBitmap = GetHHBitmapArea($g_hHBitmap2, Int($g_aiArmyAvailableCCSlot[0] + ($g_iArmy_Av_CC_Slot_Width * $i) + (($g_iArmy_Av_CC_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2)), $g_aiArmyAvailableCCSlot[1] - $iPixelDivider, Int($g_aiArmyAvailableCCSlot[0] + ($g_iArmy_Av_CC_Slot_Width* $i) + (($g_iArmy_Av_CC_Slot_Width - $g_iArmy_EnlargeRegionSizeForScan) / 2) + $g_iArmy_EnlargeRegionSizeForScan), $g_aiArmyAvailableCCSlot[3] + $iPixelDivider)
 				_debugSaveHBitmapToImage($temphHBitmap, "Troop_Av_CC_Slot_" & $i + 1, True)
-				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_CC_Slot" & $i + 1), "Troop_Av_CC_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
+				_debugSaveHBitmapToImage(Eval("g_hHBitmap_Capture_Av_CC_Slot" & $i + 1), "Troop_CC_Slot_" & $i + 1 & "_Unknown_RenameThis_92", True)
 				If $temphHBitmap <> 0 Then
 					GdiDeleteHBitmap($temphHBitmap)
 				EndIf
 				SetLog("Error: Cannot detect what cc troops on slot: " & $i + 1 , $COLOR_ERROR)
-				SetLog("Please check the filename: Troop_Av_CC_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
+				SetLog("Please check the filename: Troop_CC_Slot_" & $i + 1 & "_Unknown_RenameThis_92.png", $COLOR_ERROR)
 				SetLog("Locate at:" & @ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\", $COLOR_ERROR)
 				SetLog("Rename the correct filename and replace back to file location: " & $sOriDirectory, $COLOR_ERROR)
 				SetLog("And then restart the bot.", $COLOR_ERROR)
