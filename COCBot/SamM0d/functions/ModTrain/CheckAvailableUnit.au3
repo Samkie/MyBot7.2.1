@@ -36,7 +36,7 @@ Func CheckAvailableUnit($hHBitmap)
 
 	Local $aiTroopsInfo[11][3]
 	Local $AvailableCamp = 0
-	Local $sDirectory = @ScriptDir & "\Profiles\SamM0d\Troops\"
+	Local $sDirectory = $g_sSamM0dImageLocation & "\Troops\"
 	Local $sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Troops\"
 	Local $returnProps="objectname"
 	Local $aPropsValues

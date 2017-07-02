@@ -37,7 +37,7 @@ Func getMyOcr($hHOCRBitmap, $x, $y, $width, $height, $OCRType, $bReturnAsNumber 
 	Local $bDeleteHBitmapFlag = False
 	Local $tempOCRType = StringLower($OCRType)
 
-	$sDirectory = @ScriptDir & "\Profiles\SamM0d\OCR\" & $tempOCRType
+	$sDirectory = $g_sSamM0dImageLocation & "\OCR\" & $tempOCRType
 
 	If $hHOCRBitmap = 0 Then
 		$bDeleteHBitmapFlag = True

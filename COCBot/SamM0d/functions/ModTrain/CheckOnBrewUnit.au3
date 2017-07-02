@@ -67,11 +67,11 @@ Func CheckOnBrewUnit($hHBitmap)
 			Local $bContinueNextLoop = False
 
 			If _ColorCheck(_GetPixelColor(Int($g_aiArmyOnBrewSlot[0] + ($g_iArmy_OnT_Troop_Slot_Width * $i) + ($g_iArmy_OnT_Troop_Slot_Width / 2)),186,False), Hex(0XD7AFA9, 6), 10) Then
-				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\Queue\"
+				$sDirectory = $g_sSamM0dImageLocation & "\Spells\Queue\"
 				$sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Spells\Queue\"
 				$bIsQueueSpell = True
 			Else
-				$sDirectory = @ScriptDir & "\Profiles\SamM0d\Spells\Brew\"
+				$sDirectory = $g_sSamM0dImageLocation & "\Spells\Brew\"
 				$sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Spells\Brew\"
 			EndIf
 			Local $iPixelDivider = ($g_iArmy_RegionSizeForScan - ($g_aiArmyOnBrewSlot[3] - $g_aiArmyOnBrewSlot[1])) / 2

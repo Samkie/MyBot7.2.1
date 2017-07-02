@@ -25,7 +25,7 @@ Func CheckAvailableCCUnit()
 		If $iCount > 3 then ExitLoop
 
 		Local $aiTroopsInfo[6][3]
-		Local $sDirectory = @ScriptDir & "\Profiles\SamM0d\Troops\CC\"
+		Local $sDirectory = $g_sSamM0dImageLocation & "\Troops\CC\"
 		Local $sOriDirectory = @ScriptDir & "\COCBot\SamM0d\Images\Troops\CC\"
 		Local $returnProps="objectname"
 		Local $aPropsValues

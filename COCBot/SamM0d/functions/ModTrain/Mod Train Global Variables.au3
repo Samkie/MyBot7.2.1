@@ -17,6 +17,7 @@ Global $COLOR_DARKELIXIR = 0x301D38
 Global $bTempDisAddIdleTime = False ;disable add train idle when train finish soon
 
 Global $ichkMyTroopsOrder = 0
+Global $g_sSamM0dImageLocation = @ScriptDir & "\COCBot\SamM0d\Images"
 Global $ichkDisablePretrainTroops = 0
 Global $ichkEnableDeleteExcessTroops = 0
 Global $ichkForcePreTrainTroops = 0

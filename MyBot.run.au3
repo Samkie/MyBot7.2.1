@@ -186,8 +186,18 @@ Func InitializeBot()
 	EndIf
 
 	DirRemove(@ScriptDir & "\profiles\SamM0d", 1)
-	DirCreate(@ScriptDir & "\profiles\SamM0d")
+	;DirCreate(@ScriptDir & "\profiles\SamM0d")
 	DirCopy(@ScriptDir & "\COCBot\SamM0d\Images",@ScriptDir & "\profiles\SamM0d", $FC_OVERWRITE)
+
+    Local $aSize = DirGetSize(@ScriptDir & "\profiles\SamM0d", 1)
+;~ 	For $i = 0 To UBound($aSize) - 1
+;~ 		SetLog("$aSize[" & $i & "]: " & $aSize[$i])
+;~ 	Next
+	If IsArray($aSize) Then
+		If $aSize[1] >= 204 Then
+			$g_sSamM0dImageLocation = @ScriptDir & "\profiles\SamM0d"
+		EndIf
+	EndIf
 
 	; samm0d log translate
 	#include "COCBot\SamM0d\Log Msg.au3"
