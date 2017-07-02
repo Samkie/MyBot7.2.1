@@ -17,6 +17,10 @@ Func ModTrain($ForcePreTrain = False)
 	$bJustMakeDonate = False
 	If $g_iSamM0dDebug = 1 Then SetLog("Func Train ", $COLOR_DEBUG)
 	If $g_bTrainEnabled = False Then Return
+	If $g_iMyTroopsSize = 0 Then
+		SetLog("Please setup your troops at the M0d section.", $COLOR_ERROR)
+		Return
+	EndIf
 
 	Local $bNotStuckJustOnBoost = False
 	Local $iCount = 0

@@ -167,10 +167,12 @@ Func InitializeBot()
 	; Some final setup steps and checks
 	FinalInitialization($sAndroidInfo)
 
-	; samm0d - MySwitch
-	$g_sEmulatorInfo4MySwitch = $sAndroidInfo
 
 	; samm0d
+	; =======================================================================================================
+	; MySwitch
+	$g_sEmulatorInfo4MySwitch = $sAndroidInfo
+
 	If FileExists(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\") Then
 		If Not FileExists(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\") Then
 			DirCreate(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images")
@@ -179,6 +181,9 @@ Func InitializeBot()
 		DirCreate(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug")
 		DirCreate(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images")
 	EndIf
+	If $g_iMyTroopsSize = 0 Then
+		SetLog("Please setup your troops at the M0d section before start the bot", $COLOR_ERROR)
+	EndIf
 
 	DirRemove(@ScriptDir & "\profiles\SamM0d", 1)
 	DirCreate(@ScriptDir & "\profiles\SamM0d")
@@ -186,8 +191,9 @@ Func InitializeBot()
 
 	; samm0d log translate
 	#include "COCBot\SamM0d\Log Msg.au3"
-	;ProcessSetPriority(@AutoItPID, $iBotProcessPriority) ;~ Restore process priority
 
+	; =======================================================================================================
+	;ProcessSetPriority(@AutoItPID, $iBotProcessPriority) ;~ Restore process priority
 EndFunc   ;==>InitializeBot
 
 ; #FUNCTION# ====================================================================================================================

@@ -34,7 +34,6 @@ Func UpdateTroopSetting()
 	For $i = 0 To UBound($MyTroops) - 1
 		$MyTroopsSetting[$icmbTroopSetting][$i][0] = Int(GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0])))
 		$MyTroops[$i][3] =  $MyTroopsSetting[$icmbTroopSetting][$i][0]
-
 	Next
 	UpdateTroopSize()
 	If $g_iSamM0dDebug Then SetLog("$g_iMyTroopsSize: " & $g_iMyTroopsSize)
@@ -45,7 +44,6 @@ Func UpdateTroopSize()
 	For $i = 0 To UBound($MyTroops) - 1
 		$g_iMyTroopsSize += $MyTroops[$i][3] * $MyTroops[$i][2]
 	Next
-
 	Local $iTempCampSize = 0
 	If $g_iTotalCampSpace = 0 Then
 		If GUICtrlRead($g_hChkTotalCampForced) = $GUI_CHECKED Then
