@@ -9,9 +9,6 @@ EndFunc
 
 Func cmbMyTroopOrder()
 	Local $tempOrder[19]
-	Local $tempSwap
-	Local $tempSwapTo
-
 	For $i = 0 To 18
 		$tempOrder[$i] = GUICtrlRead(Eval("cmbMy" & $MyTroops[$i][0] & "Order"))
 	Next
@@ -28,28 +25,24 @@ Func cmbMyTroopOrder()
 	Next
 	For $i = 0 To 18
 		$MyTroopsSetting[$icmbTroopSetting][$i][1] = Number($tempOrder[$i])
-		$MyTroops[$i][1] =  $MyTroopsSetting[$icmbTroopSetting][$i][1]
+		$MyTroops[$i][1] = $MyTroopsSetting[$icmbTroopSetting][$i][1]
 		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MyTroops[$i][0] & "Order"), $MyTroops[$i][1]-1)
 	Next
+	;_ArrayDisplay($MyTroops,"MyTroops")
 EndFunc
 
 Func UpdateTroopSetting()
-
-
 	For $i = 0 To UBound($MyTroops) - 1
 		$MyTroopsSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0]))
 		$MyTroops[$i][3] =  $MyTroopsSetting[$icmbTroopSetting][$i][0]
 
 	Next
-
 	UpdateTroopSize()
 	If $g_iSamM0dDebug Then SetLog("$g_iMyTroopsSize: " & $g_iMyTroopsSize)
-
 EndFunc
 
 Func UpdateTroopSize()
 	$g_iMyTroopsSize = 0
-
 	For $i = 0 To UBound($MyTroops) - 1
 		$g_iMyTroopsSize += $MyTroops[$i][3] * $MyTroops[$i][2]
 	Next
@@ -69,8 +62,6 @@ EndFunc
 
 Func cmbMySpellOrder()
 	Local $tempOrder[10]
-	Local $tempSwap
-	Local $tempSwapTo
 
 	For $i = 0 To 9
 		$tempOrder[$i] = GUICtrlRead(Eval("cmbMy" & $MySpells[$i][0] & "Order"))

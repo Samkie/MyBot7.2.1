@@ -549,7 +549,7 @@ Next
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", 87 + $i, "Pre-Brew " & $MySpells[$i][0] & " after available spell prepare finish."))
 			GUICtrlSetOnEvent(-1, "UpdatePreSpellSetting")
 
-		Assign("cmbMy"& $MySpells[$i][0] & "Order", GUICtrlCreateCombo("", $x, $y, 36, 18, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL)))
+		Assign("cmbMy"& $MySpells[$i][0] & "SpellOrder", GUICtrlCreateCombo("", $x, $y, 36, 18, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL)))
 			GUICtrlSetData(-1, $sComboSpellData, $i + 1)
 			GUICtrlSetOnEvent(-1, "cmbMySpellOrder")
 		$y +=25

@@ -301,6 +301,13 @@ Func CheckOnTrainUnit($hHBitmap)
 				Local $tempTroops[19][5]
 				$tempTroops	= $MyTroops
 				_ArraySort($tempTroops,0,0,0,1)
+				For $i = 0 To UBound($tempTroops) - 1
+					If $tempTroops[$i][3] > 0 Then
+						$tempTroops[0][0] = $tempTroops[$i][0]
+						$tempTroops[0][3] = $tempTroops[$i][3]
+						ExitLoop
+					EndIf
+				Next
 				_ArraySort($aiTroopInfo, 1, 0, 0, 2)
 				For $i = 0 To UBound($aiTroopInfo) - 1
 					If $aiTroopInfo[$i][3] = True Then
@@ -321,6 +328,7 @@ Func CheckOnTrainUnit($hHBitmap)
 								Return False
 							EndIf
 						EndIf
+						ExitLoop
 					EndIf
 				Next
 			EndIf

@@ -100,7 +100,7 @@ Global $chkPreLightning, $chkPreHeal, $chkPreRage, $chkPreJump, $chkPreFreeze, $
 Global $chkMySpellsOrder, $ichkMySpellsOrder
 Global $chkEnableDeleteExcessSpells, $ichkEnableDeleteExcessSpells
 Global $chkForcePreBrewSpell, $ichkForcePreBrewSpell
-Global $cmbMyLightningOrder, $cmbMyHealOrder, $cmbMyRageOrder, $cmbMyJumpOrder, $cmbMyFreezeOrder, $cmbMyCloneOrder, $cmbMyPoisonOrder, $cmbMyEarthOrder, $cmbMyHasteOrder, $cmbMySkeletonOrder
+Global $cmbMyLightningSpellOrder, $cmbMyHealSpellOrder, $cmbMyRageSpellOrder, $cmbMyJumpSpellOrder, $cmbMyFreezeSpellOrder, $cmbMyCloneSpellOrder, $cmbMyPoisonSpellOrder, $cmbMyEarthSpellOrder, $cmbMyHasteSpellOrder, $cmbMySkeletonSpellOrder
 
 Global $g_iMySpellsSize = 0
 Global $MySpells[10][5] = _

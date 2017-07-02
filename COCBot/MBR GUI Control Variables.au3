@@ -300,6 +300,7 @@ Func InitializeControlVariables()
 	$oAlwaysEnabledControls($btnMakeSwitchADBFolder) = 1
 	$oAlwaysEnabledControls($chkUseADBLoadVillage) = 1
 
+
 ;~ 	For $i in $chkEnableAcc
 ;~ 		$oAlwaysEnabledControls($i) = 1
 ;~ 	Next

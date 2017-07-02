@@ -296,6 +296,13 @@ Func CheckOnBrewUnit($hHBitmap)
 				Local $tempSpells[10][5]
 				$tempSpells	= $MySpells
 				_ArraySort($tempSpells,0,0,0,1)
+				For $i = 0 To UBound($tempSpells) - 1
+					If $tempSpells[$i][3] > 0 Then
+						$tempSpells[0][0] = $tempSpells[$i][0]
+						$tempSpells[0][3] = $tempSpells[$i][3]
+						ExitLoop
+					EndIf
+				Next
 				_ArraySort($aiSpellInfo, 1, 0, 0, 2)
 				For $i = 0 To UBound($aiSpellInfo) - 1
 					If $aiSpellInfo[$i][3] = True Then
@@ -316,6 +323,7 @@ Func CheckOnBrewUnit($hHBitmap)
 								Return False
 							EndIf
 						EndIf
+						ExitLoop
 					EndIf
 				Next
 			EndIf

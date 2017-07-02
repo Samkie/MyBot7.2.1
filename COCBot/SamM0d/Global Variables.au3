@@ -34,6 +34,7 @@ Global $CustomTrain_MSG_Elixir
 Global $g_iSamM0dDebug = 0
 Global $g_iSamM0dDebugOCR = 0
 Global $g_iSamM0dDebugImage = 0
+Global $g_iFailedToZoomOutCount = 0
 
 Global $COLOR_HMLClick_LOG =0x004040
 
