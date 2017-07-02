@@ -26,72 +26,61 @@ IniReadS($ichkEnableLimitDonateUnit, $g_sProfileConfigPath, "PreventOverDonate",
 IniReadS($itxtLimitDonateUnit, $g_sProfileConfigPath, "PreventOverDonate", "LimitValue", "8","Int")
 
 ; Unit Wave Factor
-
 IniReadS($ichkUnitFactor, $g_sProfileConfigPath, "SetSleep", "EnableUnitFactor", "1", "Int")
 IniReadS($itxtUnitFactor, $g_sProfileConfigPath, "SetSleep", "UnitFactor", "10","Int")
-
 IniReadS($ichkWaveFactor, $g_sProfileConfigPath, "SetSleep", "EnableWaveFactor", "1", "Int")
 IniReadS($itxtWaveFactor, $g_sProfileConfigPath, "SetSleep", "WaveFactor", "100","Int")
 
-
 ; SmartZap from ChaCalGyn (LunaEclipse) - DEMEN
-
-$ichkUseSamM0dZap = IniRead($g_sProfileConfigPath, "Zap", "SamM0dZap", "1")
-
-$ichkSmartZapDB = IniRead($g_sProfileConfigPath, "SmartZap", "ZapDBOnly", "1")
-$ichkSmartZapSaveHeroes = IniRead($g_sProfileConfigPath, "SmartZap", "THSnipeSaveHeroes", "1")
-$itxtMinDE = IniRead($g_sProfileConfigPath, "SmartZap", "MinDE", "400")
+IniReadS($ichkUseSamM0dZap, $g_sProfileConfigPath, "Zap", "SamM0dZap", "1","Int")
+IniReadS($ichkSmartZapDB, $g_sProfileConfigPath, "SmartZap", "ZapDBOnly", "1","Int")
+IniReadS($ichkSmartZapSaveHeroes, $g_sProfileConfigPath, "SmartZap", "THSnipeSaveHeroes", "1","Int")
+IniReadS($itxtMinDE, $g_sProfileConfigPath, "SmartZap", "MinDE", "400","Int")
 
 ; samm0d zap
-$ichkSmartZapRnd = IniRead($g_sProfileConfigPath, "SamM0dZap", "UseSmartZapRnd", "1")
-$ichkDrillExistBeforeZap = IniRead($g_sProfileConfigPath, "SamM0dZap", "CheckDrillBeforeZap", "1")
-$itxtMinDEGetFromDrill = IniRead($g_sProfileConfigPath, "SamM0dZap", "MinDEGetFromDrill", "100")
-$ichkPreventTripleZap = IniRead($g_sProfileConfigPath, "SamM0dZap", "PreventTripleZap", "1")
-
+IniReadS($ichkSmartZapRnd, $g_sProfileConfigPath, "SamM0dZap", "UseSmartZapRnd", "1","Int")
+IniReadS($ichkDrillExistBeforeZap, $g_sProfileConfigPath, "SamM0dZap", "CheckDrillBeforeZap", "1","Int")
+IniReadS($itxtMinDEGetFromDrill, $g_sProfileConfigPath, "SamM0dZap", "MinDEGetFromDrill", "100","Int")
+IniReadS($ichkPreventTripleZap, $g_sProfileConfigPath, "SamM0dZap", "PreventTripleZap", "1","Int")
 
 ; Check Collectors Outside - Added by TheRevenor
-$ichkDBMeetCollOutside = IniRead($g_sProfileConfigPath, "search", "DBMeetCollOutside", "0")
-$ichkDBCollectorsNearRedline = IniRead($g_sProfileConfigPath, "search", "DBCollectorsNearRedline", "0")
-
+IniReadS($ichkDBMeetCollOutside, $g_sProfileConfigPath, "search", "DBMeetCollOutside", "0","Int")
+IniReadS($ichkDBCollectorsNearRedline, $g_sProfileConfigPath, "search", "DBCollectorsNearRedline", "0","Int")
 IniReadS($icmbRedlineTiles, $g_sProfileConfigPath, "search", "RedlineTiles", "1", "Int")
-
-$iDBMinCollOutsidePercent = IniRead($g_sProfileConfigPath, "search", "DBMinCollOutsidePercent", "50")
-
-$ichkSkipCollectorCheckIF = IniRead($g_sProfileConfigPath, "search", "SkipCollectorCheckIF", "0")
-$itxtSkipCollectorGold = IniRead($g_sProfileConfigPath, "search", "SkipCollectorGold", "500000")
-$itxtSkipCollectorElixir = IniRead($g_sProfileConfigPath, "search", "SkipCollectorElixir", "500000")
-$itxtSkipCollectorDark = IniRead($g_sProfileConfigPath, "search", "SkipCollectorDark", "3000")
-$ichkSkipCollectorCheckIFTHLevel = IniRead($g_sProfileConfigPath, "search", "SkipCollectorCheckIFTHLevel", "0")
-$itxtIFTHLevel = IniRead($g_sProfileConfigPath, "search", "IFTHLevel", "7")
+IniReadS($iDBMinCollOutsidePercent, $g_sProfileConfigPath, "search", "DBMinCollOutsidePercent", "50", "Int")
+IniReadS($ichkSkipCollectorCheckIF, $g_sProfileConfigPath, "search", "SkipCollectorCheckIF", "0", "Int")
+IniReadS($itxtSkipCollectorGold, $g_sProfileConfigPath, "search", "SkipCollectorGold", "500000", "Int")
+IniReadS($itxtSkipCollectorElixir, $g_sProfileConfigPath, "search", "SkipCollectorElixir", "500000", "Int")
+IniReadS($itxtSkipCollectorDark, $g_sProfileConfigPath, "search", "SkipCollectorDark", "3000", "Int")
+IniReadS($ichkSkipCollectorCheckIFTHLevel, $g_sProfileConfigPath, "search", "SkipCollectorCheckIFTHLevel", "0", "Int")
+IniReadS($itxtIFTHLevel, $g_sProfileConfigPath, "search", "IFTHLevel", "7", "Int")
 
 ; drop cc first
-$ichkDropCCFirst = IniRead($g_sProfileConfigPath, "CCFirst", "Enable", "0")
+IniReadS($ichkDropCCFirst, $g_sProfileConfigPath, "CCFirst", "Enable", "0", "Int")
 
 ; Check League For DeadBase
-$iChkNoLeague[$DB] = IniRead($g_sProfileConfigPath, "search", "DBNoLeague", "0")
-$iChkNoLeague[$LB] = IniRead($g_sProfileConfigPath, "search", "ABNoLeague", "0")
+IniReadS($iChkNoLeague[$DB], $g_sProfileConfigPath, "search", "DBNoLeague", "0", "Int")
+IniReadS($iChkNoLeague[$LB], $g_sProfileConfigPath, "search", "ABNoLeague", "0", "Int")
 
 ; HLFClick By Samkie
-$ichkEnableHLFClick = IniRead($g_sProfileConfigPath, "HLFClick", "EnableHLFClick", "0")
-$isldHLFClickDelayTime = IniRead($g_sProfileConfigPath, "HLFClick", "HLFClickDelayTime", "500")
-$EnableHMLSetLog = IniRead($g_sProfileConfigPath, "HLFClick", "EnableHLFClickSetlog", "0")
-
+IniReadS($ichkEnableHLFClick, $g_sProfileConfigPath, "HLFClick", "EnableHLFClick", "0", "Int")
+IniReadS($isldHLFClickDelayTime, $g_sProfileConfigPath, "HLFClick", "HLFClickDelayTime", "500", "Int")
+IniReadS($EnableHMLSetLog, $g_sProfileConfigPath, "HLFClick", "EnableHLFClickSetlog", "0", "Int")
 
 ; advanced update for wall by Samkie
-$ichkSmartUpdateWall  = IniRead($g_sProfileConfigPath, "AU4Wall", "EnableSmartUpdateWall", "0")
-$itxtClickWallDelay  = IniRead($g_sProfileConfigPath, "AU4Wall", "ClickWallDelay", "500")
-$aBaseNode[0] = IniRead($g_sProfileConfigPath, "AU4Wall", "BaseNodeX", "-1")
-$aBaseNode[1] = IniRead($g_sProfileConfigPath, "AU4Wall", "BaseNodeY", "-1")
-$aLastWall[0] = IniRead($g_sProfileConfigPath, "AU4Wall", "LastWallX", "-1")
-$aLastWall[1] = IniRead($g_sProfileConfigPath, "AU4Wall", "LastWallY", "-1")
-$iFaceDirection = IniRead($g_sProfileConfigPath, "AU4Wall", "FaceDirection", "1")
+IniReadS($ichkSmartUpdateWall, $g_sProfileConfigPath, "AU4Wall", "EnableSmartUpdateWall", "0", "Int")
+IniReadS($itxtClickWallDelay, $g_sProfileConfigPath, "AU4Wall", "ClickWallDelay", "500", "Int")
+IniReadS($aBaseNode[0], $g_sProfileConfigPath, "AU4Wall", "BaseNodeX", "-1", "Int")
+IniReadS($aBaseNode[1], $g_sProfileConfigPath, "AU4Wall", "BaseNodeY", "-1", "Int")
+IniReadS($aLastWall[0], $g_sProfileConfigPath, "AU4Wall", "LastWallX", "-1", "Int")
+IniReadS($aLastWall[1], $g_sProfileConfigPath, "AU4Wall", "LastWallY", "-1", "Int")
+IniReadS($iFaceDirection, $g_sProfileConfigPath, "AU4Wall", "FaceDirection", "1", "Int")
 
 ; samm0d ocr
-$ichkEnableCustomOCR4CCRequest = IniRead($g_sProfileConfigPath, "GetMyOcr", "EnableCustomOCR4CCRequest", "0")
+IniReadS($ichkEnableCustomOCR4CCRequest, $g_sProfileConfigPath, "GetMyOcr", "EnableCustomOCR4CCRequest", "0", "Int")
 
 ; auto dock
-$ichkAutoDock = IniRead($g_sProfileConfigPath, "AutoDock", "Enable", "0")
-
+IniReadS($ichkAutoDock, $g_sProfileConfigPath, "AutoDock", "Enable", "0", "Int")
 IniReadS($g_bChkAutoHideEmulator, $g_sProfileConfigPath, "AutoHideEmulator", "Enable", False, "Bool")
 IniReadS($g_bChkAutoMinimizeBot, $g_sProfileConfigPath, "AutoMinimizeBot", "Enable", False, "Bool")
 
@@ -108,34 +97,30 @@ IniReadS($iCCTroopSlot3, $g_sProfileConfigPath, "Wait4CC", "CCTroopSlot3", "0", 
 IniReadS($iCCTroopSlotQty1, $g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty1", "0", "Int")
 IniReadS($iCCTroopSlotQty2, $g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty2", "0", "Int")
 IniReadS($iCCTroopSlotQty3, $g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty3", "0", "Int")
-
 IniReadS($g_iChkWait4CCSpell, $g_sProfileConfigPath, "Wait4CCSpell", "Enable", "0", "Int")
 IniReadS($iCCSpellSlot1, $g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlot1", "0", "Int")
 IniReadS($iCCSpellSlot2, $g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlot2", "0", "Int")
 IniReadS($iCCSpellSlotQty1, $g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlotQty1", "0", "Int")
 IniReadS($iCCSpellSlotQty2, $g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlotQty2", "0", "Int")
 
-
 ; check 4 cc
-$ichkCheck4CC = IniRead($g_sProfileConfigPath, "Check4CC", "Enable", "0")
-$itxtCheck4CCWaitTime = IniRead($g_sProfileConfigPath, "Check4CC", "WaitTime", "7")
-
+IniReadS($ichkCheck4CC, $g_sProfileConfigPath, "Check4CC", "Enable", "0", "Int")
+IniReadS($itxtCheck4CCWaitTime, $g_sProfileConfigPath, "Check4CC", "WaitTime", "7", "Int")
 
 ; global delay increse
-$ichkIncreaseGlobalDelay = IniRead($g_sProfileConfigPath, "GlobalDelay", "Enable", "0")
-$itxtIncreaseGlobalDelay = IniRead($g_sProfileConfigPath, "GlobalDelay", "DelayPercentage", "10")
+IniReadS($ichkIncreaseGlobalDelay, $g_sProfileConfigPath, "GlobalDelay", "Enable", "0", "Int")
+IniReadS($itxtIncreaseGlobalDelay, $g_sProfileConfigPath, "GlobalDelay", "DelayPercentage", "10", "Int")
 
 ;stick to train page
-$itxtStickToTrainWindow = IniRead($g_sProfileConfigPath, "StickToTrainPage", "Minutes", 2)
+IniReadS($itxtStickToTrainWindow, $g_sProfileConfigPath, "StickToTrainPage", "Minutes", "2","Int")
 
 ; My Troops
-IniReadS($ichkModTrain, $g_sProfileConfigPath, "MyTroops", "EnableModTrain", "0")
-IniReadS($ichkMyTroopsOrder, $g_sProfileConfigPath, "MyTroops", "Order", "0")
-IniReadS($ichkEnableDeleteExcessTroops, $g_sProfileConfigPath, "MyTroops", "DeleteExcess", "0")
+IniReadS($ichkModTrain, $g_sProfileConfigPath, "MyTroops", "EnableModTrain", "0","Int")
+IniReadS($ichkMyTroopsOrder, $g_sProfileConfigPath, "MyTroops", "Order", "0","Int")
+IniReadS($ichkEnableDeleteExcessTroops, $g_sProfileConfigPath, "MyTroops", "DeleteExcess", "0","Int")
 
-IniReadS($ichkForcePreTrainTroops, $g_sProfileConfigPath, "MyTroops", "ForcePreTrainTroop", "0")
-$itxtForcePreTrainStrength = IniRead($g_sProfileConfigPath, "MyTroops", "ForcePreTrainStrength", "95")
-
+IniReadS($ichkForcePreTrainTroops, $g_sProfileConfigPath, "MyTroops", "ForcePreTrainTroop", "0","Int")
+IniReadS($itxtForcePreTrainStrength, $g_sProfileConfigPath, "MyTroops", "ForcePreTrainStrength", "95","Int")
 IniReadS($icmbMyQuickTrain, $g_sProfileConfigPath, "MyTroops", "TrainCombo", "0", "Int")
 IniReadS($icmbTroopSetting, $g_sProfileConfigPath, "MyTroops", "Composition", "0", "Int")
 ;$icmbCoCVersion = IniRead($g_sProfileConfigPath, "COCVer", "CoCVersion", "0")
@@ -153,10 +138,10 @@ For $i = 0 To UBound($MyTroops) - 1
 	$MyTroops[$i][1] =  $MyTroopsSetting[$icmbTroopSetting][$i][1]
 Next
 
-IniReadS($ichkMySpellsOrder, $g_sProfileConfigPath, "MySpells", "Order", "0")
+IniReadS($ichkMySpellsOrder, $g_sProfileConfigPath, "MySpells", "Order", "0","Int")
 
-IniReadS($ichkEnableDeleteExcessSpells, $g_sProfileConfigPath, "MySpells", "DeleteExcess", "0")
-IniReadS($ichkForcePreBrewSpell, $g_sProfileConfigPath, "MySpells", "ForcePreBrewSpell", "0")
+IniReadS($ichkEnableDeleteExcessSpells, $g_sProfileConfigPath, "MySpells", "DeleteExcess", "0","Int")
+IniReadS($ichkForcePreBrewSpell, $g_sProfileConfigPath, "MySpells", "ForcePreBrewSpell", "0","Int")
 
 For $j = 0 To 2
 	For $i = 0 To UBound($MySpells) - 1

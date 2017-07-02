@@ -49,7 +49,7 @@ Func SetComboTroopComp()
 	lblTotalCountTroop1()
 
 	; samm0d
-	chkMyTroopOrder()
+	UpdateTroopSize()
 
 	SetRedrawBotWindow($bWasRedraw, Default, Default, Default, "SetComboTroopComp")
 EndFunc   ;==>SetComboTroopComp

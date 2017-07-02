@@ -4,19 +4,18 @@ Func chkMyTroopOrder()
 	Else
 		$ichkMyTroopsOrder = 0
 	EndIf
-	;SetLog("$ichkMyTroopsOrder: " & $ichkMyTroopsOrder)
 EndFunc
 
 Func cmbMyTroopOrder()
 	Local $tempOrder[19]
 	For $i = 0 To 18
-		$tempOrder[$i] = GUICtrlRead(Eval("cmbMy" & $MyTroops[$i][0] & "Order"))
+		$tempOrder[$i] = Int(GUICtrlRead(Eval("cmbMy" & $MyTroops[$i][0] & "Order")))
 	Next
 	For $i = 0 To 18
 		If $tempOrder[$i] <> $MyTroops[$i][1] Then
 			For $j = 0 To 18
 				If $MyTroops[$j][1] = $tempOrder[$i] Then
-					$tempOrder[$j] = Number($MyTroops[$i][1])
+					$tempOrder[$j] = Int($MyTroops[$i][1])
 					ExitLoop
 				EndIf
 			Next
@@ -24,7 +23,7 @@ Func cmbMyTroopOrder()
 		EndIf
 	Next
 	For $i = 0 To 18
-		$MyTroopsSetting[$icmbTroopSetting][$i][1] = Number($tempOrder[$i])
+		$MyTroopsSetting[$icmbTroopSetting][$i][1] = Int($tempOrder[$i])
 		$MyTroops[$i][1] = $MyTroopsSetting[$icmbTroopSetting][$i][1]
 		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MyTroops[$i][0] & "Order"), $MyTroops[$i][1]-1)
 	Next
@@ -33,7 +32,7 @@ EndFunc
 
 Func UpdateTroopSetting()
 	For $i = 0 To UBound($MyTroops) - 1
-		$MyTroopsSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0]))
+		$MyTroopsSetting[$icmbTroopSetting][$i][0] = Int(GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0])))
 		$MyTroops[$i][3] =  $MyTroopsSetting[$icmbTroopSetting][$i][0]
 
 	Next
@@ -47,15 +46,27 @@ Func UpdateTroopSize()
 		$g_iMyTroopsSize += $MyTroops[$i][3] * $MyTroops[$i][2]
 	Next
 
+	Local $iTempCampSize = 0
+	If $g_iTotalCampSpace = 0 Then
+		If GUICtrlRead($g_hChkTotalCampForced) = $GUI_CHECKED Then
+			$iTempCampSize = GUICtrlRead($g_hTxtTotalCampForced)
+		EndIf
+	Else
+		If GUICtrlRead($g_hChkTotalCampForced) = $GUI_CHECKED And Number(GUICtrlRead($g_hTxtTotalCampForced)) > $g_iTotalCampSpace Then
+			$iTempCampSize = Number(GUICtrlRead($g_hTxtTotalCampForced))
+		Else
+			$iTempCampSize = $g_iTotalCampSpace
+		EndIf
+	EndIf
 	$g_iTrainArmyFullTroopPct = Int(GUICtrlRead($g_hTxtFullTroop))
-	GUICtrlSetData($lblTotalCapacityOfMyTroops,GetTranslatedFileIni("sam m0d", 76, "Total") & ": " & $g_iMyTroopsSize & "/" & Int(($g_iTotalCampSpace * $g_iTrainArmyFullTroopPct) / 100))
-	If $g_iMyTroopsSize > (($g_iTotalCampSpace * $g_iTrainArmyFullTroopPct) / 100) Then
+	GUICtrlSetData($lblTotalCapacityOfMyTroops,GetTranslatedFileIni("sam m0d", 76, "Total") & ": " & $g_iMyTroopsSize & "/" & Int(($iTempCampSize * $g_iTrainArmyFullTroopPct) / 100))
+	If $g_iMyTroopsSize > (($iTempCampSize * $g_iTrainArmyFullTroopPct) / 100) Then
 		GUICtrlSetColor($lblTotalCapacityOfMyTroops,$COLOR_RED)
 		GUICtrlSetData($idProgressbar,100)
 		_SendMessage(GUICtrlGetHandle($idProgressbar), $PBM_SETSTATE, 2) ; red
 	Else
 		GUICtrlSetColor($lblTotalCapacityOfMyTroops,$COLOR_BLACK)
-		GUICtrlSetData($idProgressbar, Int(($g_iMyTroopsSize / (($g_iTotalCampSpace * $g_iTrainArmyFullTroopPct) / 100)) * 100))
+		GUICtrlSetData($idProgressbar, Int(($g_iMyTroopsSize / (($iTempCampSize * $g_iTrainArmyFullTroopPct) / 100)) * 100))
 		_SendMessage(GUICtrlGetHandle($idProgressbar), $PBM_SETSTATE, 1) ; green
 	EndIf
 EndFunc
@@ -64,13 +75,13 @@ Func cmbMySpellOrder()
 	Local $tempOrder[10]
 
 	For $i = 0 To 9
-		$tempOrder[$i] = GUICtrlRead(Eval("cmbMy" & $MySpells[$i][0] & "Order"))
+		$tempOrder[$i] = Int(GUICtrlRead(Eval("cmbMy" & $MySpells[$i][0] & "Order")))
 	Next
 	For $i = 0 To 9
 		If $tempOrder[$i] <> $MySpells[$i][1] Then
 			For $j = 0 To 9
 				If $MySpells[$j][1] = $tempOrder[$i] Then
-					$tempOrder[$j] = Number($MySpells[$i][1])
+					$tempOrder[$j] = Int($MySpells[$i][1])
 					ExitLoop
 				EndIf
 			Next
@@ -78,7 +89,7 @@ Func cmbMySpellOrder()
 		EndIf
 	Next
 	For $i = 0 To 9
-		$MySpellSetting[$icmbTroopSetting][$i][1] = Number($tempOrder[$i])
+		$MySpellSetting[$icmbTroopSetting][$i][1] = Int($tempOrder[$i])
 		$MySpells[$i][1] =  $MySpellSetting[$icmbTroopSetting][$i][1]
 		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "Order"), $MySpells[$i][1]-1)
 	Next
@@ -98,7 +109,7 @@ EndFunc
 Func UpdateSpellSetting()
 	$g_iMySpellsSize = 0
 	For $i = 0 To UBound($MySpells) - 1
-		$MySpellSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtNum" & $MySpells[$i][0] & "Spell"))
+		$MySpellSetting[$icmbTroopSetting][$i][0] = Int(GUICtrlRead(Eval("txtNum" & $MySpells[$i][0] & "Spell")))
 		$MySpells[$i][3] = $MySpellSetting[$icmbTroopSetting][$i][0]
 		$g_iMySpellsSize += $MySpells[$i][3] * $MySpells[$i][2]
 	Next
@@ -123,8 +134,8 @@ EndFunc
 
 Func cmbTroopSetting()
 	For $i = 0 To UBound($MyTroops) - 1
-		$MyTroopsSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0]))
-		$MyTroopsSetting[$icmbTroopSetting][$i][1] = GUICtrlRead(Eval("cmbMy"& $MyTroops[$i][0] & "Order"))
+		$MyTroopsSetting[$icmbTroopSetting][$i][0] = Int(GUICtrlRead(Eval("txtMy" & $MyTroops[$i][0])))
+		$MyTroopsSetting[$icmbTroopSetting][$i][1] = Int(GUICtrlRead(Eval("cmbMy"& $MyTroops[$i][0] & "Order")))
 	Next
 	For $i = 0 To UBound($MySpells) - 1
 		If GUICtrlRead(Eval("chkPre" & $MySpells[$i][0])) = $GUI_CHECKED Then
@@ -132,8 +143,8 @@ Func cmbTroopSetting()
 		Else
 			$MySpellSetting[$icmbTroopSetting][$i][2] = 0
 		EndIf
-		$MySpellSetting[$icmbTroopSetting][$i][0] = GUICtrlRead(Eval("txtNum" & $MySpells[$i][0] & "Spell"))
-		$MySpellSetting[$icmbTroopSetting][$i][1] = GUICtrlRead(Eval("cmbMy" & $MySpells[$i][0] & "Order"))
+		$MySpellSetting[$icmbTroopSetting][$i][0] = Int(GUICtrlRead(Eval("txtNum" & $MySpells[$i][0] & "Spell")))
+		$MySpellSetting[$icmbTroopSetting][$i][1] = Int(GUICtrlRead(Eval("cmbMy" & $MySpells[$i][0] & "Order")))
 	Next
 
 	$icmbTroopSetting = _GUICtrlComboBox_GetCurSel($cmbTroopSetting)
@@ -285,8 +296,8 @@ EndFunc
 Func lblMyTotalCountSpell()
 	_GUI_Value_STATE("HIDE", $groupListMySpells)
 	; calculate $iTotalTrainSpaceSpell value
-	$g_iMySpellsSize = (GUICtrlRead($txtNumLightningSpell) * 2) + (GUICtrlRead($txtNumHealSpell) * 2) + (GUICtrlRead($txtNumRageSpell) * 2) + (GUICtrlRead($txtNumJumpSpell) * 2) + _
-			(GUICtrlRead($txtNumFreezeSpell) * 2) + (GUICtrlRead($txtNumCloneSpell) * 4) + GUICtrlRead($txtNumPoisonSpell) + GUICtrlRead($txtNumHasteSpell) + GUICtrlRead($txtNumEarthSpell) + GUICtrlRead($txtNumSkeletonSpell)
+	$g_iMySpellsSize = Int((GUICtrlRead($txtNumLightningSpell) * 2) + (GUICtrlRead($txtNumHealSpell) * 2) + (GUICtrlRead($txtNumRageSpell) * 2) + (GUICtrlRead($txtNumJumpSpell) * 2) + _
+			(GUICtrlRead($txtNumFreezeSpell) * 2) + (GUICtrlRead($txtNumCloneSpell) * 4) + GUICtrlRead($txtNumPoisonSpell) + GUICtrlRead($txtNumHasteSpell) + GUICtrlRead($txtNumEarthSpell) + GUICtrlRead($txtNumSkeletonSpell))
 
 	_GUICtrlComboBox_SetCurSel($g_hTxtTotalCountSpell, _GUICtrlComboBox_GetCurSel($txtTotalCountSpell2))
 

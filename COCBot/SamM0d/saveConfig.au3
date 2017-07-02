@@ -24,173 +24,61 @@ IniWriteS($g_sProfileConfigPath, "MultiFinger", "Select", _GUICtrlComboBox_GetCu
 ;~ EndIf
 
 ; prevent over donate
-If GUICtrlRead($chkEnableLimitDonateUnit) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "PreventOverDonate", "Enable", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "PreventOverDonate", "Enable", 0)
-EndIf
+IniWriteS($g_sProfileConfigPath, "PreventOverDonate", "Enable", (GUICtrlRead($chkEnableLimitDonateUnit) = $GUI_CHECKED ? 1 : 0 ))
 IniWriteS($g_sProfileConfigPath, "PreventOverDonate", "LimitValue", GUICtrlRead($txtLimitDonateUnit))
 
 ; Unit Wave Factor
-If GUICtrlRead($chkUnitFactor) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "SetSleep", "EnableUnitFactor", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "SetSleep", "EnableUnitFactor", 0)
-EndIf
+IniWriteS($g_sProfileConfigPath, "SetSleep", "EnableUnitFactor", (GUICtrlRead($chkUnitFactor) = $GUI_CHECKED ? 1 : 0))
 IniWriteS($g_sProfileConfigPath, "SetSleep", "UnitFactor", GUICtrlRead($txtUnitFactor))
-
-If GUICtrlRead($chkWaveFactor) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "SetSleep", "EnableWaveFactor", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "SetSleep", "EnableWaveFactor", 0)
-EndIf
+IniWriteS($g_sProfileConfigPath, "SetSleep", "EnableWaveFactor", (GUICtrlRead($chkWaveFactor) = $GUI_CHECKED ? 1 : 0))
 IniWriteS($g_sProfileConfigPath, "SetSleep", "WaveFactor", GUICtrlRead($txtWaveFactor))
 
-
 ; SmartZap Settings from ChaCalGyn (LunaEclipse) - DEMEN
-
-If GUICtrlRead($chkUseSamM0dZap) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "Zap", "SamM0dZap", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "Zap", "SamM0dZap", 0)
-EndIf
-
-
-If GUICtrlRead($chkSmartZapDB) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "SmartZap", "ZapDBOnly", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "SmartZap", "ZapDBOnly", 0)
-EndIf
-
-If GUICtrlRead($chkSmartZapSaveHeroes) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "SmartZap", "THSnipeSaveHeroes", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "SmartZap", "THSnipeSaveHeroes", 0)
-EndIf
-
-IniWrite($g_sProfileConfigPath, "SmartZap", "MinDE", GUICtrlRead($txtMinDark2))
+IniWriteS($g_sProfileConfigPath, "Zap", "SamM0dZap", (GUICtrlRead($chkUseSamM0dZap) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "SmartZap", "ZapDBOnly", (GUICtrlRead($chkSmartZapDB) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "SmartZap", "THSnipeSaveHeroes", (GUICtrlRead($chkSmartZapSaveHeroes) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "SmartZap", "MinDE", GUICtrlRead($txtMinDark2))
 
 ; samm0d zap
-If GUICtrlRead($chkSmartZapRnd) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "SamM0dZap", "UseSmartZapRnd", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "SamM0dZap", "UseSmartZapRnd", 0)
-EndIf
-If GUICtrlRead($chkDrillExistBeforeZap) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "SamM0dZap", "CheckDrillBeforeZap", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "SamM0dZap", "CheckDrillBeforeZap", 0)
-EndIf
-
-If GUICtrlRead($chkPreventTripleZap) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "SamM0dZap", "PreventTripleZap", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "SamM0dZap", "PreventTripleZap", 0)
-EndIf
-
-IniWrite($g_sProfileConfigPath, "SamM0dZap", "MinDEGetFromDrill", GUICtrlRead($txtMinDEGetFromDrill))
-
+IniWriteS($g_sProfileConfigPath, "SamM0dZap", "UseSmartZapRnd", (GUICtrlRead($chkSmartZapRnd) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "SamM0dZap", "CheckDrillBeforeZap", (GUICtrlRead($chkDrillExistBeforeZap) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "SamM0dZap", "PreventTripleZap", (GUICtrlRead($chkPreventTripleZap) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "SamM0dZap", "MinDEGetFromDrill", GUICtrlRead($txtMinDEGetFromDrill))
 
 ; Check Collectors Outside
-If GUICtrlRead($chkDBMeetCollOutside) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "search", "DBMeetCollOutside", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "search", "DBMeetCollOutside", 0)
-EndIf
-
-If GUICtrlRead($chkDBCollectorsNearRedline) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "search", "DBCollectorsNearRedline", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "search", "DBCollectorsNearRedline", 0)
-EndIf
-
+IniWriteS($g_sProfileConfigPath, "search", "DBMeetCollOutside", (GUICtrlRead($chkDBMeetCollOutside) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "search", "DBCollectorsNearRedline", (GUICtrlRead($chkDBCollectorsNearRedline) = $GUI_CHECKED  ? 1 : 0))
 IniWriteS($g_sProfileConfigPath, "search", "RedlineTiles", _GUICtrlComboBox_GetCurSel($cmbRedlineTiles))
-
-If GUICtrlRead($chkSkipCollectorCheckIF) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "search", "SkipCollectorCheckIF", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "search", "SkipCollectorCheckIF", 0)
-EndIf
+IniWriteS($g_sProfileConfigPath, "search", "SkipCollectorCheckIF", (GUICtrlRead($chkSkipCollectorCheckIF) = $GUI_CHECKED ? 1 : 0))
 IniWriteS($g_sProfileConfigPath, "search", "DBMinCollOutsidePercent", GUICtrlRead($txtDBMinCollOutsidePercent))
 IniWriteS($g_sProfileConfigPath, "search", "SkipCollectorGold", GUICtrlRead($txtSkipCollectorGold))
 IniWriteS($g_sProfileConfigPath, "search", "SkipCollectorElixir", GUICtrlRead($txtSkipCollectorElixir))
 IniWriteS($g_sProfileConfigPath, "search", "SkipCollectorDark", GUICtrlRead($txtSkipCollectorDark))
-
-If GUICtrlRead($chkSkipCollectorCheckIFTHLevel) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "search", "SkipCollectorCheckIFTHLevel", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "search", "SkipCollectorCheckIFTHLevel", 0)
-EndIf
+IniWriteS($g_sProfileConfigPath, "search", "SkipCollectorCheckIFTHLevel", (GUICtrlRead($chkSkipCollectorCheckIFTHLevel) = $GUI_CHECKED ? 1 : 0))
 IniWriteS($g_sProfileConfigPath, "search", "IFTHLevel", GUICtrlRead($txtIFTHLevel))
 
 ; dropp cc first
-If GUICtrlRead($chkDropCCFirst) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "CCFirst", "Enable", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "CCFirst", "Enable", 0)
-EndIf
+IniWrite($g_sProfileConfigPath, "CCFirst", "Enable", (GUICtrlRead($chkDropCCFirst) = $GUI_CHECKED ? 1 : 0))
 
 ; Check League For DeadBase
-If GUICtrlRead($chkDBNoLeague) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "search", "DBNoLeague", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "search", "DBNoLeague", 0)
-EndIf
-
-If GUICtrlRead($chkABNoLeague) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "search", "ABNoLeague", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "search", "ABNoLeague", 0)
-EndIf
+IniWriteS($g_sProfileConfigPath, "search", "DBNoLeague", (GUICtrlRead($chkDBNoLeague) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "search", "ABNoLeague", (GUICtrlRead($chkABNoLeague) = $GUI_CHECKED ? 1 : 0))
 
 ; HLFClick By Samkie
-If GUICtrlRead($chkEnableHLFClick) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "HLFClick", "EnableHLFClick", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "HLFClick", "EnableHLFClick", 0)
-EndIf
-IniWrite($g_sProfileConfigPath, "HLFClick", "HLFClickDelayTime", GUICtrlRead($sldHLFClickDelayTime))
-
-If GUICtrlRead($chkEnableHLFClickSetlog) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "HLFClick", "EnableHLFClickSetlog", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "HLFClick", "EnableHLFClickSetlog", 0)
-EndIf
-
-; advanced update for wall by Samkie
-If GUICtrlRead($chkSmartUpdateWall) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "AU4Wall", "EnableSmartUpdateWall", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "AU4Wall", "EnableSmartUpdateWall", 0)
-EndIf
+IniWriteS($g_sProfileConfigPath, "HLFClick", "EnableHLFClick", (GUICtrlRead($chkEnableHLFClick) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "HLFClick", "HLFClickDelayTime", GUICtrlRead($sldHLFClickDelayTime))
+IniWriteS($g_sProfileConfigPath, "HLFClick", "EnableHLFClickSetlog", (GUICtrlRead($chkEnableHLFClickSetlog) = $GUI_CHECKED ? 1 : 0))
 
 ; samm0d ocr
-If GUICtrlRead($chkEnableCustomOCR4CCRequest) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "GetMyOcr", "EnableCustomOCR4CCRequest", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "GetMyOcr", "EnableCustomOCR4CCRequest", 0)
-EndIf
+IniWriteS($g_sProfileConfigPath, "GetMyOcr", "EnableCustomOCR4CCRequest", (GUICtrlRead($chkEnableCustomOCR4CCRequest) = $GUI_CHECKED ? 1 : 0))
 
 ; auto dock
-If GUICtrlRead($chkAutoDock) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "AutoDock", "Enable", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "AutoDock", "Enable", 0)
-EndIf
+IniWriteS($g_sProfileConfigPath, "AutoDock", "Enable", (GUICtrlRead($chkAutoDock) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "AutoHideEmulator", "Enable", (GUICtrlRead($chkAutoHideEmulator) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "AutoMinimizeBot", "Enable", (GUICtrlRead($chkAutoMinimizeBot) = $GUI_CHECKED ? 1 : 0))
 
-If GUICtrlRead($chkAutoHideEmulator) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "AutoHideEmulator", "Enable", True)
-Else
-	IniWrite($g_sProfileConfigPath, "AutoHideEmulator", "Enable", False)
-EndIf
-
-If GUICtrlRead($chkAutoMinimizeBot) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "AutoMinimizeBot", "Enable", True)
-Else
-	IniWrite($g_sProfileConfigPath, "AutoMinimizeBot", "Enable", False)
-EndIf
-
-
+; advanced update for wall by Samkie
+IniWriteS($g_sProfileConfigPath, "AU4Wall", "EnableSmartUpdateWall", (GUICtrlRead($chkSmartUpdateWall) = $GUI_CHECKED ? 1 :0))
 IniWriteS($g_sProfileConfigPath, "AU4Wall", "ClickWallDelay", GUICtrlRead($txtClickWallDelay))
 IniWriteS($g_sProfileConfigPath, "AU4Wall", "BaseNodeX", $aBaseNode[0])
 IniWriteS($g_sProfileConfigPath, "AU4Wall", "BaseNodeY", $aBaseNode[1])
@@ -202,21 +90,8 @@ IniWriteS($g_sProfileConfigPath, "AU4Wall", "FaceDirection", $iFaceDirection)
 IniWriteS($g_sProfileConfigPath, "attack", "CSVSpeedDB", $isldSelectedCSVSpeed[$DB])
 IniWriteS($g_sProfileConfigPath, "attack", "CSVSpeedAB", $isldSelectedCSVSpeed[$LB])
 
-
-; My Switch
-;~ $ichkEnableMySwitch = IniRead($g_sProfileConfigPath, "MySwitch", "Enable", "0")
-;~ If GUICtrlRead($chkEnableMySwitch) = $GUI_CHECKED Then
-;~ 	IniWrite($g_sProfileConfigPath, "MySwitch", "Enable", 1)
-;~ Else
-;~ 	IniWrite($g_sProfileConfigPath, "MySwitch", "Enable", 0)
-;~ EndIf
-
 ; Wait 4 CC
-If GUICtrlRead($chkWait4CC) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "Wait4CC", "Enable", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "Wait4CC", "Enable", 0)
-EndIf
+IniWriteS($g_sProfileConfigPath, "Wait4CC", "Enable", (GUICtrlRead($chkWait4CC) = $GUI_CHECKED ? 1 : 0))
 IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlot1", _GUICtrlComboBox_GetCurSel($cmbCCTroopSlot1))
 IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlot2", _GUICtrlComboBox_GetCurSel($cmbCCTroopSlot2))
 IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlot3", _GUICtrlComboBox_GetCurSel($cmbCCTroopSlot3))
@@ -225,31 +100,19 @@ IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty2", GUICtrlRead($txtC
 IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCTroopSlotQty3", GUICtrlRead($txtCCTroopSlotQty3))
 IniWriteS($g_sProfileConfigPath, "Wait4CC", "CCStrength", GUICtrlRead($txtCCStrength))
 
-If GUICtrlRead($chkWait4CCSpell) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "Enable", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "Enable", 0)
-EndIf
+; wait for cc spell
+IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "Enable", (GUICtrlRead($chkWait4CCSpell) = $GUI_CHECKED ? 1 : 0))
 IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlot1", _GUICtrlComboBox_GetCurSel($cmbCCSpellSlot1))
 IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlot2", _GUICtrlComboBox_GetCurSel($cmbCCSpellSlot2))
 IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlotQty1", GUICtrlRead($txtCCSpellSlotQty1))
 IniWriteS($g_sProfileConfigPath, "Wait4CCSpell", "CCSpellSlotQty2", GUICtrlRead($txtCCSpellSlotQty2))
 
-
 ; check 4 cc
-If GUICtrlRead($chkCheck4CC) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "Check4CC", "Enable", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "Check4CC", "Enable", 0)
-EndIf
+IniWrite($g_sProfileConfigPath, "Check4CC", "Enable", (GUICtrlRead($chkCheck4CC) = $GUI_CHECKED ? 1 : 0))
 IniWrite($g_sProfileConfigPath, "Check4CC", "WaitTime", GUICtrlRead($txtCheck4CCWaitTime))
 
 ; global delay increse
-If GUICtrlRead($chkIncreaseGlobalDelay) = $GUI_CHECKED Then
-	IniWrite($g_sProfileConfigPath, "GlobalDelay", "Enable", 1)
-Else
-	IniWrite($g_sProfileConfigPath, "GlobalDelay", "Enable", 0)
-EndIf
+IniWrite($g_sProfileConfigPath, "GlobalDelay", "Enable", (GUICtrlRead($chkIncreaseGlobalDelay) = $GUI_CHECKED ? 1 : 0))
 IniWrite($g_sProfileConfigPath, "GlobalDelay", "DelayPercentage", GUICtrlRead($txtIncreaseGlobalDelay))
 
 ; stick to train page
@@ -258,34 +121,10 @@ IniWrite($g_sProfileConfigPath, "StickToTrainPage", "Minutes", GUICtrlRead($txtS
 ; My Troops
 IniWriteS($g_sProfileConfigPath, "MyTroops", "ForcePreTrainTroop", (GUICtrlRead($chkForcePreTrainTroops) = $GUI_CHECKED ? 1 : 0))
 IniWrite($g_sProfileConfigPath, "MyTroops", "ForcePreTrainStrength", GUICtrlRead($txtForcePreTrainStrength))
-
-If GUICtrlRead($chkDisablePretrainTroops) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "MyTroops", "NoPreTrain", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "MyTroops", "NoPreTrain", 0)
-EndIf
-
-If GUICtrlRead($chkEnableDeleteExcessTroops) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "MyTroops", "DeleteExcess", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "MyTroops", "DeleteExcess", 0)
-EndIf
-
-If GUICtrlRead($chkModTrain) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "MyTroops", "EnableModTrain", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "MyTroops", "EnableModTrain", 0)
-EndIf
-
-If GUICtrlRead($chkMyTroopsOrder) = $GUI_CHECKED Then
-	IniWriteS($g_sProfileConfigPath, "MyTroops", "Order", 1)
-Else
-	IniWriteS($g_sProfileConfigPath, "MyTroops", "Order", 0)
-EndIf
-
-
-;IniWrite($g_sProfileConfigPath, "COCVer", "CoCVersion", _GUICtrlComboBox_GetCurSel($cmbCoCVersion))
-
+IniWriteS($g_sProfileConfigPath, "MyTroops", "NoPreTrain", (GUICtrlRead($chkDisablePretrainTroops) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "MyTroops", "DeleteExcess", (GUICtrlRead($chkEnableDeleteExcessTroops) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "MyTroops", "EnableModTrain", (GUICtrlRead($chkModTrain) = $GUI_CHECKED ? 1 : 0))
+IniWriteS($g_sProfileConfigPath, "MyTroops", "Order", (GUICtrlRead($chkMyTroopsOrder) = $GUI_CHECKED ? 1 : 0))
 IniWriteS($g_sProfileConfigPath, "MyTroops", "TrainCombo", _GUICtrlComboBox_GetCurSel($cmbMyQuickTrain))
 
 Local $itempcmbTroopSetting = _GUICtrlComboBox_GetCurSel($cmbTroopSetting)

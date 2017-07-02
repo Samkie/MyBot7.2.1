@@ -169,8 +169,8 @@ Func getTrainArmyCapacity($bSpellFlag = False)
 	If $bSpellFlag = False Then
 		If $g_iTotalCampSpace <> ($tempCurT / 2) Then ; if Total camp size is still not set or value not same as read use forced value
 			If $g_bTotalCampForced = False Then ; check if forced camp size set in expert tab
-				Local $proposedTotalCamp = $tempCurT
-				If $g_iTotalCampSpace > $tempCurT Then $proposedTotalCamp = $g_iTotalCampSpace
+				Local $proposedTotalCamp = ($tempCurT / 2)
+				If $g_iTotalCampSpace > ($tempCurT / 2) Then $proposedTotalCamp = $g_iTotalCampSpace
 				Local $sInputbox = InputBox("Question", _
 									  "Enter your total Army Camp capacity." & @CRLF & @CRLF & _
 									  "Please check it matches with total Army Camp capacity" & @CRLF & _
@@ -197,7 +197,7 @@ Func getTrainArmyCapacity($bSpellFlag = False)
 				   EndIf
 				EndIF
 			Else
-				$g_iTotalCampSpace = Number($g_iTotalCampForcedValue)
+				$g_iTotalCampSpace = $g_iTotalCampForcedValue
 			EndIf
 		EndIf
 	Else
@@ -230,6 +230,9 @@ Func getMyArmyCapacityMini($hHBitmap, $bShowLog = True)
 			EndIf
 		EndIf
 	EndIf
+
+	If $g_bTotalCampForced And $g_iTotalCampSpace = 0 Then $g_iTotalCampSpace = $g_iTotalCampForcedValue
+
 	If $g_iTotalCampSpace <> 0 Then
 		$g_iArmyCapacity = Int($g_CurrentCampUtilization / $g_iTotalCampSpace * 100)
 		If $bShowLog Then SetLog("Troops: " & $g_CurrentCampUtilization & "/" & $g_iTotalCampSpace & " (" & $g_iArmyCapacity & "%)")
@@ -265,6 +268,39 @@ Func getTrainArmyCapacityMini($hHBitmap, $bShowLog = True)
 				$g_aiTroopsMaxCamp[0] = Number($aTempSize[0])
 				$g_aiTroopsMaxCamp[1] = Number($aTempSize[1])
 			EndIf
+		EndIf
+	EndIf
+	If $g_iTotalCampSpace <> ($g_aiTroopsMaxCamp[1] / 2) Then
+		If $g_bTotalCampForced Then
+			$g_iTotalCampSpace = $g_iTotalCampForcedValue
+		Else
+			Local $proposedTotalCamp = ($g_aiTroopsMaxCamp[1] / 2)
+			If $g_iTotalCampSpace > ($g_aiTroopsMaxCamp[1] / 2) Then $proposedTotalCamp = $g_iTotalCampSpace
+			Local $sInputbox = InputBox("Question", _
+								  "Enter your total Army Camp capacity." & @CRLF & @CRLF & _
+								  "Please check it matches with total Army Camp capacity" & @CRLF & _
+								  "you see in Army Overview right now in Android Window:" & @CRLF & _
+								  $g_sAndroidTitle & @CRLF & @CRLF & _
+								  "(This window closes in 2 Minutes with value of " & $proposedTotalCamp & ")", $proposedTotalCamp, "", 330, 220, Default, Default, 120, $g_hFrmBotEx)
+			Local $error = @error
+			If $error = 1 Then
+			   Setlog("Army Camp User input cancelled, still using " & $g_iTotalCampSpace, $COLOR_ACTION)
+			Else
+			   If $error = 2 Then
+				  ; Cancelled, using proposed value
+				  $g_iTotalCampSpace = $proposedTotalCamp
+			   Else
+				  $g_iTotalCampSpace = Number($sInputbox)
+			   EndIf
+			   If $error = 0 Then
+				  $g_iTotalCampForcedValue = $g_iTotalCampSpace
+				  $g_bTotalCampForced = True
+				  Setlog("Army Camp User input = " & $g_iTotalCampSpace, $COLOR_INFO)
+			   Else
+				  ; timeout
+				  Setlog("Army Camp proposed value = " & $g_iTotalCampSpace, $COLOR_ACTION)
+			   EndIf
+			EndIF
 		EndIf
 	EndIf
 	If $g_aiTroopsMaxCamp[1] <> 0 Then
