@@ -513,6 +513,8 @@ Func GUIControl_WM_COMMAND($hWind, $iMsg, $wParam, $lParam)
 			chkmakeIMGCSV()
 		Case $g_hBtnTestTrain
 			btnTestTrain()
+		Case $g_hBtnMakeImageForTrainButtons
+			MakeTroopsAndSpellsTrainImage()
 		Case $g_hBtnTestDonateCC
 			btnTestDonateCC()
 		Case $g_hBtnTestRequestCC

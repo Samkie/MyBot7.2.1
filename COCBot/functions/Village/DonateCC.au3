@@ -136,8 +136,9 @@ Func DonateCC($Check = False)
 		ExitLoop
 	WEnd
 
+	checkAttackDisable($g_iTaBChkIdle) ; Early Take-A-Break detection
+	If _Sleep($DELAYDONATECC2) Then Return
 	While $bDonate
-		checkAttackDisable($g_iTaBChkIdle) ; Early Take-A-Break detection
 		$ClanString = ""
 
 		;samm0d reset value
@@ -155,8 +156,7 @@ Func DonateCC($Check = False)
 			Assign("canDon" & $g_asSpellNames[$iSpellIndex], False)
 		Next
 
-
-		If _Sleep($DELAYDONATECC2) Then ExitLoop
+		;If _Sleep($DELAYDONATECC2) Then ExitLoop
 		ForceCaptureRegion()
 		$g_aiDonatePixel = _MultiPixelSearch(202, $y, 224, 660 + $g_iBottomOffsetY, 50, 1, Hex(0x98D057, 6), $aChatDonateBtnColors, 20)
 		If IsArray($g_aiDonatePixel) Then ; if Donate Button found
@@ -543,7 +543,7 @@ Func DonateCC($Check = False)
 			$bDonate = True
 			$y = $g_aiDonatePixel[1] + 50
 			ClickP($aAway, 1, 0, "#0171")
-			If _Sleep($DELAYDONATECC2) Then ExitLoop
+		;	If _Sleep($DELAYDONATECC2) Then ExitLoop
 		EndIf
 		;ck for more donate buttons
 		ForceCaptureRegion()

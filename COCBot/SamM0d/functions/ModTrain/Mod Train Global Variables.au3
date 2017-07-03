@@ -1,4 +1,4 @@
-Global $chkModTrain, $lblMyQuickTrain, $cmbMyQuickTrain, $grpOtherTroops, $chkMyTroopsOrder, $cmbTroopSetting, $btnResetTroops, $btnResetOrder, $lblTotalCapacityOfMyTroops, $idProgressbar, _
+Global $chkModTrain, $lblMyQuickTrain, $cmbMyQuickTrain, $grpOtherTroops, $chkMyTroopsOrder, $cmbTroopSetting, $btnResetTroops, $btnResetOrder, $btnResetSpells, $btnResetSpellOrder, $lblTotalCapacityOfMyTroops, $idProgressbar, _
 $chkDisablePretrainTroops, $chkEnableDeleteExcessTroops, $lblStickToTrainWindow, $txtStickToTrainWindow, $chkForcePreTrainTroops, $txtForcePreTrainStrength
 Global $grpSpells,$lblTotalSpell,$txtTotalCountSpell2
 
@@ -19,6 +19,7 @@ Global $bTempDisAddIdleTime = False ;disable add train idle when train finish so
 Global $ichkMyTroopsOrder = 0
 Global $g_sSamM0dImageLocation = @ScriptDir & "\COCBot\SamM0d\Images"
 Global $ichkDisablePretrainTroops = 0
+Global $g_bDoPrebrewspell = 0
 Global $ichkEnableDeleteExcessTroops = 0
 Global $ichkForcePreTrainTroops = 0
 Global $itxtForcePreTrainStrength = 95
@@ -66,6 +67,42 @@ Global $MyTroops[19][5] = _
 ["Lava"	, 18, 30, 0,0], _
 ["Bowl"	, 19,  6, 0,0]]
 ;name,order,size,unit quantity,train cost
+
+
+Global $MyTroopsButton[19][3] = _
+[["Barb", 0, 0], _
+["Arch"	, 1, 0], _
+["Giant", 0, 1], _
+["Gobl"	, 1, 1], _
+["Wall"	, 0, 2], _
+["Ball"	, 1, 2], _
+["Wiza"	, 0, 3], _
+["Heal"	, 1, 3], _
+["Drag"	, 0, 4], _
+["Pekk"	, 1, 4], _
+["BabyD", 0, 5], _
+["Mine"	, 1, 5], _
+["Mini"	, 0, 6], _
+["Hogs"	, 1, 6], _
+["Valk"	, 0, 7], _
+["Gole"	, 1, 7], _
+["Witc"	, 2, 0], _
+["Lava"	, 3, 0], _
+["Bowl"	, 2, 1]]
+
+
+Global $MySpellsButton[10][3] = _
+[["Lightning",  0,  0], _
+["Heal"	     ,  1,  0], _
+["Rage"      ,  0,  1], _
+["Jump"	     ,  1,  1], _
+["Freeze"	 ,  0,  2], _
+["Clone"	 ,  1,  2], _
+["Poison"	 ,  0,  3], _
+["Earth"	 ,  1,  3], _
+["Haste"	 ,  0,  4], _
+["Skeleton"	 ,  1,  4]]
+
 
 ; updated 28 Jun 2017
 Global $MyTroopsCost[19][9] = _

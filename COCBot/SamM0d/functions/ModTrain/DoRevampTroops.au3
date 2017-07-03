@@ -98,11 +98,13 @@ Func DoRevampTroops($bDoPreTrain = False)
 				Local $Troop4Add = Eval("Add" & $tempTroops[$i][0])
 				If $Troop4Add > 0 Then
 
-					Local $tempButton = Eval("aButtonTrain" & $tempTroops[$i][0])
 					Local $fixRemain = 0
 
 					; check need swipe
-					CheckNeedSwipe(Eval("e" & $tempTroops[$i][0]))
+					If CheckNeedSwipe(Eval("e" & $tempTroops[$i][0])) = False Then
+						SetLog("Cannot click drag to select troop: " &  MyNameOfTroop(Eval("e" & $tempTroops[$i][0]), 1) , $COLOR_ERROR)
+						Return
+					EndIf
 
 					Local $iCost
 					; check train cost before click, incase use gem
@@ -143,19 +145,19 @@ Func DoRevampTroops($bDoPreTrain = False)
 					SetLog($CustomTrain_MSG_6 & " " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]),$Troop4Add) & " x" & $Troop4Add & " " & $CustomTrain_MSG_7 & " " & (Eval("e" & $tempTroops[$i][0]) > 11 ? $CustomTrain_MSG_DarkElixir : $CustomTrain_MSG_Elixir) & " : " & ($Troop4Add * $iCost),(Eval("e" & $tempTroops[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 
 					If ($tempTroops[$i][2] * $Troop4Add) <= $iRemainTroopsCapacity Then
-						MyTrainClick(Eval("aButtonTrain" & $tempTroops[$i][0]),$Troop4Add,$g_iTrainClickDelay,"#TT01")
+						MyTrainClick($tempTroops[$i][0],$Troop4Add,$g_iTrainClickDelay, "#TT01")
 						$iRemainTroopsCapacity -= ($tempTroops[$i][2] * $Troop4Add)
 					Else
 						Local $iReduceCap = Int($iRemainTroopsCapacity / $tempTroops[$i][2])
 						SetLog("troops above cannot fit to max capicity, reduce to train " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]),$iReduceCap) & " x" & $iReduceCap,$COLOR_ERROR)
-						MyTrainClick(Eval("aButtonTrain" & $tempTroops[$i][0]),$iReduceCap ,$g_iTrainClickDelay,"#TT01")
+						MyTrainClick($tempTroops[$i][0],$iReduceCap ,$g_iTrainClickDelay, "#TT01")
 						$fixRemain = $iRemainTroopsCapacity - ($iReduceCap * $tempTroops[$i][2])
 						$iRemainTroopsCapacity -= ($iRemainTroopsCapacity - ($iReduceCap * $tempTroops[$i][2]))
 					EndIf
 					If $fixRemain > 0 Then
 						CheckNeedSwipe($eArch)
 						SetLog("still got remain capacity, so train " & MyNameOfTroop(Eval("eArch"),$fixRemain) & " x" & $fixRemain & " to fit it.",$COLOR_ERROR)
-						MyTrainClick($aButtonTrainArch,$fixRemain,$g_iTrainClickDelay,"#TT01")
+						MyTrainClick("Arch",$fixRemain,$g_iTrainClickDelay, "#TT01")
 						$iRemainTroopsCapacity -= $fixRemain
 					EndIf
 					; reduce some speed
@@ -209,28 +211,25 @@ EndFunc
 Func CheckNeedSwipe($TrainTroop)
 	; check need swipe
 	Local $iSwipeNum = 15
-;~ 	If $isIceWizardAvailable = 1 Then $iSwipeNum = 13
+	Local $iCount = 0
 	If $TrainTroop > $iSwipeNum Then
-		If _ColorCheck(_GetPixelColor(22, 370 + $g_iMidOffsetY, True), Hex(0XD3D3CB, 6), 10) Then
-;~ 			If $isIceWizardAvailable = 1 Then
-;~ 				ClickDrag(712,476,218,476,250)
-;~ 				If _sleep(500) Then Return
-;~ 			Else
-				ClickDrag(617,476,418,476,250)
-				If _sleep(500) Then Return
-;~ 			EndIf
-		EndIf
+		$iCount = 0
+		While Not _ColorCheck(_GetPixelColor(838, 370 + $g_iMidOffsetY, True), Hex(0XD3D3CB, 6), 10)
+			ClickDrag(617,476,418,476,250)
+			If _sleep(500) Then Return False
+			$iCount += 1
+			If $iCount > 3 Then Return False
+		WEnd
 	Else
-		If _ColorCheck(_GetPixelColor(22, 370 + $g_iMidOffsetY, True), Hex(0XD3D3CB, 6), 10) = False Then
-;~ 			If $isIceWizardAvailable = 1 Then
-;~ 				ClickDrag(136,476,636,476,250)
-;~ 				If _sleep(500) Then Return
-;~ 			Else
-				ClickDrag(436,476,636,476,250)
-				If _sleep(500) Then Return
-;~ 			EndIf
-		EndIf
+		$iCount = 0
+		While Not _ColorCheck(_GetPixelColor(24, 370 + $g_iMidOffsetY, True), Hex(0XD3D3CB, 6), 10)
+			ClickDrag(436,476,636,476,250)
+			If _sleep(500) Then Return False
+			$iCount += 1
+			If $iCount > 3 Then Return False
+		WEnd
 	EndIf
+	Return True
 EndFunc
 
 Func getTroopCost($trooptype)

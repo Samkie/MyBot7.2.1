@@ -385,14 +385,9 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 			Else
 				If CheckAvailableSpellUnit($g_hHBitmapArmyTab) Then
 					If CheckOnBrewUnit($g_hHBitmapBrewTab) Then
-						Local $bOrPrebrewspell
-						For $i = $enumLightning To $enumSkeleton
-							$bOrPrebrewspell = BitOR($bOrPrebrewspell, Eval("ichkPre" & $MySpells[$i][0]))
-						Next
-
 						Select
 							Case $g_iSpellFactorySize >= $g_iMySpellsSize And $g_aiSpellsMaxCamp[0] >= $g_iMySpellsSize
-								If $bOrPrebrewspell = 0 Then
+								If $g_bDoPrebrewspell = 0 Then
 									SetLog("Pre-brew spell disable by user.",$COLOR_INFO)
 									$tempDisableBrewSpell = True
 								Else
@@ -400,7 +395,7 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 								EndIf
 							Case $g_iSpellFactorySize < $g_iMySpellsSize And $g_aiSpellsMaxCamp[0] >= $g_iMySpellsSize
 								If $bForcePreTrain Or $ichkForcePreBrewSpell Then
-									If $bOrPrebrewspell = 0 Then
+									If $g_bDoPrebrewspell = 0 Then
 										SetLog("Pre-brew spell disable by user.",$COLOR_INFO)
 										$tempDisableBrewSpell = True
 									Else

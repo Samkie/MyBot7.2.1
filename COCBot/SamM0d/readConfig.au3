@@ -151,8 +151,11 @@ For $j = 0 To 2
 		IniReadS($MySpellSetting[$j][$i][2], $g_sProfileConfigPath, "MySpells", $MySpells[$i][0] & "Pre" & $j, "0", "Int")
 	Next
 Next
+
+$g_bDoPrebrewspell = 0
 For $i = 0 To UBound($MySpells) - 1
 	Assign("ichkPre" & $MySpells[$i][0],  $MySpellSetting[$icmbTroopSetting][$i][2])
+	$g_bDoPrebrewspell = BitOR($g_bDoPrebrewspell, $MySpellSetting[$icmbTroopSetting][$i][2])
 	$MySpells[$i][3] =  $MySpellSetting[$icmbTroopSetting][$i][0]
 	$MySpells[$i][1] =  $MySpellSetting[$icmbTroopSetting][$i][1]
 Next

@@ -2178,18 +2178,18 @@ EndFunc   ;==>AndroidClickDrag
 ; Returns True if KeepClicks is active or for $Really = False KeepClicks() was called even though not enabled (poor mans deploy troops detection)
 Func IsKeepClicksActive($Really = True)
 	If $Really = True Then
-		Return $g_bAndroidAdbClick = True And $g_bAndroidAdbClicksEnabled = True And $g_aiAndroidAdbClicks[0] > -1
+		Return $g_bAndroidAdbClick = True And $g_bAndroidAdbClicksEnabled = 1 And $g_aiAndroidAdbClicks[0] > -1
 	EndIf
 	Return $g_bAndroidAdbKeepClicksActive
 EndFunc   ;==>IsKeepClicksActive
 
 Func KeepClicks()
 	$g_bAndroidAdbKeepClicksActive = True
-	If $g_bAndroidAdbClick = False Or $g_bAndroidAdbClicksEnabled = False Then Return False
+	If $g_bAndroidAdbClick = False Or $g_bAndroidAdbClicksEnabled = 0 Then Return False
 	If $g_aiAndroidAdbClicks[0] = -1 Then $g_aiAndroidAdbClicks[0] = 0
 EndFunc   ;==>KeepClicks
 
-Func ReleaseClicks($minClicksToRelease = 0, $ReleaseClicksEnabled = $g_bAndroidAdbClicksEnabled)
+Func ReleaseClicks($minClicksToRelease = 0, $ReleaseClicksEnabled = ($g_bAndroidAdbClicksEnabled = 1))
 	If $g_bAndroidAdbClick = False Or $ReleaseClicksEnabled = False Then
 		$g_bAndroidAdbKeepClicksActive = False
 		Return False

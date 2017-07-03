@@ -98,7 +98,7 @@ Func DoRevampSpells($bDoPreTrain = False)
 			For $i = 0 To UBound($tempSpells) - 1
 				Local $tempSpell = Eval("Add" & $tempSpells[$i][0] & "Spell")
 				If $tempSpell > 0 Then
-					Local $tempButton = Eval("aButtonBrew" & $tempSpells[$i][0])
+
 					Local $iCost
 					; check train cost before click, incase use gem
 					If $tempSpells[$i][4] = 0 Then
@@ -135,7 +135,7 @@ Func DoRevampSpells($bDoPreTrain = False)
 					SetLog("Ready to brew " & MyNameOfTroop(Eval("enum" & $tempSpells[$i][0])+23,$tempSpell) & " x" & $tempSpell & " with total " & ( Eval("enum" & $tempSpells[$i][0]) > 5 ? "Dark " : "") & "Elixir: " & ($tempSpell * $iCost),(Eval("enum" & $tempSpells[$i][0]) > 5 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 
 					If ($tempSpells[$i][2] * $tempSpell) <= $iRemainSpellsCapacity Then
-						MyTrainClick($tempButton, $tempSpell, $g_iTrainClickDelay,"#BS01")
+						MyTrainClick($tempSpells[$i][0], $tempSpell, $g_iTrainClickDelay, "#BS01", True)
 						$iRemainSpellsCapacity -= ($tempSpells[$i][2] * $tempSpell)
 					Else
 						SetLog("Error: remaining space cannot fit to brew " & MyNameOfTroop(Eval("enum" & $tempSpells[$i][0])+23,0), $COLOR_ERROR)

@@ -73,7 +73,7 @@ Func cmbMySpellOrder()
 	Local $tempOrder[10]
 
 	For $i = 0 To 9
-		$tempOrder[$i] = Int(GUICtrlRead(Eval("cmbMy" & $MySpells[$i][0] & "Order")))
+		$tempOrder[$i] = Int(GUICtrlRead(Eval("cmbMy" & $MySpells[$i][0] & "SpellOrder")))
 	Next
 	For $i = 0 To 9
 		If $tempOrder[$i] <> $MySpells[$i][1] Then
@@ -89,11 +89,12 @@ Func cmbMySpellOrder()
 	For $i = 0 To 9
 		$MySpellSetting[$icmbTroopSetting][$i][1] = Int($tempOrder[$i])
 		$MySpells[$i][1] =  $MySpellSetting[$icmbTroopSetting][$i][1]
-		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "Order"), $MySpells[$i][1]-1)
+		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "SpellOrder"), $MySpells[$i][1]-1)
 	Next
 EndFunc
 
 Func UpdatePreSpellSetting()
+	$g_bDoPrebrewspell = 0
 	For $i = 0 To UBound($MySpells) - 1
 		If GUICtrlRead(Eval("chkPre" & $MySpells[$i][0])) = $GUI_CHECKED Then
 			$MySpellSetting[$icmbTroopSetting][$i][2] = 1
@@ -101,6 +102,7 @@ Func UpdatePreSpellSetting()
 			$MySpellSetting[$icmbTroopSetting][$i][2] = 0
 		EndIf
 		Assign("ichkPre" & $MySpells[$i][0],  $MySpellSetting[$icmbTroopSetting][$i][2])
+		$g_bDoPrebrewspell = BitOR($g_bDoPrebrewspell, $MySpellSetting[$icmbTroopSetting][$i][2])
 	Next
 EndFunc
 
@@ -111,23 +113,42 @@ Func UpdateSpellSetting()
 		$MySpells[$i][3] = $MySpellSetting[$icmbTroopSetting][$i][0]
 		$g_iMySpellsSize += $MySpells[$i][3] * $MySpells[$i][2]
 	Next
+	If $g_iMySpellsSize < GUICtrlRead($txtTotalCountSpell2) + 1 Then
+		GUICtrlSetBkColor($txtNumLightningSpell, $COLOR_MONEYGREEN)
+		GUICtrlSetBkColor($txtNumHealSpell, $COLOR_MONEYGREEN)
+		GUICtrlSetBkColor($txtNumRageSpell, $COLOR_MONEYGREEN)
+		GUICtrlSetBkColor($txtNumJumpSpell, $COLOR_MONEYGREEN)
+		GUICtrlSetBkColor($txtNumFreezeSpell, $COLOR_MONEYGREEN)
+		GUICtrlSetBkColor($txtNumCloneSpell, $COLOR_MONEYGREEN)
+		GUICtrlSetBkColor($txtNumPoisonSpell, $COLOR_MONEYGREEN)
+		GUICtrlSetBkColor($txtNumEarthSpell, $COLOR_MONEYGREEN)
+		GUICtrlSetBkColor($txtNumHasteSpell, $COLOR_MONEYGREEN)
+		GUICtrlSetBkColor($txtNumSkeletonSpell, $COLOR_MONEYGREEN)
+	Else
+		GUICtrlSetBkColor($txtNumLightningSpell, $COLOR_RED)
+		GUICtrlSetBkColor($txtNumHealSpell, $COLOR_RED)
+		GUICtrlSetBkColor($txtNumRageSpell, $COLOR_RED)
+		GUICtrlSetBkColor($txtNumFreezeSpell, $COLOR_RED)
+		GUICtrlSetBkColor($txtNumCloneSpell, $COLOR_RED)
+		GUICtrlSetBkColor($txtNumJumpSpell, $COLOR_RED)
+		GUICtrlSetBkColor($txtNumPoisonSpell, $COLOR_RED)
+		GUICtrlSetBkColor($txtNumEarthSpell, $COLOR_RED)
+		GUICtrlSetBkColor($txtNumHasteSpell, $COLOR_RED)
+		GUICtrlSetBkColor($txtNumSkeletonSpell, $COLOR_RED)
+	EndIf
 	If $g_iSamM0dDebug Then SetLog("$g_iMySpellsSize: " & $g_iMySpellsSize)
 EndFunc
 
 Func chkDisablePretrainTroops()
-	If GUICtrlRead($chkDisablePretrainTroops) = $GUI_CHECKED Then
-		$ichkDisablePretrainTroops = 1
-	Else
-		$ichkDisablePretrainTroops = 0
-	EndIf
+	$ichkDisablePretrainTroops = (GUICtrlRead($chkDisablePretrainTroops) = $GUI_CHECKED ? 1 : 0)
 EndFunc
 
+;~ Func chkEnableADBClick()
+;~ 	$g_bAndroidAdbClicksEnabled = (GUICtrlRead($chkEnableADBClick) = $GUI_CHECKED ? 1 : 0)
+;~ EndFunc
+
 Func chkCustomTrain()
-	If GUICtrlRead($chkModTrain) = $GUI_CHECKED Then
-		$ichkModTrain = 1
-	Else
-		$ichkModTrain = 0
-	EndIf
+	$ichkModTrain = (GUICtrlRead($chkModTrain) = $GUI_CHECKED ? 1 : 0)
 EndFunc
 
 Func cmbTroopSetting()
@@ -142,7 +163,7 @@ Func cmbTroopSetting()
 			$MySpellSetting[$icmbTroopSetting][$i][2] = 0
 		EndIf
 		$MySpellSetting[$icmbTroopSetting][$i][0] = Int(GUICtrlRead(Eval("txtNum" & $MySpells[$i][0] & "Spell")))
-		$MySpellSetting[$icmbTroopSetting][$i][1] = Int(GUICtrlRead(Eval("cmbMy" & $MySpells[$i][0] & "Order")))
+		$MySpellSetting[$icmbTroopSetting][$i][1] = Int(GUICtrlRead(Eval("cmbMy" & $MySpells[$i][0] & "SpellOrder")))
 	Next
 
 	$icmbTroopSetting = _GUICtrlComboBox_GetCurSel($cmbTroopSetting)
@@ -153,9 +174,10 @@ Func cmbTroopSetting()
 		$MyTroops[$i][3] =  $MyTroopsSetting[$icmbTroopSetting][$i][0]
 		$MyTroops[$i][1] =  $MyTroopsSetting[$icmbTroopSetting][$i][1]
 	Next
-
+	$g_bDoPrebrewspell = 0
 	For $i = 0 To UBound($MySpells) - 1
 		Assign("ichkPre" & $MySpells[$i][0],  $MySpellSetting[$icmbTroopSetting][$i][2])
+		$g_bDoPrebrewspell = BitOR($g_bDoPrebrewspell, $MySpellSetting[$icmbTroopSetting][$i][2])
 		$MySpells[$i][3] =  $MySpellSetting[$icmbTroopSetting][$i][0]
 		$MySpells[$i][1] =  $MySpellSetting[$icmbTroopSetting][$i][1]
 	Next
@@ -172,7 +194,7 @@ Func cmbTroopSetting()
 			GUICtrlSetState(Eval("chkPre" & $MySpells[$i][0]), $GUI_UNCHECKED)
 		EndIf
 		GUICtrlSetData(Eval("txtNum" & $MySpells[$i][0] & "Spell"), $MySpells[$i][3])
-		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "Order"), $MySpells[$i][1]-1)
+		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "SpellOrder"), $MySpells[$i][1]-1)
 	Next
 
 	;cmbMyTroopOrder()
@@ -190,7 +212,7 @@ Func btnResetTroops()
 		GUICtrlSetData(Eval("txtMy" & $MyTroops[$i][0]),"0")
 		$MyTroops[$i][3] = 0
 	Next
-	chkMyTroopOrder()
+	UpdateTroopSetting()
 EndFunc
 
 Func btnResetOrder()
@@ -198,7 +220,20 @@ Func btnResetOrder()
 		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MyTroops[$i][0] & "Order"), $i)
 		$MyTroops[$i][1] = $i + 1
 	Next
-	chkMyTroopOrder()
+EndFunc
+
+Func btnResetSpells()
+	For $i = 0 To 9
+		GUICtrlSetData(Eval("txtNum" & $MySpells[$i][0] & "Spell"),"0")
+		$MySpells[$i][3] = 0
+	Next
+EndFunc
+
+Func btnResetSpellOrder()
+	For $i = 0 To 9
+		_GUICtrlComboBox_SetCurSel(Eval("cmbMy" & $MySpells[$i][0] & "SpellOrder"), $i)
+		$MySpells[$i][1] = $i + 1
+	Next
 EndFunc
 
 Func chkUnitFactor()

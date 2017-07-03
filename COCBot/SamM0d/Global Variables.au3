@@ -38,7 +38,7 @@ Global $g_iFailedToZoomOutCount = 0
 
 Global $COLOR_HMLClick_LOG =0x004040
 
-Global $g_hChkSamM0dDebugOCR, $g_hChkSamM0dDebug, $g_hchkSamM0dImage
+Global $g_hChkSamM0dDebugOCR, $g_hChkSamM0dDebug, $g_hchkSamM0dImage, $g_hBtnMakeImageForTrainButtons
 Global $g_sLeague, $g_iLeagueNo
 Global $bIDoScanMineAndElixir = False
 Global $bUpdateStats = False
@@ -108,8 +108,7 @@ Global $g_iCurTotalCCSpellCamp = 0
 Global $g_bFullCCSpells = False
 
 
-
-
+;~ Global $chkEnableADBClick
 Global $chkDropCCFirst
 
 ; check for cc

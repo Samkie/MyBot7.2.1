@@ -69,7 +69,7 @@ InitializeBot()
 MainLoop()
 
 Func UpdateBotTitle()
-	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.9.1 "
+	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.9.2 "
 	If $g_sBotTitle = "" Then
 		$g_sBotTitle = $sTitle
 	Else
@@ -194,7 +194,7 @@ Func InitializeBot()
 ;~ 		SetLog("$aSize[" & $i & "]: " & $aSize[$i])
 ;~ 	Next
 	If IsArray($aSize) Then
-		If $aSize[1] >= 204 Then
+		If $aSize[1] >= 233 Then
 			$g_sSamM0dImageLocation = @ScriptDir & "\profiles\SamM0d"
 		EndIf
 	EndIf

@@ -534,8 +534,16 @@ Local $x = $xStart, $y = $yStart
 			GUICtrlSetOnEvent(-1, "UpdateSpellSetting")
 		$lblTimesSkeletonS = GUICtrlCreateLabel("x", $x + 157, $y+3, -1, -1)
 
-Local $x = 190, $y = 110
 
+$y = 110
+$btnResetSpells= GUICtrlCreateButton(GetTranslatedFileIni("sam m0d", "Reset Spells", "Reset Spells"), $x+360, $y, 40, 47,$BS_MULTILINE)
+GUICtrlSetOnEvent(-1, "btnResetSpells")
+$y = 158
+$btnResetSpellOrder= GUICtrlCreateButton(GetTranslatedFileIni("sam m0d", 75, "Reset Order"), $x + 360, $y, 40, 47,$BS_MULTILINE)
+GUICtrlSetOnEvent(-1, "btnResetSpellOrder")
+
+
+Local $x = 190, $y = 110
 $chkMySpellsOrder = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Order", "Order"), $x, $y - 25 , -1, -1)
 
 Local $sComboSpellData= ""
@@ -543,6 +551,7 @@ Local $aSpellOrderList[11] = ["","1","2","3","4","5","6","7","8","9","10"]
 For $j = 0 To 10
 	$sComboSpellData &= $aSpellOrderList[$j] & "|"
 Next
+
 
 	For $i = 0 To UBound($MySpells) - 1
 		Assign("chkPre" & $MySpells[$i][0], GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 77 + $i, "Pre-Brew " & $MySpells[$i][0]) , $x + 40, $y, -1, -1))
@@ -765,6 +774,12 @@ $y += 25
 $chkAutoMinimizeBot = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Auto Minimize Bot", "Auto minimize bot after start"), $x+10, $y, -1, -1)
 	GUICtrlSetOnEvent(-1, "chkAutoMinimizeBot")
 	GUICtrlSetState(-1, $GUI_UNCHECKED)
+
+;~ $x = 10
+;~ $y += 25
+;~ $chkEnableADBClick = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Enable ADB click", "Enable ADB click"), $x+10, $y, -1, -1)
+;~ 	GUICtrlSetOnEvent(-1, "chkEnableADBClick")
+;~ 	GUICtrlSetState(-1, $GUI_UNCHECKED)
 
 $y += 25
 $chkEnableLimitDonateUnit = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "DonateLimit", "Limited units for each round troops donation, Unit(s): "), $x+10, $y, -1, -1)
