@@ -171,19 +171,21 @@ Func GetWallPositionForUpdate()
 		BuildingClick($aLastWall[0], $aLastWall[1]) ; click the wall
 		If _Sleep($itxtClickWallDelay) Then Return True; delay
 		Local $iCheckWallReturn = CheckWallLevel() ; check the ocr after click, is that a wall and the level we need to update?
+		Local $aWallOffset[2] = [8,6]
+		ConvertToVillagePos($aWallOffset[0], $aWallOffset[1])
 		Switch $iFaceDirection ; after check wall, prepare the click for next click use
 			Case 1
-				$aLastWall[0] += 8
-				$aLastWall[1] -= 6
+				$aLastWall[0] += $aWallOffset[0]
+				$aLastWall[1] -= $aWallOffset[1]
 			Case 2
-				$aLastWall[0] += 8
-				$aLastWall[1] += 6
+				$aLastWall[0] += $aWallOffset[0]
+				$aLastWall[1] += $aWallOffset[1]
 			Case 3
-				$aLastWall[0] -= 8
-				$aLastWall[1] += 6
+				$aLastWall[0] -= $aWallOffset[0]
+				$aLastWall[1] += $aWallOffset[1]
 			Case 4
-				$aLastWall[0] -= 8
-				$aLastWall[1] -= 6
+				$aLastWall[0] -= $aWallOffset[0]
+				$aLastWall[1] -= $aWallOffset[1]
 		EndSwitch
 		If $iCheckWallReturn = 1 Then ; return of CheckWallLevel(), if 1 mean we found the wall need to update
 			If $g_iDebugSetlog = 1 Then SetLog($iFaceDirection & " wall need update")

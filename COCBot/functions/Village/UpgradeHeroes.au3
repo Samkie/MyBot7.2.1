@@ -49,50 +49,56 @@ Func UpgradeHeroes()
 	;;;;;;;;;;;;;;;;;;;;;;;;##### Archer Queen #####;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;##### Verify Builders available #####;
 	; samm0d - if heroes already in upgrade, skip update...
-	If BitAND($g_iHeroUpgradingBit, $eHeroQueen) <> $eHeroQueen Then
-		If getBuilderCount() = False Then Return ; update builder data, return if problem
-		If _Sleep($DELAYRESPOND) Then Return
-		If $g_iFreeBuilderCount < 1 + ($g_bUpgradeWallSaveBuilder ? 1 : 0) Then
-			SetLog("Not Enough Builders for Queen", $COLOR_ERROR)
-			Return
+	If $g_bUpgradeQueenEnable Then
+		If BitAND($g_iHeroUpgradingBit, $eHeroQueen) <> $eHeroQueen Then
+			If getBuilderCount() = False Then Return ; update builder data, return if problem
+			If _Sleep($DELAYRESPOND) Then Return
+			If $g_iFreeBuilderCount < 1 + ($g_bUpgradeWallSaveBuilder ? 1 : 0) Then
+				SetLog("Not Enough Builders for Queen", $COLOR_ERROR)
+				Return
+			EndIf
+			;#### upgrade queen ####;
+			 QueenUpgrade()
+		Else
+			SetLog("Archer Queen upgrade in Process.", $COLOR_INFO)
 		EndIf
-		;#### upgrade queen ####;
-		 QueenUpgrade()
-	Else
-		SetLog("Archer Queen upgrade in Process.", $COLOR_INFO)
+		If _Sleep($DELAYUPGRADEHERO1) Then Return
 	EndIf
-
-	If _Sleep($DELAYUPGRADEHERO1) Then Return
 	;;;;;;;;;;;;;;;;;;;;;;;;##### Barbarian King #####;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;##### Verify Builders available #####;
 	; samm0d - if heroes already in upgrade, skip update...
-	If BitAND($g_iHeroUpgradingBit, $eHeroKing) <> $eHeroKing Then
-		If getBuilderCount() = False Then Return ; update builder data, return if problem
-		If _Sleep($DELAYRESPOND) Then Return
-		If $g_iFreeBuilderCount < 1 + ($g_bUpgradeWallSaveBuilder ? 1 : 0) Then
-			SetLog("Not Enough Builders for King", $COLOR_ERROR)
-			Return
+	If $g_bUpgradeKingEnable Then
+		If BitAND($g_iHeroUpgradingBit, $eHeroKing) <> $eHeroKing Then
+			If getBuilderCount() = False Then Return ; update builder data, return if problem
+			If _Sleep($DELAYRESPOND) Then Return
+			If $g_iFreeBuilderCount < 1 + ($g_bUpgradeWallSaveBuilder ? 1 : 0) Then
+				SetLog("Not Enough Builders for King", $COLOR_ERROR)
+				Return
+			EndIf
+			;##### Upgrade King #####;
+			KingUpgrade()
+		Else
+			SetLog("Barbarian King upgrade in Process.", $COLOR_INFO)
 		EndIf
-		;##### Upgrade King #####;
-		KingUpgrade()
-	Else
-		SetLog("Barbarian King upgrade in Process.", $COLOR_INFO)
+		If _Sleep($DELAYUPGRADEHERO1) Then Return
 	EndIf
-	If _Sleep($DELAYUPGRADEHERO1) Then Return
+
 	;;;;;;;;;;;;;;;;;;;;;;;;##### Grand Warden #####;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;##### Verify Builders available
 	; samm0d - if heroes already in upgrade, skip update...
-	If BitAND($g_iHeroUpgradingBit, $eHeroWarden) <> $eHeroWarden Then
-		If getBuilderCount() = False Then Return ; update builder data, return if problem
-		If _Sleep($DELAYRESPOND) Then Return
-		If $g_iFreeBuilderCount < 1 + ($g_bUpgradeWallSaveBuilder ? 1 : 0) Then
-			SetLog("Not Enough Builder for Warden", $COLOR_ERROR)
-			Return
+	If $g_bUpgradeWardenEnable Then
+		If BitAND($g_iHeroUpgradingBit, $eHeroWarden) <> $eHeroWarden Then
+			If getBuilderCount() = False Then Return ; update builder data, return if problem
+			If _Sleep($DELAYRESPOND) Then Return
+			If $g_iFreeBuilderCount < 1 + ($g_bUpgradeWallSaveBuilder ? 1 : 0) Then
+				SetLog("Not Enough Builder for Warden", $COLOR_ERROR)
+				Return
+			EndIf
+			;##### Upg Warden
+			WardenUpgrade()
+		Else
+			SetLog("Grand Warden upgrade in Process.", $COLOR_INFO)
 		EndIf
-		;##### Upg Warden
-		WardenUpgrade()
-	Else
-		SetLog("Grand Warden upgrade in Process.", $COLOR_INFO)
 	EndIf
 EndFunc   ;==>UpgradeHeroes
 

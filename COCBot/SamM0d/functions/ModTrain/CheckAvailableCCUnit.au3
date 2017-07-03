@@ -56,9 +56,11 @@ Func CheckAvailableCCUnit()
 					If $j = 0 Then
 						$aPropsValues = $result[$j] ; should be return objectname
 						If UBound($aPropsValues) = 1 then
-							$aiTroopsInfo[$i][0] = $aPropsValues[0] ; objectname
-							$aiTroopsInfo[$i][2] = $i + 1
-							$iTroopsCount += 1
+							If  $aPropsValues[0] <> "0" Then
+								$aiTroopsInfo[$i][0] = $aPropsValues[0] ; objectname
+								$aiTroopsInfo[$i][2] = $i + 1
+								$iTroopsCount += 1
+							EndIf
 						EndIf
 					ElseIf $j = 1 Then
 						$aPropsValues = $result[$j]

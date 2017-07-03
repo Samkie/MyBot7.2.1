@@ -550,6 +550,7 @@ Func UpdateStats()
 
 
 			If $bUpdateStats = True Then
+				If $iCurActiveAcc <> - 1 Then
 				If $aSwitchList[$iCurStep][4] <> $iCurActiveAcc Then
 					For $i = 0 To UBound($aSwitchList) - 1
 						If $aSwitchList[$i][4] = $iCurActiveAcc Then
@@ -560,6 +561,7 @@ Func UpdateStats()
 					GUICtrlSetData($g_hLblProfileName,$aSwitchList[$iCurStep][3])
 
 					displayStats($iCurActiveAcc)
+				EndIf
 				EndIf
 			EndIf
 		EndIf

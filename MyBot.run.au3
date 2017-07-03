@@ -69,7 +69,7 @@ InitializeBot()
 MainLoop()
 
 Func UpdateBotTitle()
-	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.9.2 "
+	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.9.3 "
 	If $g_sBotTitle = "" Then
 		$g_sBotTitle = $sTitle
 	Else
@@ -172,6 +172,8 @@ Func InitializeBot()
 	; =======================================================================================================
 	; MySwitch
 	$g_sEmulatorInfo4MySwitch = $sAndroidInfo
+
+	InitializeMySwitch()
 
 	If FileExists(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\") Then
 		If Not FileExists(@ScriptDir & "\profiles\" & $g_sProfileCurrentName & "\SamM0d Debug\Images\") Then

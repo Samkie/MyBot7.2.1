@@ -119,21 +119,6 @@ Func SelectGoogleAccount($iSlot)
 	; wait for game reload
 	Wait4Main()
 
-;~ 	$iCount = 0
-;~ 	While Not _ColorCheck(_GetPixelColor($aButtonSetting[4], $aButtonSetting[5],True), Hex($aButtonSetting[6], 6), Number($aButtonSetting[7]))
-;~ 		If $g_iSamM0dDebug Then SetLog("Color: " & _GetPixelColor(160, 380,True))
-;~ 		If _ColorCheck(_GetPixelColor(402, 516,True), Hex(0xFFFFFF, 6), 5) And _ColorCheck(_GetPixelColor(405, 537,True), Hex(0x5EAC10, 6), 20) Then
-;~ 			Click($aButtonVillageWasAttackOK[0],$aButtonVillageWasAttackOK[1],1,0,"#VWAO")
-;~ 			If _Sleep(1000) Then Return True
-;~ 			Return True ;  village was attacked okay button
-;~ 		EndIf
-;~ 		$iCount += 1
-;~ 		If $iCount > 20 Then
-;~ 			; if cannot locate button setting, let continue checkMainScreen() handle.
-;~ 			ExitLoop
-;~ 		EndIf
-;~ 		If _Sleep(1000) Then Return True
-;~ 	WEnd
 	Return True
 EndFunc
 
@@ -316,12 +301,12 @@ Func getNextSwitchList()
 		($iDateCalc >= 0 ? "Army getting ready." : "Army getting ready within " & 0 - $iDateCalc & " seconds.") & ($aSwitchList[$i][5] = 1 ? " - PB" : ""),$COLOR_INFO)
 
 		If $iDateCalc >= 0 Then $aSwitchList[$i][5] = 0 ; if current date time over, reset PB flag to enable switch again
-		; early 180 seconds for switch change acc if any attack type account train finish soon
+		; early 120 seconds for switch change acc if any attack type account train finish soon
 		If $iDateCalc >= (-120 * $iTotalDonateType) And $aSwitchList[$i][2] = 0 Then $bFlagGotTrainTimeout = True
 		; check the first donate acc
 		If $iFirstAtkDonAcc = -1 Then
 			If $aSwitchList[$i][2] = 1 Then
-				$iFirstAtkDonAcc = $i ; first donate type account found, for use with $ichkSwitchDonTypeOnlyWhenAtkTypeNotReady, hidden option if need this feature, variable set to 1 and recompile
+				$iFirstAtkDonAcc = $i ; first donate type account found
 			EndIf
 		EndIf
 
@@ -391,6 +376,24 @@ Func getNextSwitchList()
 		For $i = 0 to UBound($aSwitchList) - 1
 			If $aSwitchList[$i][5] = 0 Then  ; select this profile if not is PB activate
 				$iNextAccSlot = $aSwitchList[$i][4]
+				If $ichkCanCloseGame Then
+					Local $iDateCalc2 = _DateDiff('s', $aSwitchList[$i][0], _NowCalc()) ;compare date time from last check, return different seconds
+					;SetLog("$iDateCalc2: " & $iDateCalc2)
+					If $iDateCalc2 < 0 Then
+						If 0 - $iDateCalc2  > Number($g_iCloseMinimumTime * 60) Then
+							SetLog("New loop starting account: " & $aSwitchList[$i][4] + 1 & " - " & $aSwitchList[$i][3], $COLOR_INFO)
+							SetLog("Army still got " & 0 - $iDateCalc2 & " second(s) to get ready.", $COLOR_INFO)
+							If 0 - $iDateCalc2 > $itxtCanCloseGameTime Then
+								SmartWait4TrainMini((0 - $iDateCalc2) - $itxtCanCloseGameTime)
+							Else
+								Setlog("Avoid smart wait for train, cause of army getting ready soon.", $COLOR_INFO)
+							EndIf
+						Else
+							Setlog("Smart Wait Time < Minimum Time Required To Close [" & ($g_iCloseMinimumTime * 60) & " Sec.]", $COLOR_INFO)
+							Setlog("Wait Train Time = " & 0 - $iDateCalc2 & " seconds.", $COLOR_INFO)
+						EndIf
+					EndIf
+				EndIf
 				ExitLoop
 			EndIf
 		Next
@@ -507,6 +510,7 @@ Func DoSwitchAcc()
 
 	If $g_bCloseWhileTrainingEnable Then
 		SetLog("Disable smart wait")
+		GUICtrlSetState($g_hChkCloseWhileTraining, $GUI_UNCHECKED)
 		$g_bCloseWhileTrainingEnable = False
 	EndIf
 
@@ -1197,4 +1201,16 @@ Func Wait4Main()
 		EndIf
 		If ($i > 105) Or ($iCount > 120) Then ExitLoop ; If CheckObstacles forces reset, limit total time to 4 minutes
 	Next
+EndFunc
+
+Func SmartWait4TrainMini($iWaitTime)
+	; Determine state of $StopEmulator flag
+	Local $StopEmulator = False
+	Local $bFullRestart = False
+	Local $bSuspendComputer = False
+	If $g_bCloseRandom = True Then $StopEmulator = "random"
+	If $g_bCloseEmulator = True Then $StopEmulator = True
+	If $g_bSuspendComputer = True Then $bSuspendComputer = True
+	SetLog("Smart Wait For Train Enabled.", $COLOR_INFO)
+	UniversalCloseWaitOpenCoC($iWaitTime * 1000, "SmartWait4TrainMini_", $StopEmulator, $bFullRestart, $bSuspendComputer)
 EndFunc

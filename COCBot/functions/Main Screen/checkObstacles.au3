@@ -42,6 +42,7 @@ Func _checkObstacles() ;Checks if something is in the way for mainscreen
 	If checkObstacles_Network() Then Return True
 
 	If $g_sAndroidGameDistributor <> $g_sGoogle Then ; close an ads window for non google apks
+		CloseAd()
 		Local $aXButton = FindAdsXButton()
 		If IsArray($aXButton) Then
 			SetDebugLog("checkObstacles: Found " & $g_sAndroidGameDistributor & " ADS X button to close")
@@ -203,13 +204,13 @@ Func _checkObstacles() ;Checks if something is in the way for mainscreen
 	EndIf
 
 	; KunLun Version un click verify for real name
-	If _ColorCheck(_GetPixelColor(550, 400,$g_bNoCapturePixel), Hex(0xFFBB34, 6),5) And _ColorCheck(_GetPixelColor(450, 400,$g_bNoCapturePixel), Hex(0xFFBB34, 6),5) And _
-	_ColorCheck(_GetPixelColor(310, 400,$g_bNoCapturePixel), Hex(0xFFFFFF, 6),5) And _ColorCheck(_GetPixelColor(400, 400,$g_bNoCapturePixel), Hex(0xFFFFFF, 6),5) Then
-		Click(Random(340,380,1),Random(400,415,1),1,0,"#KUNC")
-		$g_bMinorObstacle = True
-		If _Sleep(500) Then Return
-		Return False
-	EndIf
+;~ 	If _ColorCheck(_GetPixelColor(550, 400,$g_bNoCapturePixel), Hex(0xFFBB34, 6),5) And _ColorCheck(_GetPixelColor(450, 400,$g_bNoCapturePixel), Hex(0xFFBB34, 6),5) And _
+;~ 	_ColorCheck(_GetPixelColor(310, 400,$g_bNoCapturePixel), Hex(0xFFFFFF, 6),5) And _ColorCheck(_GetPixelColor(400, 400,$g_bNoCapturePixel), Hex(0xFFFFFF, 6),5) Then
+;~ 		Click(Random(340,380,1),Random(400,415,1),1,0,"#KUNC")
+;~ 		$g_bMinorObstacle = True
+;~ 		If _Sleep(500) Then Return
+;~ 		Return False
+;~ 	EndIf
 
 	; prevent close train page failed, and get builder failed
 	If _CheckPixel($aIsTrainPgChk1, $g_bNoCapturePixel) Then

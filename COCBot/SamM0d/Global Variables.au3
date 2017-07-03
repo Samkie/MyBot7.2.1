@@ -244,6 +244,7 @@ Global $cmbWithProfile[8]
 Global $cmbAtkDon[8]
 Global $cmbStayTime[8]
 Global $lblActiveAcc
+Global $chkCanCloseGame, $txtCanCloseGameTime
 
 Global $ichkProfileImage = 0
 Global $ichkEnableAcc[8] = [0,0,0,0,0,0,0,0]
@@ -252,6 +253,8 @@ Global $icmbAtkDon[8] = [0,0,0,0,0,0,0,0]
 Global $icmbStayTime[8] = [0,0,0,0,0,0,0,0]
 
 Global $ichkEnableMySwitch = 0
+Global $ichkCanCloseGame = 1
+Global $itxtCanCloseGameTime = 180
 Global $iDoPerformAfterSwitch = False
 Global $iCurActiveAcc = -1
 Global $iNextAcc = 0

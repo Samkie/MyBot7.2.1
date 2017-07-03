@@ -18,7 +18,6 @@
 #include "functions\Other\OnAutoItErrorRegisterBot.au3"
 
 ;===========Samm0d collection==============================
-#include "SamM0d\MBRMates\AreCollectorsOutside\AreCollectorsOutside.au3"
 #include "SamM0d\Functions\SamM0dZap.au3"
 #include "SamM0d\Functions\AreCollectorsNearRedline.au3"
 #include "SamM0d\Functions\HLFClick.au3"
@@ -45,7 +44,11 @@
 #include "SamM0d\Functions\Other\_debugSaveHBitmapToImage.au3"
 #include "SamM0d\GUI\GUI Control MySwitch Setting.au3"
 #include "SamM0d\GUI\MBR GUI Control Child SamM0d.au3"
-; Attack Profile Vectors files - Added by LunaEclipse
+;----------------------------------------------------------------
+#include "SamM0d\MBRMates\AreCollectorsOutside\AreCollectorsOutside.au3"
+#include "SamM0d\MBRMates\AD.au3"
+; Multi Finger by LunaEclipse
+;----------------------------------------------------------------
 #include "SamM0d\MBRMates\Multi Fingers\Vectors\fourFingerStandard.au3"
 #include "SamM0d\MBRMates\Multi Fingers\Vectors\fourFingerSpiralLeft.au3"
 #include "SamM0d\MBRMates\Multi Fingers\Vectors\fourFingerSpiralRight.au3"
@@ -53,7 +56,6 @@
 #include "SamM0d\MBRMates\Multi Fingers\Vectors\eightFingerPinWheelRight.au3"
 #include "SamM0d\MBRMates\Multi Fingers\Vectors\eightFingerBlossom.au3"
 #include "SamM0d\MBRMates\Multi Fingers\Vectors\eightFingerImplosion.au3"
-; Attack Profile files - Added by LunaEclipse
 #include "SamM0d\MBRMates\Multi Fingers\fourFinger.au3"
 #include "SamM0d\MBRMates\Multi Fingers\eightFinger.au3"
 #include "SamM0d\MBRMates\Multi Fingers\multiFinger.au3"

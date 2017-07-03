@@ -98,9 +98,11 @@ Func CheckAvailableCCSpellUnit()
 					If $j = 0 Then
 						$aPropsValues = $result[$j] ; should be return objectname
 						If UBound($aPropsValues) = 1 then
-							$aiSpellsInfo[$i][0] = $aPropsValues[0] ; objectname
-							$aiSpellsInfo[$i][2] = $i + 1
-							$iSpellsCount += 1
+							If $aPropsValues[0] <> "0" Then
+								$aiSpellsInfo[$i][0] = $aPropsValues[0] ; objectname
+								$aiSpellsInfo[$i][2] = $i + 1
+								$iSpellsCount += 1
+							EndIf
 						EndIf
 					ElseIf $j = 1 Then
 						$aPropsValues = $result[$j]

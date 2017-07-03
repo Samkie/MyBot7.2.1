@@ -18,29 +18,37 @@ $chkProfileImage = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 41, "Do
 $y += 50
 For $i = 0 To 7
 	$chkEnableAcc[$i] = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 27 + $i, "Google Account slot " & $i + 1 & " with profile: "), $x, $y, -1, -1)
-		GUICtrlSetOnEvent(-1, "chkEnableAcc")
+		GUICtrlSetOnEvent(-1, "SelectAccForSwitch")
 	$cmbWithProfile[$i] = GUICtrlCreateCombo("", $x + 195, $y + 1, 120, 18, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
-		GUICtrlSetOnEvent(-1, "chkEnableAcc")
+		GUICtrlSetOnEvent(-1, "SelectAccForSwitch2")
 	$cmbAtkDon[$i] = GUICtrlCreateCombo("", $x + 320, $y + 1, 60, 18, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
 		GUICtrlSetData(-1, "Attack|Donate","Attack")
-		GUICtrlSetOnEvent(-1, "chkEnableAcc")
+		GUICtrlSetOnEvent(-1, "SelectAccForSwitch2")
 	$cmbStayTime[$i] = GUICtrlCreateCombo("", $x + 385, $y + 1, 40, 18, BitOR($CBS_DROPDOWNLIST, $CBS_AUTOHSCROLL))
 		GUICtrlSetData(-1, "0|5|10|15","0")
 		_GUICtrlSetTip(-1, "Setting for Stay how long (minutes) with this account.")
-		GUICtrlSetOnEvent(-1, "chkEnableAcc")
-	$y += 28
+		GUICtrlSetOnEvent(-1, "SelectAccForSwitch2")
+	$y += 25
 Next
 
-$y += 10
+$y += 12
 $chkEnableContinueStay = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "ContinueStay", "Avoid switch, if troops getting ready within [Minute(s)]: "), $x, $y, -1, -1)
 	GUICtrlSetOnEvent(-1, "chkEnableAcc")
 
-$txtTrainTimeLeft = GUICtrlCreateInput("300", $x + 290, $y+2, 35, 20, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+$txtTrainTimeLeft = GUICtrlCreateInput("5", $x + 290, $y+2, 35, 20, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
 	_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "ContinueStayValue", "Please enter how many minute(s)"))
 	GUICtrlSetLimit(-1, 2)
 	GUICtrlSetOnEvent(-1, "chkEnableAcc")
 
-$y += 25
+$y += 24
+$chkCanCloseGame = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Smart wait for train", "Enable smart wait for train. Login back when train time left second(s): "), $x, $y, -1, -1)
+	GUICtrlSetOnEvent(-1, "chkCanCloseGame")
+$txtCanCloseGameTime = GUICtrlCreateInput("60", $x + 360, $y+2, 35, 20, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+	_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d", "smart wait for train text", "Please enter how many second(s)"))
+	GUICtrlSetLimit(-1, 4)
+	GUICtrlSetOnEvent(-1, "chkCanCloseGame")
+
+$y += 24
 $chkForcePreTrainB4Switch = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "ForcePreTrainWhenSwitch", "Force pre-train troops for attack type account before switch."), $x, $y, -1, -1)
 	GUICtrlSetOnEvent(-1, "chkEnableAcc")
 
