@@ -43,7 +43,9 @@ Func PrepareDonateCC()
 EndFunc   ;==>PrepareDonateCC
 
 Func DonateCC($Check = False)
-	MoveIcon()
+	If $g_sAndroidGameDistributor <> $g_sGoogle Then
+		MoveIcon()
+	EndIf
 
 	Local $bDonateTroop = $g_abPrepDon[0]
 
@@ -180,16 +182,6 @@ Func DonateCC($Check = False)
 
 			;Read chat request for DonateTroop and DonateSpell
 			If $bDonateTroop Or $bDonateSpell And $donateCCfilter Then
-				; samm0d
-				If $ichkEnableCustomOCR4CCRequest = 1 Then
-					Setlog("Using custom OCR to read cc request message..", $COLOR_ACTION)
-					If $ClanString = "" Then
-						$ClanString = getMyOcr(0,30, $g_aiDonatePixel[1] - 24,160,14,"ccrequest",False,True)
-					Else
-						$ClanString &= " " & getMyOcr(0,30, $g_aiDonatePixel[1] - 24,160,14,"ccrequest",False,True)
-					EndIf
-				Else
-
 				If $g_bChkExtraAlphabets Then
 					; Chat Request using "coc-latin-cyr" xml: Latin + Cyrillic derived alphabets / three paragraphs
 					Setlog("Using OCR to read Latin and Cyrillic derived alphabets..", $COLOR_ACTION)
@@ -253,6 +245,14 @@ Func DonateCC($Check = False)
 					EndIf
 					If _Sleep($DELAYDONATECC2) Then ExitLoop
 				EndIf
+				; samm0d
+				If $ichkEnableCustomOCR4CCRequest = 1 Then
+					Setlog("Using custom OCR to read cc request message..", $COLOR_ACTION)
+					If $ClanString = "" Then
+						$ClanString = getMyOcr(0,30, $g_aiDonatePixel[1] - 24,160,14,"ccrequest",False,True)
+					Else
+						$ClanString &= " " & getMyOcr(0,30, $g_aiDonatePixel[1] - 24,160,14,"ccrequest",False,True)
+					EndIf
 				EndIf
 
 				If $ClanString = "" Or $ClanString = " " Then

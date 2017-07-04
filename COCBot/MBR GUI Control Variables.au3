@@ -300,7 +300,13 @@ Func InitializeControlVariables()
 	$oAlwaysEnabledControls($btnMakeSwitchADBFolder) = 1
 	$oAlwaysEnabledControls($chkUseADBLoadVillage) = 1
 
+	$oAlwaysEnabledControls($chkEnableContinueStay) = 1
+	$oAlwaysEnabledControls($txtTrainTimeLeft) = 1
 
+	$oAlwaysEnabledControls($chkCanCloseGame) = 1
+	$oAlwaysEnabledControls($txtCanCloseGameTime) = 1
+
+	$oAlwaysEnabledControls($chkForcePreTrainB4Switch) = 1
 ;~ 	For $i in $chkEnableAcc
 ;~ 		$oAlwaysEnabledControls($i) = 1
 ;~ 	Next

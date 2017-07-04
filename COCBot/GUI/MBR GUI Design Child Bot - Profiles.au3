@@ -109,9 +109,10 @@ Func CreateBotProfiles()
 			GUICtrlSetOnEvent(-1, "btnMakeSwitchADBFolder")
 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d",37, "Copy Village save files from Emulator to current profile. Make village name image from profile."))
 
-		$chkUseADBLoadVillage = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 38, "Use replace shared_prefs"), $x + 340, $y-7, 80, 40,$BS_MULTILINE)
-			GUICtrlSetOnEvent(-1, "chkEnableAcc")
-			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d",39, "Use replace shared_prefs method to load account."))
+;~ 		$chkUseADBLoadVillage = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", 38, "Use replace shared_prefs"), $x + 340, $y-7, 80, 40,$BS_MULTILINE)
+;~ 			GUICtrlSetOnEvent(-1, "chkEnableAcc")
+;~ 			_GUICtrlSetTip(-1, GetTranslatedFileIni("sam m0d",39, "Use replace shared_prefs method to load account."))
+
 
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 

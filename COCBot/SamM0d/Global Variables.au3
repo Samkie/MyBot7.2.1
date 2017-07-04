@@ -230,8 +230,13 @@ Global $btnAttNowDB, $btnAttNowLB
 ; GUI
 Global $g_ahLblStatsSwitchTotal[4]
 Global $g_ahLblStatsSwitchGPH[4]
+Global $cmbSwitchMethod
+Global $grpMySwitch, $chkEnableMySwitch, $chkProfileImage, $g_hLblProfileName, $arrowleft2, $arrowright2, $btnMakeSwitchADBFolder, $cmbSwitchMethod
+;Global $chkUseADBLoadVillage
+Global $chkEnableAcc[8], $cmbWithProfile[8], $cmbAtkDon[8], $cmbStayTime[8]
 
-Global $ichkUseADBLoadVillage = 0
+;Global $ichkUseADBLoadVillage = 0
+Global $icmbSwitchMethod = 0
 Global $iSelectAccError = 0
 Global $iTotalDonateType = 0
 Global $iCheckAccProfileError = 0
@@ -255,14 +260,13 @@ Global $icmbStayTime[8] = [0,0,0,0,0,0,0,0]
 Global $ichkEnableMySwitch = 0
 Global $ichkCanCloseGame = 1
 Global $itxtCanCloseGameTime = 180
+Global $iMySwitchSmartWaitTime = 0
 Global $iDoPerformAfterSwitch = False
 Global $iCurActiveAcc = -1
 Global $iNextAcc = 0
 Global $iCurStep = 0
 Global $iSortEnd = 0
 Global $bChangeNextAcc = True
-Global $grpMySwitch, $chkEnableMySwitch, $chkProfileImage, $g_hLblProfileName, $arrowleft2, $arrowright2, $btnMakeSwitchADBFolder, $chkUseADBLoadVillage
-Global $chkEnableAcc[8], $cmbWithProfile[8], $cmbAtkDon[8], $cmbStayTime[8]
 Global $ichkEnableContinueStay, $chkEnableContinueStay, $itxtTrainTimeLeft, $txtTrainTimeLeft, $ichkForcePreTrainB4Switch, $chkForcePreTrainB4Switch
 Global $ichkSwitchDonTypeOnlyWhenAtkTypeNotReady = False
 Global $bAvoidSwitch = False

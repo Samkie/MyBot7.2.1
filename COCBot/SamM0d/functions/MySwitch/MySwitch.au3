@@ -202,12 +202,12 @@ Func buildSwitchList()
 	$iTotalDonateType = 0
 	For $i = 0 To 7
 		If $ichkEnableAcc[$i] = 1 Then
-			If $ichkUseADBLoadVillage = 1 Then
+			If $icmbSwitchMethod = 1 Then
 				If Not FileExists(@ScriptDir & "\profiles\" & $icmbWithProfile[$i] & "\shared_prefs\HSJsonData.xml") Then
 					MsgBox($MB_SYSTEMMODAL, "Error!", "shared_prefs for " & $icmbWithProfile[$i] & " not found." & @CRLF _
 					& "Please Load profile " & $icmbWithProfile[$i] & " and goto emulator load village " & $icmbWithProfile[$i] & @CRLF _
 					& "Then use get shared_prefs button to get shared_prefs before use this feature.")
-					$ichkUseADBLoadVillage = 0
+					$icmbSwitchMethod = 0
 					GUICtrlSetState($chkUseADBLoadVillage, $GUI_UNCHECKED)
 					IniWrite(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "EnablesPrefSwitch", 0)
 				EndIf
@@ -384,7 +384,8 @@ Func getNextSwitchList()
 							SetLog("New loop starting account: " & $aSwitchList[$i][4] + 1 & " - " & $aSwitchList[$i][3], $COLOR_INFO)
 							SetLog("Army still got " & 0 - $iDateCalc2 & " second(s) to get ready.", $COLOR_INFO)
 							If 0 - $iDateCalc2 > $itxtCanCloseGameTime Then
-								SmartWait4TrainMini((0 - $iDateCalc2) - $itxtCanCloseGameTime)
+								$iMySwitchSmartWaitTime = (0 - $iDateCalc2) - $itxtCanCloseGameTime
+								;SmartWait4TrainMini((0 - $iDateCalc2) - $itxtCanCloseGameTime)
 							Else
 								Setlog("Avoid smart wait for train, cause of army getting ready soon.", $COLOR_INFO)
 							EndIf
@@ -451,53 +452,63 @@ Func DoSwitchAcc()
 
 		If _Sleep(500) Then Return
 
-		If $ichkUseADBLoadVillage = 1 Then
-			Local $iTempNextACC = -1
-			For $i = 0 To UBound($aSwitchList) - 1
-				If $aSwitchList[$i][4] = $iNextAcc Then
-					$iTempNextACC = $i
-					$aSwitchList[$i][1] = TimerInit()
-				EndIf
-			Next
+		Switch $icmbSwitchMethod
+			Case 2
+				PoliteCloseCoC()
+				If _Sleep(1500) Then Return False
+				$iCurActiveAcc = $iNextAcc
+				DoVillageLoadSucess($iCurActiveAcc)
 
-			If $g_iSamM0dDebug Then SetLog("$iTempNextACC: " & $iTempNextACC)
-			If $g_iSamM0dDebug Then SetLog("$aSwitchList[$iTempNextACC][3]: " & $aSwitchList[$iTempNextACC][3])
-			If $g_iSamM0dDebug Then SetLog("$aSwitchList[$iTempNextACC][4]: " & $aSwitchList[$iTempNextACC][4])
+			Case 1
+				Local $iTempNextACC = -1
+				For $i = 0 To UBound($aSwitchList) - 1
+					If $aSwitchList[$i][4] = $iNextAcc Then
+						$iTempNextACC = $i
+						$aSwitchList[$i][1] = TimerInit()
+					EndIf
+				Next
 
-			If $iTempNextACC <> - 1 Then
-				If loadVillageFrom($aSwitchList[$iTempNextACC][3], $aSwitchList[$iTempNextACC][4]) = True Then
-					$iCurActiveAcc = $iNextAcc
-					DoVillageLoadSucess($iCurActiveAcc)
-				Else
-					$g_bRestart = True
-					$iSelectAccError += 1
-					If $iSelectAccError > 2 Then
-						$iSelectAccError = 0
-						DoVillageLoadFailed()
+				If $g_iSamM0dDebug Then SetLog("$iTempNextACC: " & $iTempNextACC)
+				If $g_iSamM0dDebug Then SetLog("$aSwitchList[$iTempNextACC][3]: " & $aSwitchList[$iTempNextACC][3])
+				If $g_iSamM0dDebug Then SetLog("$aSwitchList[$iTempNextACC][4]: " & $aSwitchList[$iTempNextACC][4])
+
+				If $iTempNextACC <> - 1 Then
+					If loadVillageFrom($aSwitchList[$iTempNextACC][3], $aSwitchList[$iTempNextACC][4]) = True Then
+						$iCurActiveAcc = $iNextAcc
+						DoVillageLoadSucess($iCurActiveAcc)
+					Else
+						$g_bRestart = True
+						$iSelectAccError += 1
+						If $iSelectAccError > 2 Then
+							$iSelectAccError = 0
+							DoVillageLoadFailed()
+						EndIf
 					EndIf
 				EndIf
-			EndIf
-		Else
-			If _ColorCheck(_GetPixelColor($aButtonSetting[4], $aButtonSetting[5],True), Hex($aButtonSetting[6], 6), Number($aButtonSetting[7])) Then
-				If SelectGoogleAccount($iNextAcc) = True Then
-					$iCurActiveAcc = $iNextAcc
-					DoVillageLoadSucess($iCurActiveAcc)
-
-				Else
-					$g_bRestart = True
-					$iSelectAccError += 1
-					If $iSelectAccError > 2 Then
-						$iSelectAccError = 0
-						DoVillageLoadFailed()
-					EndIf
+			Case 0
+				If $iMySwitchSmartWaitTime > 0 Then
+					SmartWait4TrainMini($iMySwitchSmartWaitTime)
+					$iMySwitchSmartWaitTime = 0
 				EndIf
-			Else
-				SetLog("Cannot find setting button.",$COLOR_RED)
-				CloseCoC(True)
-				Wait4Main()
-				$g_bRestart = True
-			EndIf
-		EndIf
+				If _ColorCheck(_GetPixelColor($aButtonSetting[4], $aButtonSetting[5],True), Hex($aButtonSetting[6], 6), Number($aButtonSetting[7])) Then
+					If SelectGoogleAccount($iNextAcc) = True Then
+						$iCurActiveAcc = $iNextAcc
+						DoVillageLoadSucess($iCurActiveAcc)
+					Else
+						$g_bRestart = True
+						$iSelectAccError += 1
+						If $iSelectAccError > 2 Then
+							$iSelectAccError = 0
+							DoVillageLoadFailed()
+						EndIf
+					EndIf
+				Else
+					SetLog("Cannot find setting button.",$COLOR_RED)
+					CloseCoC(True)
+					Wait4Main()
+					$g_bRestart = True
+				EndIf
+		EndSwitch
 	EndIf
 
 	;GUICtrlSetData($g_hLblActiveAcc,"Current Active Acc: " & $iCurActiveAcc + 1)
@@ -559,6 +570,16 @@ Func DoVillageLoadSucess($iAcc)
 
 	$g_iCommandStop = -1
 	$iSelectAccError = 0
+
+	If $icmbSwitchMethod = 2 Then
+		If $iMySwitchSmartWaitTime > 0 Then
+			SmartWait4TrainMini($iMySwitchSmartWaitTime, 1)
+			$iMySwitchSmartWaitTime = 0
+		Else
+			OpenCoC()
+			Wait4Main()
+		EndIf
+	EndIf
 
 	If _Sleep(1000) Then Return
 	checkMainScreen(True)
@@ -1088,8 +1109,15 @@ Func loadVillageFrom($Profilename, $iSlot)
 
 	If $lResult = 0 Then
 		SetLog("shared_prefs copy to emulator should be okay.", $COLOR_INFO)
-		OpenCoC()
-		Wait4Main()
+
+		If $iMySwitchSmartWaitTime > 0 Then
+			SmartWait4TrainMini($iMySwitchSmartWaitTime, 1)
+			$iMySwitchSmartWaitTime = 0
+		Else
+			OpenCoC()
+			Wait4Main()
+		EndIf
+
 		Return True
 	EndIf
 
@@ -1203,7 +1231,7 @@ Func Wait4Main()
 	Next
 EndFunc
 
-Func SmartWait4TrainMini($iWaitTime)
+Func SmartWait4TrainMini($iWaitTime, $iFlagCloseAndOpenType = 0)
 	; Determine state of $StopEmulator flag
 	Local $StopEmulator = False
 	Local $bFullRestart = False
@@ -1212,5 +1240,11 @@ Func SmartWait4TrainMini($iWaitTime)
 	If $g_bCloseEmulator = True Then $StopEmulator = True
 	If $g_bSuspendComputer = True Then $bSuspendComputer = True
 	SetLog("Smart Wait For Train Enabled.", $COLOR_INFO)
-	UniversalCloseWaitOpenCoC($iWaitTime * 1000, "SmartWait4TrainMini_", $StopEmulator, $bFullRestart, $bSuspendComputer)
+
+	Switch $iFlagCloseAndOpenType
+		Case 0
+			UniversalCloseWaitOpenCoC($iWaitTime * 1000, "SmartWait4TrainMini_", $StopEmulator, $bFullRestart, $bSuspendComputer)
+		Case 1
+			WaitnOpenCoC($iWaitTime * 1000, $bFullRestart, $bSuspendComputer, True)
+	EndSwitch
 EndFunc

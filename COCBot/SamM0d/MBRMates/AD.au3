@@ -44,7 +44,7 @@ Func CloseAd()
 EndFunc
 
 Func MoveIcon()
-	setlog("MoveIcon",$COLOR_BLUE)
+	;setlog("MoveIcon",$COLOR_BLUE)
 	Select
 		Case ($g_sAndroidGamePackage = "com.supercell.clashofclans.baidu" And $g_sAndroidGameClass = "com.supercell.clashofclans.GameAppKunlun")
 		;Case ($g_sAndroidGamePackage = "com.supercell.clashofclans.baidu")
@@ -92,11 +92,18 @@ Func MoveZhaoleIcon()
 EndFunc
 
 Func readADConfig()
-	Local $str = IniRead(@ScriptDir & "\Profiles\AD.ini",$g_sAndroidGameDistributor,"AD","")
-	If $str <> "" then
-		$AdInformation = GetAdInformation($str)
+	If $g_sAndroidGameDistributor <> $g_sGoogle Then
+		GUICtrlSetState($g_hADButton, $GUI_SHOW)
+		GUICtrlSetState($g_hADButtonReset, $GUI_SHOW)
+		Local $str = IniRead(@ScriptDir & "\Profiles\AD.ini",$g_sAndroidGameDistributor,"AD","")
+		If $str <> "" then
+			$AdInformation = GetAdInformation($str)
+		Else
+			$AdInformation = ""
+		EndIf
 	Else
-		$AdInformation = ""
+		GUICtrlSetState($g_hADButton, $GUI_HIDE)
+		GUICtrlSetState($g_hADButtonReset, $GUI_HIDE)
 	EndIf
 EndFunc
 
@@ -169,8 +176,6 @@ Func FindADPos()
 		Sleep(10)
 	WEnd
 EndFunc
-
-
 
 
 Func LocateAD()

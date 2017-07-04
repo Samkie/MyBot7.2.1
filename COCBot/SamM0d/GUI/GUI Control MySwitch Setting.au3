@@ -6,15 +6,11 @@ Func BuildProfileForSwitch()
 		GUICtrlSetData($cmbWithProfile[$i], $sDataFromProfile, "")
 	Next
 	ApplyEnableAcc()
-	buildSwitchList()
-	DoCheckSwitchEnable()
 EndFunc
 
 Func InitializeMySwitch()
 	ReadEnableAcc()
 	ApplyEnableAcc()
-	buildSwitchList()
-	DoCheckSwitchEnable()
 EndFunc
 
 Func chkEnableAcc()
@@ -26,15 +22,11 @@ EndFunc
 Func SelectAccForSwitch()
 	If $g_iBotAction = $eBotStart Then
 		MsgBox(0,"Warning!", "Please stop bot before select account.")
-		ApplyEnableAcc()
+		For $i = 0 To 7
+			GUICtrlSetState($chkEnableAcc[$i], ($ichkEnableAcc[$i] = 1 ? $GUI_CHECKED : $GUI_UNCHECKED))
+		Next
 		Return
 	EndIf
-	chkEnableAcc()
-	buildSwitchList()
-	DoCheckSwitchEnable()
-EndFunc
-
-Func SelectAccForSwitch2()
 	chkEnableAcc()
 EndFunc
 
@@ -45,7 +37,8 @@ Func SaveEnableAcc()
 		IniWrite(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "AtkDon" & $i + 1, _GUICtrlComboBox_GetCurSel($cmbAtkDon[$i]))
 		IniWrite(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "Stay" & $i + 1, GUICtrlRead($cmbStayTime[$i]))
 	Next
-	IniWrite(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "EnablesPrefSwitch", (GUICtrlRead($chkUseADBLoadVillage) = $GUI_CHECKED ? 1 : 0))
+	;IniWrite(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "EnablesPrefSwitch", (GUICtrlRead($chkUseADBLoadVillage) = $GUI_CHECKED ? 1 : 0))
+	IniWrite(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "SwitchMethod", _GUICtrlComboBox_GetCurSel($cmbSwitchMethod))
 	IniWrite(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "CheckVillage", (GUICtrlRead($chkProfileImage) = $GUI_CHECKED ? 1 : 0))
 	IniWrite(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "EnableContinueStay", (GUICtrlRead($chkEnableContinueStay) = $GUI_CHECKED ? 1 : 0))
 	IniWrite(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "TrainTimeLeft", GUICtrlRead($txtTrainTimeLeft))
@@ -61,7 +54,8 @@ Func ReadEnableAcc()
 		$icmbAtkDon[$i] = IniRead(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "AtkDon" & $i + 1, "0")
 		$icmbStayTime[$i] = IniRead(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "Stay" & $i + 1, "0")
 	Next
-	$ichkUseADBLoadVillage = IniRead(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "EnablesPrefSwitch", "0")
+	;$ichkUseADBLoadVillage = IniRead(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "EnablesPrefSwitch", "0")
+	$icmbSwitchMethod = IniRead(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "SwitchMethod", "0")
 	$ichkProfileImage = IniRead(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "CheckVillage", "0")
 	$ichkEnableContinueStay = IniRead(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "EnableContinueStay", "0")
 	$itxtTrainTimeLeft = IniRead(@ScriptDir & "\Profiles\MySwitch.ini", "MySwitch", "TrainTimeLeft", "5")
@@ -77,13 +71,21 @@ Func ApplyEnableAcc()
 		setCombolistByText($cmbStayTime[$i],$icmbStayTime[$i])
 		_GUICtrlComboBox_SetCurSel($cmbAtkDon[$i],$icmbAtkDon[$i])
 	Next
-	GUICtrlSetState($chkUseADBLoadVillage, ($ichkUseADBLoadVillage = 1 ? $GUI_CHECKED : $GUI_UNCHECKED))
+	;GUICtrlSetState($chkUseADBLoadVillage, ($ichkUseADBLoadVillage = 1 ? $GUI_CHECKED : $GUI_UNCHECKED))
+	_GUICtrlComboBox_SetCurSel($cmbSwitchMethod,$icmbSwitchMethod)
 	GUICtrlSetState($chkProfileImage, ($ichkProfileImage = 1 ? $GUI_CHECKED : $GUI_UNCHECKED))
 	GUICtrlSetState($chkEnableContinueStay, ($ichkEnableContinueStay = 1 ? $GUI_CHECKED : $GUI_UNCHECKED))
 	GUICtrlSetData($txtTrainTimeLeft, $itxtTrainTimeLeft)
 	GUICtrlSetState($chkForcePreTrainB4Switch, ($ichkForcePreTrainB4Switch = 1 ? $GUI_CHECKED : $GUI_UNCHECKED))
 	GUICtrlSetState($chkCanCloseGame, ($ichkCanCloseGame = 1 ? $GUI_CHECKED : $GUI_UNCHECKED))
 	GUICtrlSetData($txtCanCloseGameTime, $itxtCanCloseGameTime)
+	buildSwitchList()
+	DoCheckSwitchEnable()
+EndFunc
+
+Func cmbSwitchMethod()
+	$icmbSwitchMethod = _GUICtrlComboBox_GetCurSel($cmbSwitchMethod)
+	chkEnableAcc()
 EndFunc
 
 Func chkCanCloseGame()

@@ -280,6 +280,7 @@ EndFunc   ;==>ReadConfig_Debug
 Func ReadConfig_Android()
 	; Android Configuration
 	$g_sAndroidGameDistributor = IniRead($g_sProfileConfigPath, "android", "game.distributor", $g_sAndroidGameDistributor)
+	; samm0d - Advertising window
 	readADConfig()
 	$g_sAndroidGamePackage = IniRead($g_sProfileConfigPath, "android", "game.package", $g_sAndroidGamePackage)
 	$g_sAndroidGameClass = IniRead($g_sProfileConfigPath, "android", "game.class", $g_sAndroidGameClass)

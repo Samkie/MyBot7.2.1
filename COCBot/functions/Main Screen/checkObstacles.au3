@@ -42,6 +42,7 @@ Func _checkObstacles() ;Checks if something is in the way for mainscreen
 	If checkObstacles_Network() Then Return True
 
 	If $g_sAndroidGameDistributor <> $g_sGoogle Then ; close an ads window for non google apks
+		; samm0d - close Advertising window
 		CloseAd()
 		Local $aXButton = FindAdsXButton()
 		If IsArray($aXButton) Then
