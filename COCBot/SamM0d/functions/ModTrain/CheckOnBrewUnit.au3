@@ -333,7 +333,7 @@ Func CheckOnBrewUnit($hHBitmap)
 	If $g_abAttackTypeEnable[$DB] = True And $g_abSearchSpellsWaitEnable[$DB] = True Then
 		For $i = $enumLightning To $enumSkeleton
 			If Eval("Cur" & $MySpells[$i][0] & "Spell") < $MySpells[$i][3] Then
-				SETLOG(" Dead Base - Waiting " & MyNameOfTroop($i+23,$MySpells[$i][3]) - Eval("Cur" & $MySpells[$i][0] & "Spell") & _
+				SETLOG(" Dead Base - Waiting " & MyNameOfTroop($i+23, $MySpells[$i][3] - Eval("Cur" & $MySpells[$i][0] & "Spell")) & _
 				" to brew finish before start next attack.", $COLOR_ACTION)
 			EndIf
 		Next
@@ -342,7 +342,7 @@ Func CheckOnBrewUnit($hHBitmap)
 	If $g_abAttackTypeEnable[$LB] = True And $g_abSearchSpellsWaitEnable[$LB] = True Then
 		For $i = $enumLightning To $enumSkeleton
 			If Eval("Cur" & $MySpells[$i][0] & "Spell") < $MySpells[$i][3] Then
-				SETLOG(" Live Base - Waiting " & MyNameOfTroop($i+23,$MySpells[$i][3]) - Eval("Cur" & $MySpells[$i][0] & "Spell") & _
+				SETLOG(" Live Base - Waiting " & MyNameOfTroop($i+23, $MySpells[$i][3] - Eval("Cur" & $MySpells[$i][0] & "Spell")) & _
 				" to brew finish before start next attack.", $COLOR_ACTION)
 			EndIf
 		Next

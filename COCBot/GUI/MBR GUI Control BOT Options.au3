@@ -268,6 +268,7 @@ Func btnTestTrain()
 	SetLog("===START===")
 	Local $hTimer = __TimerInit()
 
+;~ 	FriendlyChallenge()
 	$g_bRestart = False
 	$tempDisableTrain=False
 	$tempDisableBrewSpell=False

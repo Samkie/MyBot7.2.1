@@ -208,6 +208,11 @@ Func AttackReport()
 	$AtkLogTxt &= StringFormat("%4d", $g_iStatsBonusLast[$eLootDarkElixir]) & "|"
 	$AtkLogTxt &= $g_asLeagueDetailsShort & "|"
 
+	If $ichkEnableMySwitch Then
+		If $iCurActiveAcc <> - 1 Then
+			$AtkLogTxt &= " atk by " & $icmbWithProfile[$iCurActiveAcc]
+		EndIf
+	EndIf
 	Local $AtkLogTxtExtend
 	$AtkLogTxtExtend = "|"
 	$AtkLogTxtExtend &= $g_CurrentCampUtilization & "/" & $g_iTotalCampSpace & "|"

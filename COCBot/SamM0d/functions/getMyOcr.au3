@@ -1,8 +1,9 @@
 ; #FUNCTION# ====================================================================================================================
 ; Name ..........: getMyOcr(BETA) 0.6
 ; Description ...: Reading characters using ImgLoc
-; Syntax ........: getMyOcr($x,$y,$width,$height,$bReturnAsNumber,$OCRType,$bFlagDecode)
-; Parameters ....: $x     					-
+; Syntax ........: getMyOcr($hHOCRBitmap,$x,$y,$width,$height,$bReturnAsNumber,$OCRType,$bFlagDecode)
+; Parameters ....: $hHOCRBitmap             - HBitmap handle
+;                  $x     					-
 ;                  $y    					-
 ;                  $width    				-
 ;                  $height    				-

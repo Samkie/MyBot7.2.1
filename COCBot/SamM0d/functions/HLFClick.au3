@@ -78,6 +78,8 @@ Global $aButtonEditArmy[9]                = [740, 445+ $g_iMidOffsetY , 800, 470
 Global $aButtonEditCancel[9]              = [740, 470+ $g_iMidOffsetY , 800, 490 + $g_iMidOffsetY, 800, 485 + $g_iMidOffsetY,    0XD80408, 20, "=-= Edit Army Cancel"]
 Global $aButtonEditOkay[9]                = [740, 532+ $g_iMidOffsetY , 800, 552 + $g_iMidOffsetY, 800, 530 + $g_iMidOffsetY,    0XD0E878, 20, "=-= Edit Army Okay"]
 
+Global $aButtonFriendlyChallenge[9]       = [240,                   55, 280,                   70, 285, 50                  ,    0XDDF585, 20, "=-= Friendly Challenge"]
+
 Global $aButtonBrewLightning[9]           = [50,  390 + $g_iMidOffsetY, 90 , 420 + $g_iMidOffsetY, 61 , 394 + $g_iMidOffsetY,    0X011CEA, 20, "=-= Brew Lightning"]
 Global $aButtonBrewRage[9]                = [148, 390 + $g_iMidOffsetY, 193, 420 + $g_iMidOffsetY, 166, 394 + $g_iMidOffsetY,    0X402064, 20, "=-= Brew Rage"]
 Global $aButtonBrewFreeze[9]              = [248, 390 + $g_iMidOffsetY, 288, 420 + $g_iMidOffsetY, 266, 380 + $g_iMidOffsetY,    0X48CCF0, 20, "=-= Brew Freeze"]

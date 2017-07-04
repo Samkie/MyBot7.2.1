@@ -95,31 +95,26 @@ Func getMyArmyHeroCount($bSetLog = True)
 	Next
 
 	$g_iHeroUpgradingBit = BitOR($tmpUpgradingHeroes[0], $tmpUpgradingHeroes[1], $tmpUpgradingHeroes[2])
-	; ==== samm0d
+
+	$g_bFullArmyHero = True
 	For $i = $DB To $LB
 		If $g_abAttackTypeEnable[$i] Then
 			If $g_aiSearchHeroWaitEnable[$i] > 0 Then
-				If BitAND($g_aiSearchHeroWaitEnable[$i], $eHeroKing) = $eHeroKing And BitAND($g_iHeroAvailable + $g_iHeroUpgradingBit, $eHeroKing) <> $eHeroKing Then
+				If BitAND($g_aiSearchHeroWaitEnable[$i], $eHeroKing) = $eHeroKing And BitAND($g_iHeroAvailable, $eHeroKing) <> $eHeroKing Then
 					SETLOG(" " & $g_asModeText[$i] & " Setting - Waiting Barbarian King to recover before start attack.", $COLOR_ACTION)
-					;getArmyHeroTime($eHeroKing)
+					$g_bFullArmyHero = False
 				EndIf
-				If BitAND($g_aiSearchHeroWaitEnable[$i], $eHeroQueen) = $eHeroQueen And BitAND($g_iHeroAvailable + $g_iHeroUpgradingBit, $eHeroQueen) <> $eHeroQueen Then
+				If BitAND($g_aiSearchHeroWaitEnable[$i], $eHeroQueen) = $eHeroQueen And BitAND($g_iHeroAvailable, $eHeroQueen) <> $eHeroQueen Then
 					SETLOG(" " & $g_asModeText[$i] & " Setting - Waiting Archer Queen to recover before start attack.", $COLOR_ACTION)
-					;getArmyHeroTime($eHeroQueen)
+					$g_bFullArmyHero = False
 				EndIf
-				If BitAND($g_aiSearchHeroWaitEnable[$i], $eHeroWarden) = $eHeroWarden And BitAND($g_iHeroAvailable + $g_iHeroUpgradingBit, $eHeroWarden) <> $eHeroWarden Then
+				If BitAND($g_aiSearchHeroWaitEnable[$i], $eHeroWarden) = $eHeroWarden And BitAND($g_iHeroAvailable, $eHeroWarden) <> $eHeroWarden Then
 					SETLOG(" " & $g_asModeText[$i] & " Setting - Waiting Grand Warden to recover before start attack.", $COLOR_ACTION)
-					;getArmyHeroTime($eHeroWarden)
+					$g_bFullArmyHero = False
 				EndIf
 			EndIf
 		EndIf
 	Next
-
-	If ($g_abAttackTypeEnable[$DB] = True And BitAND($g_aiSearchHeroWaitEnable[$DB], $g_iHeroAvailable + $g_iHeroUpgradingBit) = $g_aiSearchHeroWaitEnable[$DB]) Or _
-		($g_abAttackTypeEnable[$LB] = True And BitAND($g_aiSearchHeroWaitEnable[$LB], $g_iHeroAvailable + $g_iHeroUpgradingBit) = $g_aiSearchHeroWaitEnable[$LB]) Or _
-		($g_abAttackTypeEnable[$DB] = False And $g_abAttackTypeEnable[$LB] = False) Then
-		$g_bFullArmyHero = True
-	EndIf
 
 	If $g_iSamM0dDebug = 1 Then SetLog("$g_bFullArmyHero: " & $g_bFullArmyHero)
 	If $g_iSamM0dDebug = 1 Or $iDebugArmyHeroCount = 1 Then SetLog("Hero Status K|Q|W : " & BitAND($g_iHeroAvailable, $eHeroKing) & "|" & BitAND($g_iHeroAvailable, $eHeroQueen) & "|" & BitAND($g_iHeroAvailable, $eHeroWarden), $COLOR_DEBUG)
