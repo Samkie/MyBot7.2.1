@@ -19,52 +19,49 @@ Func getMyArmyCCCapacity()
 	Local $sCCInfo = ""
 	Local $iCount
 
-	$iCount = 0 ; reset loop safety exit counter
+	; reset global variable
+	$FullCCTroops = False
 
-	While 1
-		$sCCInfo = getMyOcrCCCap()
-		If $g_iSamM0dDebug = 1 Then Setlog("$sCCInfo = " & $sCCInfo, $COLOR_DEBUG)
-		$aGetCCSize = StringSplit($sCCInfo, "#")
-		If IsArray($aGetCCSize) Then
-			If $aGetCCSize[0] > 1 Then
-				If Number($aGetCCSize[2]) < 10 Or Mod(Number($aGetCCSize[2]), 5) <> 0 Then ; check to see if camp size is multiple of 5, or try to read again
-					If $g_iSamM0dDebug = 1 Then Setlog(" OCR value is not valid cc camp size", $COLOR_DEBUG)
-					ContinueLoop
+	If $g_iChkWait4CC = 1 Then
+		$iCount = 0 ; reset loop safety exit counter
+		While 1
+			$sCCInfo = getMyOcrCCCap()
+			If $g_iSamM0dDebug = 1 Then Setlog("$sCCInfo = " & $sCCInfo, $COLOR_DEBUG)
+			$aGetCCSize = StringSplit($sCCInfo, "#")
+			If IsArray($aGetCCSize) Then
+				If $aGetCCSize[0] > 1 Then
+					If Number($aGetCCSize[2]) < 10 Or Mod(Number($aGetCCSize[2]), 5) <> 0 Then ; check to see if camp size is multiple of 5, or try to read again
+						If $g_iSamM0dDebug = 1 Then Setlog(" OCR value is not valid cc camp size", $COLOR_DEBUG)
+						ContinueLoop
+					EndIf
+					$CurTotalCCCamp = Number($aGetCCSize[2])
+					$CurCCCamp = Number($aGetCCSize[1])
+					$CCCapacity = Int($CurCCCamp / $CurTotalCCCamp * 100)
+					SetLog("Clan Castle troops: " & $CurCCCamp & "/" & $CurTotalCCCamp & " (" & $CCCapacity & "%)")
+					ExitLoop
+				Else
+					$CurCCCamp = 0
+					$CurTotalCCCamp = 0
 				EndIf
-				$CurTotalCCCamp = Number($aGetCCSize[2])
-				$CurCCCamp = Number($aGetCCSize[1])
-				$CCCapacity = Int($CurCCCamp / $CurTotalCCCamp * 100)
-				SetLog("Clan Castle troops: " & $CurCCCamp & "/" & $CurTotalCCCamp & " (" & $CCCapacity & "%)")
-				ExitLoop
 			Else
 				$CurCCCamp = 0
 				$CurTotalCCCamp = 0
 			EndIf
-		Else
-			$CurCCCamp = 0
-			$CurTotalCCCamp = 0
-		EndIf
-		$iCount += 1
-		If $iCount > 100 Then ExitLoop ; try reading 30 times for 250+150ms OCR for 4 sec
-		If _Sleep(250) Then Return ; Wait 250ms
-	WEnd
+			$iCount += 1
+			If $iCount > 30 Then ExitLoop ; try reading 30 times for 250+150ms OCR for 4 sec
+			If _Sleep(250) Then Return
+		WEnd
 
-	If $CurCCCamp = 0 And $CurTotalCCCamp = 0 Then
-		Setlog("CC size read error...", $COLOR_ERROR) ; log if there is read error
-		$FullCCTroops = True
-		If $g_iChkWait4CC = 1 Then $FullCCTroops = False
-		;If ($g_abAttackTypeEnable[$DB] And $g_abSearchCastleTroopsWaitEnable[$DB]) Or ($g_abAttackTypeEnable[$LB] And $g_abSearchCastleTroopsWaitEnable[$LB]) Then
-		;	$FullCCTroops = False
-		;EndIf
-		Return
-	EndIf
-	;If _Sleep(500) Then Return
-	If $g_iChkWait4CC = 1 Then
+		If $CurCCCamp = 0 And $CurTotalCCCamp = 0 Then
+			Setlog("CC size read error...", $COLOR_ERROR) ; log if there is read error
+			$FullCCTroops = False
+			Return
+		EndIf
+		;If _Sleep(500) Then Return
 		If ($CurCCCamp >= ($CurTotalCCCamp * $CCStrength / 100)) Then
 			$FullCCTroops = True
-		Else
-			$FullCCTroops = False
 		EndIf
+
 		If $FullCCTroops = False Then
 			SETLOG(" All mode - Waiting clan castle troops before start attack.", $COLOR_ACTION)
 		EndIf
@@ -78,44 +75,46 @@ Func getMyArmyCCSpellCapacity()
 	Local $aGetCCSpellSize[3] = ["", "", ""]
 	Local $sCCSpellInfo = ""
 	Local $iCount
-	$iCount = 0 ; reset loop safety exit counter
-	While 1
-		$sCCSpellInfo = getMyOcrCCSpellCap()
-		If $g_iSamM0dDebug = 1 Then Setlog("$sCCSpellInfo = " & $sCCSpellInfo, $COLOR_DEBUG)
-		$aGetCCSpellSize = StringSplit($sCCSpellInfo, "#")
-		If IsArray($aGetCCSpellSize) Then
-			If $aGetCCSpellSize[0] > 1 Then
-				If Number($aGetCCSpellSize[2]) > 2 And $aGetCCSpellSize[2] = 0 Then
-					If $g_iSamM0dDebug = 1 Then Setlog(" OCR value is not valid cc spell camp size", $COLOR_DEBUG)
-					ContinueLoop
+
+	; reset global variable
+	$g_bFullCCSpells = False
+
+	If $g_iChkWait4CCSpell = 1 Then
+		$iCount = 0 ; reset loop safety exit counter
+		While 1
+			$sCCSpellInfo = getMyOcrCCSpellCap()
+			If $g_iSamM0dDebug = 1 Then Setlog("$sCCSpellInfo = " & $sCCSpellInfo, $COLOR_DEBUG)
+			If $sCCSpellInfo = "" And $iCount > 1 Then ExitLoop
+			$aGetCCSpellSize = StringSplit($sCCSpellInfo, "#")
+			If IsArray($aGetCCSpellSize) Then
+				If $aGetCCSpellSize[0] > 1 Then
+					If Number($aGetCCSpellSize[2]) > 2 And $aGetCCSpellSize[2] = 0 Then
+						If $g_iSamM0dDebug = 1 Then Setlog(" OCR value is not valid cc spell camp size", $COLOR_DEBUG)
+						ContinueLoop
+					EndIf
+					$g_iCurTotalCCSpellCamp = Number($aGetCCSpellSize[2])
+					$g_iCurCCSpellCamp = Number($aGetCCSpellSize[1])
+					SetLog("Clan Castle spells: " & $g_iCurCCSpellCamp & "/" & $g_iCurTotalCCSpellCamp)
+					ExitLoop
+				Else
+					$g_iCurCCSpellCamp = 0
+					$g_iCurTotalCCSpellCamp = 0
 				EndIf
-				$g_iCurTotalCCSpellCamp = Number($aGetCCSpellSize[2])
-				$g_iCurCCSpellCamp = Number($aGetCCSpellSize[1])
-				SetLog("Clan Castle spells: " & $g_iCurCCSpellCamp & "/" & $g_iCurTotalCCSpellCamp)
-				ExitLoop
 			Else
 				$g_iCurCCSpellCamp = 0
 				$g_iCurTotalCCSpellCamp = 0
 			EndIf
-		Else
-			$g_iCurCCSpellCamp = 0
-			$g_iCurTotalCCSpellCamp = 0
+			$iCount += 1
+			If $iCount > 30 Then ExitLoop
+			If _Sleep(250) Then Return
+		WEnd
+		If $g_iCurCCSpellCamp = 0 And $g_iCurTotalCCSpellCamp = 0 Then
+			Setlog("CC Spell size read error...", $COLOR_ERROR) ; log if there is read error
+			$g_bFullCCSpells = False
+			Return
 		EndIf
-		$iCount += 1
-		If $iCount > 100 Then ExitLoop
-		If _Sleep(250) Then Return ; Wait 250ms
-	WEnd
-	If $g_iCurCCSpellCamp = 0 And $g_iCurTotalCCSpellCamp = 0 Then
-		Setlog("CC Spell size read error...", $COLOR_ERROR) ; log if there is read error
-		$g_bFullCCSpells = True
-		If $g_iChkWait4CCSpell = 1 Then $g_bFullCCSpells = False
-		Return
-	EndIf
-	If $g_iChkWait4CCSpell = 1 Then
 		If $g_iCurCCSpellCamp >= $g_iCurTotalCCSpellCamp Then
 			$g_bFullCCSpells = True
-		Else
-			$g_bFullCCSpells = False
 		EndIf
 		If $g_bFullCCSpells = False Then
 			SETLOG(" All mode - Waiting clan castle spells before start attack.", $COLOR_ACTION)
@@ -161,7 +160,7 @@ Func getTrainArmyCapacity($bSpellFlag = False)
 			$tmpTotalCamp = 0
 		EndIf
 		$iCount += 1
-		If $iCount > 100 Then ExitLoop ; try reading 30 times for 250+150ms OCR for 4 sec
+		If $iCount > 30 Then ExitLoop ; try reading 30 times for 250+150ms OCR for 4 sec
 		If _Sleep(250) Then Return ; Wait 250ms
 	WEnd
 	$aGetFactorySize[0] = $tempCurS

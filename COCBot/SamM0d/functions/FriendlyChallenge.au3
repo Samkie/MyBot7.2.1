@@ -547,6 +547,7 @@ Func FriendlyChallenge()
 ;~ 		WEnd
 
 		Click($aButtonFCStart[4], $aButtonFCStart[5], 1, 0, "#BtnFCStart")
+		SetLog("Friendly Challenge Shared. Base: " & $iBaseForShare + 1, $COLOR_INFO)
 		$iTimeForLastShareFriendlyChallenge = _NowCalc()
 	;EndIf
 	EndIf

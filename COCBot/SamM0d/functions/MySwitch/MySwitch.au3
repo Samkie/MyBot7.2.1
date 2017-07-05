@@ -555,7 +555,6 @@ Func DoVillageLoadSucess($iAcc)
 	$iDonatedUnit = 0
 	$iTimeForLastShareFriendlyChallenge = 0
 	$g_bFullArmy = False
-	$FullCCTroops = False
 	$g_bFullArmyHero = False
 	$g_bFullArmySpells = False
 	$g_bIsClientSyncError = False
