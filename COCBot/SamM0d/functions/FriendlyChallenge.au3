@@ -232,6 +232,7 @@ EndFunc
 
 Func txtFriendlyChallengeCoolDownTime()
 	$itxtFriendlyChallengeCoolDownTime = Int(GUICtrlRead($txtFriendlyChallengeCoolDownTime))
+	$iTimeForLastShareFriendlyChallenge = 0
 EndFunc
 
 Func FriendlyChallenge()
@@ -260,7 +261,6 @@ Func FriendlyChallenge()
 	;SetLog("$iDateCalc: " & $iDateCalc)
 	If $iTimeForLastShareFriendlyChallenge <> 0 Then
 		Local $iDateCalc = _DateDiff('s', $iTimeForLastShareFriendlyChallenge, _NowCalc())
-		SetLog("$iDateCalc: " & $iDateCalc)
 		If $iDateCalc < $itxtFriendlyChallengeCoolDownTime * 60 Then
 			SetLog("Waiting for cool down, time left: " & ($itxtFriendlyChallengeCoolDownTime * 60) - $iDateCalc & " seconds.", $COLOR_INFO)
 			Return
@@ -642,7 +642,6 @@ Func CheckNeedSwipeFriendlyChallengeBase($iBaseSlot)
 EndFunc
 
 Func ClostChatTab()
-
 	If _Sleep(100) Then Return
 	ClickP($aAway, 1, 0, "#0176") ; click away any possible open window
 	If _Sleep(250) Then Return
@@ -664,6 +663,7 @@ Func ClostChatTab()
 			EndIf
 		EndIf
 	WEnd
+	If _Sleep(500) Then Return
 EndFunc
 
 Func getChatStringPersianMod($x_start, $y_start, $bConvert = True) ; -> Get string chat request - Persian - "DonateCC.au3"
