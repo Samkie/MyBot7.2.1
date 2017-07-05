@@ -104,9 +104,11 @@
 !COCBot/SamM0d/[Ii]mages/Troops/*.*
 !COCBot/SamM0d/[Ii]mages/Troops/Queue/*.*
 !COCBot/SamM0d/[Ii]mages/Troops/Train/*.*
+!COCBot/SamM0d/[Ii]mages/Troops/Train/CC/*.*
 !COCBot/SamM0d/[Ii]mages/Spells/*.*
 !COCBot/SamM0d/[Ii]mages/Spells/Brew/*.*
 !COCBot/SamM0d/[Ii]mages/Spells/Queue/*.*
+!COCBot/SamM0d/[Ii]mages/Spells/Queue/CC/*.*
 !COCBot/SamM0d/[Ii]mages/HeroStatus/*.*
 !COCBot/SamM0d/[Ii]mages/OCR/armybuildinfo/*.*
 !COCBot/SamM0d/[Ii]mages/OCR/armycap/*.*
