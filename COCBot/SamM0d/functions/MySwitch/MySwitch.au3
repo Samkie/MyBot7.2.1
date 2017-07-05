@@ -292,6 +292,7 @@ Func getNextSwitchList()
 	Local $iFirstAtkDonAcc = -1
 	Local $iStayRemain
 
+	$iMySwitchSmartWaitTime = 0
 	SetLog("Start checking is that any accounts ready for switch.",$COLOR_INFO)
 
 	For $i = 0 to UBound($aSwitchList) - 1
@@ -552,6 +553,7 @@ Func DoVillageLoadSucess($iAcc)
 	$tempDisableBrewSpell = False
 	$tempDisableTrain = False
 	$iDonatedUnit = 0
+	$iTimeForLastShareFriendlyChallenge = 0
 	$g_bFullArmy = False
 	$FullCCTroops = False
 	$g_bFullArmyHero = False

@@ -64,7 +64,7 @@ Global $aButtonVillageLoad[9] 		      = [480, 385 + $g_iMidOffsetY, 550, 415 + $
 ;Global $aButtonVillageCancel[9] 		  = [310, 385 + $g_iMidOffsetY, 380, 415 + $g_iMidOffsetY, 288, 403 + $g_iMidOffsetY, 	0xE06824, 20, "=-= Village Cancel"]
 Global $aButtonVillageCancel[9] 		  = [310, 385 + $g_iMidOffsetY, 380, 415 + $g_iMidOffsetY, 288, 403 + $g_iMidOffsetY, 	0xED7531, 20, "=-= Village Cancel"]
 
-Global $aButtonVillageConfirmClose[9]     = [575, 20               , 595, 40               , 562, 37               , 	0x605450, 20, "=-= Village Confirm Close"]
+Global $aButtonVillageConfirmClose[9]     = [575,                   20, 595,                   40, 562,                   37, 	0x605450, 20, "=-= Village Confirm Close"]
 Global $aButtonVillageConfirmText[9]      = [320, 160 + $g_iMidOffsetY, 375, 170 + $g_iMidOffsetY, 350, 165 + $g_iMidOffsetY, 	0xFFFFFF, 5 , "=-= Village Confirm Text"]
 Global $aButtonVillageConfirmOK[9]        = [500, 155 + $g_iMidOffsetY, 555, 175 + $g_iMidOffsetY, 480, 168 + $g_iMidOffsetY, 	0x76C01E, 20, "=-= Village Confirm Okay"]
 Global $aButtonVillageWasAttackOK[9]	  = [380, 475 + $g_iMidOffsetY, 470, 510 + $g_iMidOffsetY, 405, 507 + $g_iMidOffsetY, 	0x5EAC10, 20, "=-= Village Was Attacked Confirm Okay"]
@@ -78,41 +78,11 @@ Global $aButtonEditArmy[9]                = [740, 445+ $g_iMidOffsetY , 800, 470
 Global $aButtonEditCancel[9]              = [740, 470+ $g_iMidOffsetY , 800, 490 + $g_iMidOffsetY, 800, 485 + $g_iMidOffsetY,    0XD80408, 20, "=-= Edit Army Cancel"]
 Global $aButtonEditOkay[9]                = [740, 532+ $g_iMidOffsetY , 800, 552 + $g_iMidOffsetY, 800, 530 + $g_iMidOffsetY,    0XD0E878, 20, "=-= Edit Army Okay"]
 
-Global $aButtonFriendlyChallenge[9]       = [240,                   55, 280,                   70, 285, 50                  ,    0XDDF585, 20, "=-= Friendly Challenge"]
-
-Global $aButtonBrewLightning[9]           = [50,  390 + $g_iMidOffsetY, 90 , 420 + $g_iMidOffsetY, 61 , 394 + $g_iMidOffsetY,    0X011CEA, 20, "=-= Brew Lightning"]
-Global $aButtonBrewRage[9]                = [148, 390 + $g_iMidOffsetY, 193, 420 + $g_iMidOffsetY, 166, 394 + $g_iMidOffsetY,    0X402064, 20, "=-= Brew Rage"]
-Global $aButtonBrewFreeze[9]              = [248, 390 + $g_iMidOffsetY, 288, 420 + $g_iMidOffsetY, 266, 380 + $g_iMidOffsetY,    0X48CCF0, 20, "=-= Brew Freeze"]
-Global $aButtonBrewHeal[9]                = [50,  490 + $g_iMidOffsetY, 90 , 520 + $g_iMidOffsetY, 86 , 506 + $g_iMidOffsetY,    0XF4DC68, 20, "=-= Brew Heal"]
-Global $aButtonBrewJump[9]                = [148, 490 + $g_iMidOffsetY, 193, 520 + $g_iMidOffsetY, 156, 490 + $g_iMidOffsetY,    0X70AC2C, 20, "=-= Brew Jump"]
-Global $aButtonBrewClone[9]               = [248, 490 + $g_iMidOffsetY, 288, 520 + $g_iMidOffsetY, 285, 506 + $g_iMidOffsetY,    0X21ECDA, 20, "=-= Brew Clone"]
-Global $aButtonBrewPoison[9]              = [355, 390 + $g_iMidOffsetY, 395, 420 + $g_iMidOffsetY, 375, 406 + $g_iMidOffsetY,    0XF87D0C, 20, "=-= Brew Poison"]
-Global $aButtonBrewHaste[9]               = [455, 390 + $g_iMidOffsetY, 495, 420 + $g_iMidOffsetY, 470, 407 + $g_iMidOffsetY,    0XF46AA8, 20, "=-= Brew Haste"]
-Global $aButtonBrewEarth[9]               = [355, 490 + $g_iMidOffsetY, 395, 520 + $g_iMidOffsetY, 371, 506 + $g_iMidOffsetY,    0XBB8958, 20, "=-= Brew Earth"]
-Global $aButtonBrewSkeleton[9]            = [455, 490 + $g_iMidOffsetY, 495, 520 + $g_iMidOffsetY, 476, 507 + $g_iMidOffsetY,    0XE11400, 20, "=-= Brew Skeleton"]
-
-Global $aButtonTrainBarb[9]               = [45 ,  390 + $g_iMidOffsetY, 95 , 425 + $g_iMidOffsetY, 85 , 364 + $g_iMidOffsetY,   0XF5BC30, 20, "=-= Train Barbarian"]
-Global $aButtonTrainGiant[9]              = [144,  390 + $g_iMidOffsetY, 194, 425 + $g_iMidOffsetY, 181, 363 + $g_iMidOffsetY,   0XF8A258, 20, "=-= Train Giant"]
-Global $aButtonTrainWall[9]               = [243,  390 + $g_iMidOffsetY, 293, 425 + $g_iMidOffsetY, 287, 368 + $g_iMidOffsetY,   0X8B522B, 20, "=-= Train Wall Breaker"]
-Global $aButtonTrainWiza[9]               = [342,  390 + $g_iMidOffsetY, 395, 425 + $g_iMidOffsetY, 366, 375 + $g_iMidOffsetY,   0XF8CCB0, 20, "=-= Train Wizard"]
-Global $aButtonTrainDrag[9]               = [441,  390 + $g_iMidOffsetY, 491, 425 + $g_iMidOffsetY, 469, 365 + $g_iMidOffsetY,   0X8179E8, 20, "=-= Train Dragon"]
-Global $aButtonTrainBabyD[9]              = [540,  390 + $g_iMidOffsetY, 590, 425 + $g_iMidOffsetY, 558, 370 + $g_iMidOffsetY,   0X80D650, 20, "=-= Train Baby Dragon"]
-
-Global $aButtonTrainArch[9]               = [45 ,  490 + $g_iMidOffsetY, 95 , 525 + $g_iMidOffsetY, 78 , 473 + $g_iMidOffsetY,   0XB82A68, 20, "=-= Train Archer"]
-Global $aButtonTrainGobl[9]               = [144,  490 + $g_iMidOffsetY, 194, 525 + $g_iMidOffsetY, 178, 459 + $g_iMidOffsetY,   0XA8E061, 20, "=-= Train Goblin"]
-Global $aButtonTrainBall[9]               = [243,  490 + $g_iMidOffsetY, 293, 525 + $g_iMidOffsetY, 286, 470 + $g_iMidOffsetY,   0X580800, 20, "=-= Train Balloon"]
-Global $aButtonTrainHeal[9]               = [342,  490 + $g_iMidOffsetY, 395, 525 + $g_iMidOffsetY, 360, 464 + $g_iMidOffsetY,   0XEDDACA, 20, "=-= Train Healer"]
-Global $aButtonTrainPekk[9]               = [441,  490 + $g_iMidOffsetY, 491, 525 + $g_iMidOffsetY, 478, 474 + $g_iMidOffsetY,   0XABD6F0, 20, "=-= Train Pekka"]
-Global $aButtonTrainMine[9]               = [540,  490 + $g_iMidOffsetY, 590, 525 + $g_iMidOffsetY, 577, 494 + $g_iMidOffsetY,   0XFFDCAB, 20, "=-= Train Miner"]
-
-Global $aButtonTrainMini[9]               = [645,  390 + $g_iMidOffsetY, 695, 425 + $g_iMidOffsetY, 667, 373 + $g_iMidOffsetY,   0X82D7FD, 20, "=-= Train Minion"]
-Global $aButtonTrainHogs[9]               = [645,  490 + $g_iMidOffsetY, 695, 525 + $g_iMidOffsetY, 680, 471 + $g_iMidOffsetY,   0XCC9988, 20, "=-= Train Hog Rider"]
-Global $aButtonTrainValk[9]               = [744,  390 + $g_iMidOffsetY, 794, 425 + $g_iMidOffsetY, 766, 366 + $g_iMidOffsetY,   0XF05002, 20, "=-= Train Valkyrie"]
-Global $aButtonTrainGole[9]               = [744,  490 + $g_iMidOffsetY, 794, 525 + $g_iMidOffsetY, 775, 478 + $g_iMidOffsetY,   0XC8B298, 20, "=-= Train Golem"]
-
-Global $aButtonTrainWitc[9]               = [660,  390 + $g_iMidOffsetY, 710, 425 + $g_iMidOffsetY, 681, 380 + $g_iMidOffsetY,   0X202453, 20, "=-= Train Witch"]
-Global $aButtonTrainLava[9]               = [660,  490 + $g_iMidOffsetY, 710, 525 + $g_iMidOffsetY, 699, 493 + $g_iMidOffsetY,   0X5A4E49, 20, "=-= Train Lava Hound"]
-Global $aButtonTrainBowl[9]               = [759,  390 + $g_iMidOffsetY, 809, 425 + $g_iMidOffsetY, 775, 375 + $g_iMidOffsetY,   0X686AE8, 20, "=-= Train Bowler"]
+Global $aButtonFriendlyChallenge[9]       = [240,                   55, 280,                   70, 285,                   50,    0XDDF585, 20, "=-= Friendly Challenge"]
+Global $aButtonFCChangeLayout[9]          = [200,                  240, 280,                  255, 240,                  234,    0XDDF585, 20, "=-= Change Layout"]
+Global $aButtonFCStart[9]           = [500,                  236, 550,                  256, 530,                  234,    0XDBF583, 20, "=-= Start Share Challenge"]
+Global $aButtonFCBack[9]            = [164,                   55, 195,                   70, 184,                   64,    0XF5FDFF, 10, "=-= Back To Challenge"]
+Global $aButtonFCClose[9]          = [690,                   53, 708,                   70, 699,                   59,    0xFFFFFF, 10, "=-= Close Challenge"]
 
 Global $aButtonTrainArmy1[9]              = [750,  320 + $g_iMidOffsetY, 800, 335 + $g_iMidOffsetY, 735, 320 + $g_iMidOffsetY,   0XCDF175, 20, "=-= Quick Train Army 1"]
 Global $aButtonTrainArmy2[9]              = [750,  437 + $g_iMidOffsetY, 800, 452 + $g_iMidOffsetY, 735, 437 + $g_iMidOffsetY,   0XD5F17D, 20, "=-= Quick Train Army 2"]
@@ -127,6 +97,21 @@ Func CheckClickMsg(ByRef $x, ByRef $y, ByRef $times, ByRef $speed, ByRef $MsgCod
 		Return HMLClickAway($x, $y, $MsgCode)
 	Else
 	Switch $MsgCode
+		Case "#BtnFCStart"
+			$MsgCode = $aButtonFCStart[8]
+			Return HMLClickPR($aButtonFCStart,$x,$y)
+		Case "#BtnClose"
+			$MsgCode = $aButtonFCClose[8]
+			Return HMLClickPR($aButtonFCClose,$x,$y,1)
+		Case "#BtnFCCL"
+			$MsgCode = $aButtonFCChangeLayout[8]
+			Return HMLClickPR($aButtonFCChangeLayout,$x,$y)
+		Case "#BtnFCBack"
+			$MsgCode = $aButtonFCBack[8]
+			Return HMLClickPR($aButtonFCBack,$x,$y)
+		Case "#BtnFC"
+			$MsgCode = $aButtonFriendlyChallenge[8]
+			Return HMLClickPR($aButtonFriendlyChallenge,$x,$y)
 		Case "#VWAO"
 			$MsgCode = $aButtonVillageWasAttackOK[8]
 			Return HMLClickPR($aButtonVillageWasAttackOK,$x,$y)

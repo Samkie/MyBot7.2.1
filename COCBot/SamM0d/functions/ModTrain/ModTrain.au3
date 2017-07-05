@@ -476,7 +476,7 @@ Func IsQueueBlockByMsg($iCount)
 ;~ 		Case _ColorCheck(_GetPixelColor(245, 215, $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 6) And _ColorCheck(_GetPixelColor(301, 215, $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 6) And _ColorCheck(_GetPixelColor(360, 215, $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 6)
 ;~ 			Return SetLogAndReturn(99)
 		Case Else
-			For $i = 130 To 240 Step + 2
+			For $i = 130 To 330 Step + 2
 				If _ColorCheck(_GetPixelColor($i, 215, $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 6) And _ColorCheck(_GetPixelColor($i + 42, 215, $g_bNoCapturePixel), Hex(0xFEFEFE, 6), 6) Then
 					If $iCount = 0 And ($g_iChkWait4CC Or $g_iChkWait4CCSpell) Then
 						Local $hClone = _GDIPlus_BitmapCloneArea($g_hBitmap, 20, 198, 820, 24, $GDIP_PXF24RGB)

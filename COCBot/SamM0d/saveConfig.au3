@@ -165,3 +165,5 @@ For $j = 0 To 2
 		IniWriteS($g_sProfileConfigPath, "MySpells", $MySpells[$i][0] & "Pre" & $j, $MySpellSetting[$j][$i][2])
 	Next
 Next
+
+saveFriendlyChallengeSetting()

@@ -166,3 +166,5 @@ If $g_iTownHallLevel >= 4 And $g_iTownHallLevel <= 11 Then
 EndIf
 
 GUICtrlSetData($g_hLblTHLevels, $g_iTownHallLevel)
+
+applyFriendlyChallengeSetting()

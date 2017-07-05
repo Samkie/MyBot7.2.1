@@ -22,7 +22,7 @@ $hGUI_MOD = GUICreate("", $_GUI_MAIN_WIDTH - 20, $_GUI_MAIN_HEIGHT - 255, $_GUI_
 GUISwitch($hGUI_MOD)
 
 ;========================Attack=============================
-GUICtrlCreateTab(0, 0, $_GUI_MAIN_WIDTH - 20, $_GUI_MAIN_HEIGHT - 255, BitOR($TCS_MULTILINE, $TCS_RIGHTJUSTIFY))
+GUICtrlCreateTab(0, 0, $_GUI_MAIN_WIDTH - 20, $_GUI_MAIN_HEIGHT - 255, $TCS_FLATBUTTONS)
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", 54, "Attack"))
 
 ;======================smartzap================================
@@ -687,6 +687,11 @@ $txtCCStrength = GUICtrlCreateInput("100", $x + 255, $y+2, 31, 20, BitOR($GUI_SS
 
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 
+GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d","Friendly Challenge", "Friend Challenge"))
+
+Local $x = 10, $y = 30
+
+SetupFriendlyChallengeGUI($x, $y)
 
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", 14, "Other"))
 

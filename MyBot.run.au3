@@ -69,7 +69,7 @@ InitializeBot()
 MainLoop()
 
 Func UpdateBotTitle()
-	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.9.5 "
+	Local $sTitle = "My Bot " & $g_sBotVersion & " @Samkie M0d v0.9.6 "
 	If $g_sBotTitle = "" Then
 		$g_sBotTitle = $sTitle
 	Else
@@ -196,7 +196,7 @@ Func InitializeBot()
 ;~ 		SetLog("$aSize[" & $i & "]: " & $aSize[$i])
 ;~ 	Next
 	If IsArray($aSize) Then
-		If $aSize[1] >= 233 Then
+		If $aSize[1] >= 237 Then
 			$g_sSamM0dImageLocation = @ScriptDir & "\profiles\SamM0d"
 		EndIf
 	EndIf
@@ -810,6 +810,8 @@ Func runBot() ;Bot that runs everything in order
 				EndIf
 				If checkAndroidReboot() = True Then ContinueLoop 2 ; must be level 2 due to loop-in-loop
 			WEnd
+			; samm0d
+			FriendlyChallenge()
 			If $g_bRunState = False Then Return
 			If $g_bRestart = True Then ContinueLoop
 			If IsSearchAttackEnabled() Then ; If attack scheduled has attack disabled now, stop wall upgrades, and attack.
@@ -1034,6 +1036,9 @@ Func Idle() ;Sequence that runs until Full Army
 		$TimeIdle += Round(__TimerDiff($hTimer) / 1000, 2) ;In Seconds
 
 		If $g_bCanRequestCC = True Then RequestCC()
+
+		; samm0d
+		FriendlyChallenge()
 
 		SetLog("Time Idle: " & StringFormat("%02i", Floor(Floor($TimeIdle / 60) / 60)) & ":" & StringFormat("%02i", Floor(Mod(Floor($TimeIdle / 60), 60))) & ":" & StringFormat("%02i", Floor(Mod($TimeIdle, 60))))
 

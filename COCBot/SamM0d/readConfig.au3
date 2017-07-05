@@ -160,3 +160,4 @@ For $i = 0 To UBound($MySpells) - 1
 	$MySpells[$i][1] =  $MySpellSetting[$icmbTroopSetting][$i][1]
 Next
 
+readFriendlyChallengeSetting()
