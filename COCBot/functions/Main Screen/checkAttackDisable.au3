@@ -120,6 +120,8 @@ Func checkAttackDisable($iSource, $Result = "")
 			EndIf
 			If $g_asShieldStatus[0] = "guard" Then
 				Setlog("Unable to Force PB, Guard shield present", $COLOR_INFO)
+				; samm0d
+				BreakPersonalShield()
 			Else
 				Setlog("Forcing Early Personal Break Now!!", $COLOR_SUCCESS)
 			EndIf

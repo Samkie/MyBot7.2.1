@@ -80,9 +80,13 @@ Global $aButtonEditOkay[9]                = [740, 532+ $g_iMidOffsetY , 800, 552
 
 Global $aButtonFriendlyChallenge[9]       = [240,                   55, 280,                   70, 285,                   50,    0XDDF585, 20, "=-= Friendly Challenge"]
 Global $aButtonFCChangeLayout[9]          = [200,                  240, 280,                  255, 240,                  234,    0XDDF585, 20, "=-= Change Layout"]
-Global $aButtonFCStart[9]           = [500,                  236, 550,                  256, 530,                  234,    0XDBF583, 20, "=-= Start Share Challenge"]
-Global $aButtonFCBack[9]            = [164,                   55, 195,                   70, 184,                   64,    0XF5FDFF, 10, "=-= Back To Challenge"]
-Global $aButtonFCClose[9]          = [690,                   53, 708,                   70, 699,                   59,    0xFFFFFF, 10, "=-= Close Challenge"]
+Global $aButtonFCStart[9]                 = [500,                  236, 550,                  256, 530,                  234,    0XDBF583, 20, "=-= Start Share Challenge"]
+Global $aButtonFCBack[9]                  = [164,                   55, 195,                   70, 184,                   64,    0XF5FDFF, 10, "=-= Back To Challenge"]
+Global $aButtonFCClose[9]                 = [690,                   53, 708,                   70, 699,                   59,    0xFFFFFF, 10, "=-= Close Challenge"]
+
+
+Global $aButtonGuardRemove[9]             = [500,260,560,275,530,275,0XE51115,15,"=-= Guard Remove"]
+Global $aButtonGuardConfirmRemove[9]      = [485,417,543,444,510,445,0X6AB91D,15,"=-= Confirm Guard Remove"]
 
 Global $aButtonTrainArmy1[9]              = [750,  320 + $g_iMidOffsetY, 800, 335 + $g_iMidOffsetY, 735, 320 + $g_iMidOffsetY,   0XCDF175, 20, "=-= Quick Train Army 1"]
 Global $aButtonTrainArmy2[9]              = [750,  437 + $g_iMidOffsetY, 800, 452 + $g_iMidOffsetY, 735, 437 + $g_iMidOffsetY,   0XD5F17D, 20, "=-= Quick Train Army 2"]
@@ -97,6 +101,12 @@ Func CheckClickMsg(ByRef $x, ByRef $y, ByRef $times, ByRef $speed, ByRef $MsgCod
 		Return HMLClickAway($x, $y, $MsgCode)
 	Else
 	Switch $MsgCode
+		Case "#GuardConfirmRemove"
+			$MsgCode = $aButtonGuardConfirmRemove[8]
+			Return HMLClickPR($aButtonGuardConfirmRemove,$x,$y,1)
+		Case "#GuardRemove"
+			$MsgCode = $aButtonGuardRemove[8]
+			Return HMLClickPR($aButtonGuardRemove,$x,$y,1)
 		Case "#BtnFCStart"
 			$MsgCode = $aButtonFCStart[8]
 			Return HMLClickPR($aButtonFCStart,$x,$y)

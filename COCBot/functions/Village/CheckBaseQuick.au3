@@ -63,7 +63,7 @@ Func CheckBaseQuick($bStopRecursion = False, $sReturnHome = "")
 				If $ichkModTrain = 0 Then
 					TrainRevamp()
 				Else
-					ModTrain()
+					ModTrain(True)
 				EndIf
 				If $g_bRestart = True Then Return
 			Else

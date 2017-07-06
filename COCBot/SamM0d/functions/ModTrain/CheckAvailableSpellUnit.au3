@@ -22,6 +22,9 @@ Func CheckAvailableSpellUnit($hHBitmap)
 	For $i = 0 To UBound($MySpells) - 1
 		Assign("cur" & $MySpells[$i][0] & "Spell", 0)
 	Next
+	For $i = 0 To 6
+		Assign("RemSpellSlot" & $i + 1, 0)
+	Next
 
 	; 重建构_captureregion()里的?量$g_hHBitmap，$g_hBitmap，?_GetPixelColor()使用
 	If $g_hHBitmap <> 0 Then

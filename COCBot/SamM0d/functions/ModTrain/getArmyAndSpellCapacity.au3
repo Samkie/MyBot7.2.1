@@ -15,14 +15,14 @@
 ; ===============================================================================================================================
 Func getMyArmyCCCapacity()
 	If $g_iSamM0dDebug = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getCCCapacity:", $COLOR_DEBUG1)
-	Local $aGetCCSize[3] = ["", "", ""]
-	Local $sCCInfo = ""
-	Local $iCount
-
 	; reset global variable
 	$FullCCTroops = False
 
 	If $g_iChkWait4CC = 1 Then
+		Local $aGetCCSize[3] = ["", "", ""]
+		Local $sCCInfo = ""
+		Local $iCount
+
 		$iCount = 0 ; reset loop safety exit counter
 		While 1
 			$sCCInfo = getMyOcrCCCap()
@@ -72,14 +72,14 @@ EndFunc   ;==>getMyArmyCCCapacity
 
 Func getMyArmyCCSpellCapacity()
 	If $g_iSamM0dDebug = 1 Or $g_iDebugSetlog = 1 Then SETLOG("Begin getMyArmyCCSpellCapacity:", $COLOR_DEBUG1)
-	Local $aGetCCSpellSize[3] = ["", "", ""]
-	Local $sCCSpellInfo = ""
-	Local $iCount
-
 	; reset global variable
 	$g_bFullCCSpells = False
 
 	If $g_iChkWait4CCSpell = 1 Then
+		Local $aGetCCSpellSize[3] = ["", "", ""]
+		Local $sCCSpellInfo = ""
+		Local $iCount
+
 		$iCount = 0 ; reset loop safety exit counter
 		While 1
 			$sCCSpellInfo = getMyOcrCCSpellCap()

@@ -23,6 +23,9 @@ Func CheckAvailableUnit($hHBitmap)
 	For $i = 0 To UBound($MyTroops) - 1
 		Assign("cur" & $MyTroops[$i][0], 0)
 	Next
+	For $i = 0 To 10
+		Assign("RemSlot" & $i + 1, 0)
+	Next
 
 	; 重建构_captureregion()里的?量$g_hHBitmap，$g_hBitmap，?_GetPixelColor()使用
 	If $g_hHBitmap <> 0 Then

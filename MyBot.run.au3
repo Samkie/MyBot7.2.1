@@ -683,18 +683,6 @@ Func runBot() ;Bot that runs everything in order
 		$tempDisableBrewSpell = False
 		$tempDisableTrain = False
 		$bAvoidSwitch = False
-		For $i = 0 To UBound($g_avDTtroopsToBeUsed, 1) - 1
-			$g_avDTtroopsToBeUsed[$i][1] = 0
-		Next
-		For $i = 0 To UBound($MyTroops) - 1
-			Assign("cur" & $MyTroops[$i][0], 0)
-		Next
-		For $i = 0 To UBound($MyTroops) - 1
-			Assign("OnQ" & $MyTroops[$i][0], 0)
-		Next
-		For $i = 0 To UBound($MyTroops) - 1
-			Assign("OnT" & $MyTroops[$i][0], 0)
-		Next
 
 		$g_iCommandStop = -1
 		If _Sleep($DELAYRUNBOT1) Then Return

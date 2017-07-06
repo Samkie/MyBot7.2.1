@@ -458,98 +458,84 @@ Func FriendlyChallenge()
 
 	SetLog("Prepare for select base: " & $iBaseForShare + 1, $COLOR_INFO)
 
-	If _Sleep(100) Then Return False
-	Local $iCount2 = 0
-	While IsQueueBlockByMsg($iCount2) ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
-		If _Sleep(1000) Then ExitLoop
-		$iCount2 += 1
-		If $iCount2 >= 30 Then
-			ExitLoop
-		EndIf
-	WEnd
 
 	; check friendly challenge button available
-	;If _ColorCheck(_GetPixelColor($aButtonFriendlyChallenge[4], $aButtonFriendlyChallenge[5], True), Hex($aButtonFriendlyChallenge[6], 6), $aButtonFriendlyChallenge[7]) Then
+	If _ColorCheck(_GetPixelColor($aButtonFriendlyChallenge[4], $aButtonFriendlyChallenge[5], True), Hex($aButtonFriendlyChallenge[6], 6), $aButtonFriendlyChallenge[7]) Then
 		Click($aButtonFriendlyChallenge[4], $aButtonFriendlyChallenge[5], 1, 0, "#BtnFC")
-		If _Sleep($iDelayFCClick) Then Return False
-;~ 		$iCount = 0
-;~ 		While Not _ColorCheck(_GetPixelColor($aButtonFCChangeLayout[4], $aButtonFCChangeLayout[5],True), Hex($aButtonFCChangeLayout[6],6), $aButtonFCChangeLayout[7])
-;~ 			If $g_iSamM0dDebug Then SetLog("Change layout button Color: " & _GetPixelColor($aButtonFCChangeLayout[4], $aButtonFCChangeLayout[5],True))
-;~ 			$iCount += 1
-;~ 			If $iCount > 15 Then
-;~ 				SetLog("Cannot find change layout button.", $COLOR_RED)
-;~ 				ClostChatTab()
-;~ 				Return False
-;~ 			EndIf
-;~ 			If _Sleep(250) Then Return False
-;~ 		WEnd
+		;If _Sleep($iDelayFCClick) Then Return False
+		$iCount = 0
+		While Not _ColorCheck(_GetPixelColor($aButtonFCChangeLayout[4], $aButtonFCChangeLayout[5],True), Hex($aButtonFCChangeLayout[6],6), $aButtonFCChangeLayout[7])
+			If $g_iSamM0dDebug Then SetLog("Change layout button Color: " & _GetPixelColor($aButtonFCChangeLayout[4], $aButtonFCChangeLayout[5],True))
+			$iCount += 1
+			If $iCount > 8 Then
+				SetLog("Cannot find change layout button.", $COLOR_RED)
+				ClostChatTab()
+				Return False
+			EndIf
+			If _Sleep(250) Then Return False
+		WEnd
 		Click($aButtonFCChangeLayout[4], $aButtonFCChangeLayout[5], 1, 0, "#BtnFCCL")
-		If _Sleep($iDelayFCClick) Then Return False
-
-;~ 		If $g_iSamM0dDebug Then SetLog("Waiting back button", $COLOR_DEBUG)
-;~ 		$iCount = 0
-;~ 		While Not _ColorCheck(_GetPixelColor($aButtonFCBack[4], $aButtonFCBack[5],True), Hex($aButtonFCBack[6],6), $aButtonFCBack[7])
-;~ 			If $g_iSamM0dDebug Then SetLog("Change layout back button Color: " & _GetPixelColor($aButtonFCBack[4], $aButtonFCBack[5],True))
-;~ 			$iCount += 1
-;~ 			If $iCount > 15 Then
-;~ 				SetLog("Cannot find change layout back button.", $COLOR_RED)
-;~ 				ClostChatTab()
-;~ 				Return False
-;~ 			EndIf
-;~ 			If _Sleep(250) Then Return False
-;~ 		WEnd
-
+		;If _Sleep($iDelayFCClick) Then Return False
+		If $g_iSamM0dDebug Then SetLog("Waiting back button", $COLOR_DEBUG)
+		$iCount = 0
+		While Not _ColorCheck(_GetPixelColor($aButtonFCBack[4], $aButtonFCBack[5],True), Hex($aButtonFCBack[6],6), $aButtonFCBack[7])
+			If $g_iSamM0dDebug Then SetLog("Change layout back button Color: " & _GetPixelColor($aButtonFCBack[4], $aButtonFCBack[5],True))
+			$iCount += 1
+			If $iCount > 8 Then
+				SetLog("Cannot find change layout back button.", $COLOR_RED)
+				Click($aButtonFCClose[4], $aButtonFCClose[5], 1, 0, "#BtnClose")
+				ClostChatTab()
+				Return False
+			EndIf
+			If _Sleep(250) Then Return False
+		WEnd
 		If $g_iSamM0dDebug Then SetLog("CheckNeedSwipeFriendlyChallengeBase", $COLOR_DEBUG)
 		; check need swipe
 		If CheckNeedSwipeFriendlyChallengeBase($iBaseForShare) = False Then
 			SetLog("Cannot click drag to select base: " &  $iBaseForShare + 1, $COLOR_ERROR)
-			Return False
-		EndIf
-
-		If $g_iSamM0dDebug Then SetLog("CheckBaseForShareSlotAvailable", $COLOR_DEBUG)
-		If CheckBaseForShareSlotAvailable($iBaseForShare) = False Then
-			$ichkFriendlyChallengeBase[$iBaseForShare] = 0
-			GUICtrlSetState($chkFriendlyChallengeBase[$iBaseForShare], $GUI_UNCHECKED)
-
 			Click($aButtonFCBack[4], $aButtonFCBack[5], 1, 0, "#BtnFCBack")
 			If _Sleep($iDelayFCClick) Then Return False
 			Click($aButtonFCClose[4], $aButtonFCClose[5], 1, 0, "#BtnClose")
 			ClostChatTab()
 			Return False
 		EndIf
+;~ 		If $g_iSamM0dDebug Then SetLog("CheckBaseForShareSlotAvailable", $COLOR_DEBUG)
+;~ 		If CheckBaseForShareSlotAvailable($iBaseForShare) = False Then
+;~ 			$ichkFriendlyChallengeBase[$iBaseForShare] = 0
+;~ 			GUICtrlSetState($chkFriendlyChallengeBase[$iBaseForShare], $GUI_UNCHECKED)
 
-		If _Sleep(100) Then Return False
-		Local $iCount2 = 0
-		While IsQueueBlockByMsg($iCount2) ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
-			If _Sleep(1000) Then ExitLoop
-			$iCount2 += 1
-			If $iCount2 >= 30 Then
-				ExitLoop
-			EndIf
-		WEnd
-
+;~ 			Click($aButtonFCBack[4], $aButtonFCBack[5], 1, 0, "#BtnFCBack")
+;~ 			If _Sleep($iDelayFCClick) Then Return False
+;~ 			Click($aButtonFCClose[4], $aButtonFCClose[5], 1, 0, "#BtnClose")
+;~ 			ClostChatTab()
+;~ 			Return False
+;~ 		EndIf
 		If $iBaseForShare > 2 Then $iBaseForShare -= 3
 		Click(Random(200 + ($iBaseForShare * 184), 230 + ($iBaseForShare * 184), 1) , Random(185,200,1))
-		If _Sleep($iDelayFCClick) Then Return False
-;~ 		$iCount = 0
-;~ 		While Not _ColorCheck(_GetPixelColor($aButtonFCStart[4], $aButtonFCStart[5],True), Hex($aButtonFCStart[6],6), $aButtonFCStart[7])
-;~ 			If $g_iSamM0dDebug Then SetLog("friendly challenge start button Color: " & _GetPixelColor($aButtonFCStart[4], $aButtonFCStart[5],True))
-;~ 			$iCount += 1
-;~ 			If $iCount > 15 Then
-;~ 				SetLog("Cannot find friendly challenge start button.", $COLOR_RED)
-;~ 				Click($aButtonFCBack[4], $aButtonFCBack[5], 1, 0, "#BtnFCBack")
-;~ 				If _Sleep(250) Then Return False
-;~ 				Click($aButtonFCClose[4], $aButtonFCClose[5], 1, 0, "#BtnClose")
-;~ 				ClostChatTab()
-;~ 				Return False
-;~ 			EndIf
-;~ 			If _Sleep(250) Then Return False
-;~ 		WEnd
+
+		;If _Sleep($iDelayFCClick) Then Return False
+		$iCount = 0
+		While Not _ColorCheck(_GetPixelColor($aButtonFCStart[4], $aButtonFCStart[5],True), Hex($aButtonFCStart[6],6), $aButtonFCStart[7])
+			If $g_iSamM0dDebug Then SetLog("friendly challenge start button Color: " & _GetPixelColor($aButtonFCStart[4], $aButtonFCStart[5],True))
+			$iCount += 1
+			If $iCount > 8 Then
+				SetLog("Cannot find friendly challenge start button. Maybe the base cannot be select.", $COLOR_RED)
+				$ichkFriendlyChallengeBase[$iBaseForShare] = 0
+				GUICtrlSetState($chkFriendlyChallengeBase[$iBaseForShare], $GUI_UNCHECKED)
+
+				Click($aButtonFCBack[4], $aButtonFCBack[5], 1, 0, "#BtnFCBack")
+				If _Sleep(250) Then Return False
+				Click($aButtonFCClose[4], $aButtonFCClose[5], 1, 0, "#BtnClose")
+				ClostChatTab()
+				Return False
+			EndIf
+			If _Sleep(250) Then Return False
+		WEnd
 
 		Click($aButtonFCStart[4], $aButtonFCStart[5], 1, 0, "#BtnFCStart")
 		SetLog("Friendly Challenge Shared.", $COLOR_INFO)
 		$iTimeForLastShareFriendlyChallenge = _NowCalc()
-	;EndIf
+	EndIf
 	EndIf
 	ClostChatTab()
 	Return True
@@ -618,6 +604,16 @@ Func CheckBaseForShareSlotAvailable($iBaseSlot)
 EndFunc
 
 Func CheckNeedSwipeFriendlyChallengeBase($iBaseSlot)
+	If _Sleep(100) Then Return False
+	Local $iCount2 = 0
+	While IsQueueBlockByMsg($iCount2) ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
+		If _Sleep(1000) Then ExitLoop
+		$iCount2 += 1
+		If $iCount2 >= 30 Then
+			ExitLoop
+		EndIf
+	WEnd
+
 	; check need swipe
 	Local $iSwipeNum = 2
 	Local $iCount = 0

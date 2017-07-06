@@ -15,6 +15,7 @@
 Func ModTrain($ForcePreTrain = False)
 	Local $bJustMakeDonateFlag = $bJustMakeDonate
 	$bJustMakeDonate = False
+
 	If $g_iSamM0dDebug = 1 Then SetLog("Func Train ", $COLOR_DEBUG)
 	If $g_bTrainEnabled = False Then Return
 	If $g_iMyTroopsSize = 0 Then
@@ -244,9 +245,6 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 				Assign("OnQ" & $MyTroops[$i][0], 0)
 				Assign("OnT" & $MyTroops[$i][0], 0)
 			Next
-			For $i = 0 To 10
-				Assign("RemSlot" & $i + 1, 0)
-			Next
 			;============================
 
 			If gotoTrainTroops() = False Then ExitLoop
@@ -355,9 +353,6 @@ Func TroopsAndSpellsChecker($bDisableTrain = True, $bDisableBrewSpell = True, $b
 				Assign("Cur" & $g_asSpellShortNames[$i], 0)
 				Assign("OnQ" & $MySpells[$i][0] & "Spell", 0)
 				Assign("OnT" & $MySpells[$i][0] & "Spell", 0)
-			Next
-			For $i = 0 To 6
-				Assign("RemSpellSlot" & $i + 1, 0)
 			Next
 
 			If gotoBrewSpells() = False Then ExitLoop

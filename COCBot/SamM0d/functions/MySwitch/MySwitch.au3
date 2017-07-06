@@ -550,8 +550,7 @@ Func DoVillageLoadSucess($iAcc)
 	$g_bRestart = False
 	$bDonateAwayFlag = False
 	$bJustMakeDonate = False
-	$tempDisableBrewSpell = False
-	$tempDisableTrain = False
+
 	$iDonatedUnit = 0
 	$iTimeForLastShareFriendlyChallenge = 0
 	$g_bFullArmy = False
@@ -564,6 +563,34 @@ Func DoVillageLoadSucess($iAcc)
 	$g_asShieldStatus[1] = ""
 	$g_asShieldStatus[2] = ""
 	$g_sPBStartTime = ""
+
+	; Mod Train
+	;-----------------------------------------------------
+	; reset Global variables for troops
+	$tempDisableBrewSpell = False
+	$tempDisableTrain = False
+	For $i = 0 To UBound($g_avDTtroopsToBeUsed, 1) - 1
+		$g_avDTtroopsToBeUsed[$i][1] = 0
+	Next
+	For $i = 0 To UBound($MyTroops) - 1
+		Assign("cur" & $MyTroops[$i][0], 0)
+	Next
+	For $i = 0 To UBound($MyTroops) - 1
+		Assign("OnQ" & $MyTroops[$i][0], 0)
+	Next
+	For $i = 0 To UBound($MyTroops) - 1
+		Assign("OnT" & $MyTroops[$i][0], 0)
+	Next
+
+	; reset Global variables for spells
+	For $i = $enumLightning To $enumSkeleton
+		Assign("Cur" & $MySpells[$i][0] & "Spell", 0)
+		Assign("Cur" & $g_asSpellShortNames[$i], 0)
+		Assign("OnQ" & $MySpells[$i][0] & "Spell", 0)
+		Assign("OnT" & $MySpells[$i][0] & "Spell", 0)
+	Next
+	;-----------------------------------------------------
+
 	;$iShouldRearm = (Random(0,1,1) = 0 ? 1 : 0)
 
 	$g_abNotNeedAllTime[0] = (Random(0,1,1) = 0 ? 1 : 0) ; check rearm
