@@ -437,8 +437,8 @@ Func FriendlyChallenge()
 								Local $ret = StringRegExp($ClanString, '\d+', 1)
 								If IsArray($ret) Then
 									For $k = 0 To UBound($aBaseForShare) - 1
-										If $aBaseForShare[$k] = $ret[0] - 1 Then
-											$iBaseForShare = $ret[0] - 1
+										If $aBaseForShare[$k] = Int($ret[0] - 1) Then
+											$iBaseForShare = Int($ret[0] - 1)
 											SetLog("User request challenge base: " & $iBaseForShare + 1, $COLOR_INFO)
 											ExitLoop
 										EndIf
@@ -457,7 +457,6 @@ Func FriendlyChallenge()
 	If $bDoFriendlyChallenge Then
 
 	SetLog("Prepare for select base: " & $iBaseForShare + 1, $COLOR_INFO)
-
 
 	; check friendly challenge button available
 	If _ColorCheck(_GetPixelColor($aButtonFriendlyChallenge[4], $aButtonFriendlyChallenge[5], True), Hex($aButtonFriendlyChallenge[6], 6), $aButtonFriendlyChallenge[7]) Then
@@ -499,17 +498,7 @@ Func FriendlyChallenge()
 			ClostChatTab()
 			Return False
 		EndIf
-;~ 		If $g_iSamM0dDebug Then SetLog("CheckBaseForShareSlotAvailable", $COLOR_DEBUG)
-;~ 		If CheckBaseForShareSlotAvailable($iBaseForShare) = False Then
-;~ 			$ichkFriendlyChallengeBase[$iBaseForShare] = 0
-;~ 			GUICtrlSetState($chkFriendlyChallengeBase[$iBaseForShare], $GUI_UNCHECKED)
 
-;~ 			Click($aButtonFCBack[4], $aButtonFCBack[5], 1, 0, "#BtnFCBack")
-;~ 			If _Sleep($iDelayFCClick) Then Return False
-;~ 			Click($aButtonFCClose[4], $aButtonFCClose[5], 1, 0, "#BtnClose")
-;~ 			ClostChatTab()
-;~ 			Return False
-;~ 		EndIf
 		If $iBaseForShare > 2 Then $iBaseForShare -= 3
 		Click(Random(200 + ($iBaseForShare * 184), 230 + ($iBaseForShare * 184), 1) , Random(185,200,1))
 
@@ -539,68 +528,6 @@ Func FriendlyChallenge()
 	EndIf
 	ClostChatTab()
 	Return True
-EndFunc
-
-Func CheckBaseForShareSlotAvailable($iBaseSlot)
-	If _Sleep(100) Then Return False
-	Local $iCount2 = 0
-	While IsQueueBlockByMsg($iCount2) ; 检查游戏上的讯息，是否有挡着训练界面， 最多30秒
-		If _Sleep(1000) Then ExitLoop
-		$iCount2 += 1
-		If $iCount2 >= 30 Then
-			ExitLoop
-		EndIf
-	WEnd
-
-	If $iBaseSlot < 3 Then
-		Local $x1 = 156 + ($iBaseSlot * 184)
-		Local $y1 = 218
-		Local $x2 = (156 + ($iBaseSlot * 184)) + 30
-		Local $y2 = 242
-		_CaptureRegion2($x1,$y1,$x2, $y2)
-		Local $aFileToScan = _FileListToArrayRec($g_sSamM0dImageLocation & "\FriendlyChallenge", "AvV*.png", $FLTAR_FILES, $FLTAR_NORECUR, $FLTAR_SORT, $FLTAR_NOPATH)
-		If $g_iSamM0dDebugImage Then _debugSaveHBitmapToImage($g_hHBitmap2, "CheckBaseForShareSlotAvailable-VB")
-		If UBound($aFileToScan) > 1 Then
-			For $i = 1 To UBound($aFileToScan) - 1
-				If $g_iSamM0dDebug = 1 Then SetLog("$aFileToScan[" & $i & "]: " & $aFileToScan[$i])
-				Local $result = FindImageInPlace("FriendlyChallenge", $g_sSamM0dImageLocation & "\FriendlyChallenge\" & $aFileToScan[$i], "0,0," & $x2-$x1 & "," & $y2-$y1, False)
-				If StringInStr($result, ",") > 0 Then
-					Return True
-				Else
-					SetLog("Village Base " & $iBaseSlot + 1 & " not available to share for friendly challenge.", $COLOR_ERROR)
-				EndIf
-			Next
-		Else
-			SetLog("AvVB image not found for scan.", $COLOR_ERROR)
-			Return False
-		EndIf
-	Else
-		Local $x1 = 165 + (($iBaseSlot - 3) * 184)
-		Local $y1 = 218
-		Local $x2 = (165 + (($iBaseSlot - 3) * 184)) + 30
-		Local $y2 = 242
-		If _Sleep(1000) Then Return False
-		_CaptureRegion2($x1,$y1,$x2, $y2)
-		Local $aFileToScan = _FileListToArrayRec($g_sSamM0dImageLocation & "\FriendlyChallenge", "AvW*.png", $FLTAR_FILES, $FLTAR_NORECUR, $FLTAR_SORT, $FLTAR_NOPATH)
-
-		If $g_iSamM0dDebugImage Then _debugSaveHBitmapToImage($g_hHBitmap2, "CheckBaseForShareSlotAvailable-WB")
-
-		If UBound($aFileToScan) > 1 Then
-			For $i = 1 To UBound($aFileToScan) - 1
-				If $g_iSamM0dDebug = 1 Then SetLog("$aFileToScan[" & $i & "]: " & $aFileToScan[$i])
-				Local $result = FindImageInPlace("FriendlyChallenge", $g_sSamM0dImageLocation & "\FriendlyChallenge\" & $aFileToScan[$i], "0,0," & $x2-$x1 & "," & $y2-$y1, False)
-				If StringInStr($result, ",") > 0 Then
-					Return True
-				Else
-					SetLog("War Base " & ($iBaseSlot - 3) + 1 & " not available to share for friendly challenge.", $COLOR_ERROR)
-				EndIf
-			Next
-		Else
-			SetLog("AvWB image not found for scan.", $COLOR_ERROR)
-			Return False
-		EndIf
-	EndIf
-	Return False
 EndFunc
 
 Func CheckNeedSwipeFriendlyChallengeBase($iBaseSlot)

@@ -196,7 +196,7 @@ Func InitializeBot()
 ;~ 		SetLog("$aSize[" & $i & "]: " & $aSize[$i])
 ;~ 	Next
 	If IsArray($aSize) Then
-		If $aSize[1] >= 237 Then
+		If $aSize[1] >= 235 Then
 			$g_sSamM0dImageLocation = @ScriptDir & "\profiles\SamM0d"
 		EndIf
 	EndIf
