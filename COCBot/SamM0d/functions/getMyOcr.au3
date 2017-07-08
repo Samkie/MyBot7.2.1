@@ -178,16 +178,16 @@ EndFunc
 
 Func getMyOcrCurDEFromTrain()
 	; current dark elixir from train troops page or brew spell page, bottom center
-	Local $sResult = getMyOcr(0,400,565 + $g_iMidOffsetY,84,16,"spellqtybrew",True)
+	Local $sResult = getMyOcr(0,400,596,84,12,"elixirontrain",True)
 	Return $sResult
 EndFunc
 
 Func getMyOcrCurElixirFromTrain()
 	; current gold from train troops page or brew spell page, bottom center
 	If _ColorCheck(_GetPixelColor(217,600,True), Hex(0XE8E8E0, 6), 10) Then ; If True mean the current village don't had dark elixir yet
-		Return getMyOcr(0,304,565 + $g_iMidOffsetY,102,16,"spellqtybrew",True)
+		Return getMyOcr(0,304,596,102,12,"elixirontrain",True)
 	Else
-		Return getMyOcr(0,230,565 + $g_iMidOffsetY,102,16,"spellqtybrew",True)
+		Return getMyOcr(0,230,596,102,12,"elixirontrain",True)
 	EndIf
 EndFunc
 

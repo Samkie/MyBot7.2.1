@@ -128,12 +128,12 @@ Func DoLoadVillage()
 	While Not _ColorCheck(_GetPixelColor($aButtonVillageLoad[4], $aButtonVillageLoad[5],True), Hex($aButtonVillageLoad[6],6), $aButtonVillageLoad[7])
 		If $g_iSamM0dDebug Then SetLog("village load button Color: " & _GetPixelColor(160, 380,True))
 		$iCount += 1
-		If $iCount = 60 Then
+		If $iCount = 90 Then
 			SetLog("Cannot load village load button, restart game...", $COLOR_RED)
 			CloseCoC(True)
 			Wait4Main()
 		EndIf
-		If $iCount >= 120 Then
+		If $iCount >= 180 Then
 			Return 0
 		EndIf
 		If _ColorCheck(_GetPixelColor($aButtonGoogleConnectGreen[4], $aButtonGoogleConnectGreen[5],True), Hex($aButtonGoogleConnectGreen[6],6), $aButtonGoogleConnectGreen[7]) Then

@@ -196,12 +196,14 @@ Func _checkObstacles() ;Checks if something is in the way for mainscreen
 		Return False
 	EndIf
 
-	If _ColorCheck(_GetPixelColor($aButtonVillageCancel[4], $aButtonVillageCancel[5],$g_bNoCapturePixel), Hex($aButtonVillageCancel[6], 6), $aButtonVillageCancel[7]) And _
-		_ColorCheck(_GetPixelColor($aButtonVillageLoad[4], $aButtonVillageLoad[5],$g_bNoCapturePixel), Hex($aButtonVillageLoad[6], 6), $aButtonVillageLoad[7]) Then
-		Click($aButtonVillageCancel[0],$aButtonVillageCancel[1],1,0,"#VL01")
-		$g_bMinorObstacle = True
-		If _Sleep(500) Then Return
-		Return False
+	If $ichkProfileImage = 0 Then
+		If _ColorCheck(_GetPixelColor($aButtonVillageCancel[4], $aButtonVillageCancel[5],$g_bNoCapturePixel), Hex($aButtonVillageCancel[6], 6), $aButtonVillageCancel[7]) And _
+			_ColorCheck(_GetPixelColor($aButtonVillageLoad[4], $aButtonVillageLoad[5],$g_bNoCapturePixel), Hex($aButtonVillageLoad[6], 6), $aButtonVillageLoad[7]) Then
+			Click($aButtonVillageCancel[0],$aButtonVillageCancel[1],1,0,"#VL01")
+			$g_bMinorObstacle = True
+			If _Sleep(500) Then Return
+			Return False
+		EndIf
 	EndIf
 
 	; KunLun Version un click verify for real name

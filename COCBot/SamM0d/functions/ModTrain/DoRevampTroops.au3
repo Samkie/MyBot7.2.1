@@ -94,6 +94,12 @@ Func DoRevampTroops($bDoPreTrain = False)
 				EndIf
 			Next
 
+			Local $iCurElixir = $g_aiCurrentLoot[$eLootElixir]
+			Local $iCurDarkElixir = $g_aiCurrentLoot[$eLootDarkElixir]
+			Local $iCurGemAmount = $g_iGemAmount
+
+			SetLog("Elixir: " & $iCurElixir & "   Dark Elixir: " & $iCurDarkElixir & "   Gem: " & $iCurGemAmount, $COLOR_INFO)
+
 			For $i = 0 To UBound($tempTroops) - 1
 				Local $Troop4Add = Eval("Add" & $tempTroops[$i][0])
 				If $Troop4Add > 0 Then
@@ -120,8 +126,10 @@ Func DoRevampTroops($bDoPreTrain = False)
 
 					$iCost = $tempTroops[$i][4]
 					If $g_iSamM0dDebug = 1 Then SetLog("$iCost: " & $iCost)
-
-					Local $iBuildCost = (Eval("e" & $tempTroops[$i][0]) > 11 ? getMyOcrCurDEFromTrain() : getMyOcrCurElixirFromTrain())
+					;Local $iBuildCost = (Eval("e" & $tempTroops[$i][0]) > 11 ? getMyOcrCurDEFromTrain() : getMyOcrCurElixirFromTrain())
+					Local $iBuildCost = (Eval("e" & $tempTroops[$i][0]) > 11 ? $iCurDarkElixir : $iCurElixir)
+					;SetLog($CustomTrain_MSG_11 & " " & (Eval("e" & $tempTroops[$i][0]) > 11 ? $CustomTrain_MSG_DarkElixir : $CustomTrain_MSG_Elixir)  & ": " & $iBuildCost, (Eval("e" & $tempTroops[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
+					;SetLog($CustomTrain_MSG_12 & ": " & $iCost, (Eval("e" & $tempTroops[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 
 					If $g_iSamM0dDebug = 1 Then SetLog("$iBuildCost: " & $iBuildCost)
 					If $g_iSamM0dDebug = 1 Then SetLog("Total need: " & ($Troop4Add * $iCost))
@@ -145,20 +153,38 @@ Func DoRevampTroops($bDoPreTrain = False)
 					SetLog($CustomTrain_MSG_6 & " " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]),$Troop4Add) & " x" & $Troop4Add & " " & $CustomTrain_MSG_7 & " " & (Eval("e" & $tempTroops[$i][0]) > 11 ? $CustomTrain_MSG_DarkElixir : $CustomTrain_MSG_Elixir) & " : " & ($Troop4Add * $iCost),(Eval("e" & $tempTroops[$i][0]) > 11 ? $COLOR_DARKELIXIR : $COLOR_ELIXIR))
 
 					If ($tempTroops[$i][2] * $Troop4Add) <= $iRemainTroopsCapacity Then
-						MyTrainClick($tempTroops[$i][0],$Troop4Add,$g_iTrainClickDelay, "#TT01")
-						$iRemainTroopsCapacity -= ($tempTroops[$i][2] * $Troop4Add)
+						If MyTrainClick($tempTroops[$i][0],$Troop4Add,$g_iTrainClickDelay, "#TT01") Then
+							If Eval("e" & $tempTroops[$i][0]) > 11 Then
+								$iCurDarkElixir -= ($Troop4Add * $iCost)
+							Else
+								$iCurElixir -= ($Troop4Add * $iCost)
+							EndIf
+							$iRemainTroopsCapacity -= ($tempTroops[$i][2] * $Troop4Add)
+						EndIf
 					Else
 						Local $iReduceCap = Int($iRemainTroopsCapacity / $tempTroops[$i][2])
 						SetLog("troops above cannot fit to max capicity, reduce to train " & MyNameOfTroop(Eval("e" & $tempTroops[$i][0]),$iReduceCap) & " x" & $iReduceCap,$COLOR_ERROR)
-						MyTrainClick($tempTroops[$i][0],$iReduceCap ,$g_iTrainClickDelay, "#TT01")
-						$fixRemain = $iRemainTroopsCapacity - ($iReduceCap * $tempTroops[$i][2])
-						$iRemainTroopsCapacity -= ($iRemainTroopsCapacity - ($iReduceCap * $tempTroops[$i][2]))
+						If MyTrainClick($tempTroops[$i][0],$iReduceCap ,$g_iTrainClickDelay, "#TT01") Then
+							If Eval("e" & $tempTroops[$i][0]) > 11 Then
+								$iCurDarkElixir -= ($iReduceCap * $iCost)
+							Else
+								$iCurElixir -= ($iReduceCap * $iCost)
+							EndIf
+							$fixRemain = $iRemainTroopsCapacity - ($iReduceCap * $tempTroops[$i][2])
+							$iRemainTroopsCapacity -= ($iRemainTroopsCapacity - ($iReduceCap * $tempTroops[$i][2]))
+						EndIf
 					EndIf
 					If $fixRemain > 0 Then
 						CheckNeedSwipe($eArch)
 						SetLog("still got remain capacity, so train " & MyNameOfTroop(Eval("eArch"),$fixRemain) & " x" & $fixRemain & " to fit it.",$COLOR_ERROR)
-						MyTrainClick("Arch",$fixRemain,$g_iTrainClickDelay, "#TT01")
-						$iRemainTroopsCapacity -= $fixRemain
+						If MyTrainClick("Arch",$fixRemain,$g_iTrainClickDelay, "#TT01") Then
+							If Eval("e" & $tempTroops[$i][0]) > 11 Then
+								$iCurDarkElixir -= ($fixRemain * $MyTroopsCost[$eArch][0])
+							Else
+								$iCurElixir -= ($fixRemain * $MyTroopsCost[$eArch][0])
+							EndIf
+							$iRemainTroopsCapacity -= $fixRemain
+						EndIf
 					EndIf
 					; reduce some speed
 					If _Sleep(500) Then Return

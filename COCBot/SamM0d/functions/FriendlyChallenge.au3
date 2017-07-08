@@ -1,4 +1,4 @@
-Global $chkEnableFriendlyChallenge, $ichkEnableFriendlyChallenge, $chkOnlyOnRequest, $ichkOnlyOnRequest, $txtKeywordForRequest, $stxtKeywordForRequest, $txtFriendlyChallengeCoolDownTime, $itxtFriendlyChallengeCoolDownTime
+Global $chkEnableFriendlyChallenge, $ichkEnableFriendlyChallenge, $chkOnlyOnRequest, $ichkOnlyOnRequest, $txtKeywordForRequest, $stxtKeywordForRequest, $txtFriendlyChallengeCoolDownTime, $itxtFriendlyChallengeCoolDownTime, $txtChallengeText, $stxtChallengeText
 Global $g_ahChkFriendlyChallengehours[24] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 Global $g_hChkFriendlyChallengehoursE1 = 0, $g_hChkFriendlyChallengehoursE2 = 0
 Global $g_hGrpRequestCC = 0, $g_hLblFriendlyChallengehoursAM = 0, $g_hLblFriendlyChallengehoursPM = 0
@@ -12,20 +12,17 @@ Global $iTimeForLastShareFriendlyChallenge = 0
 Global Const $iDelayFCClick = 500
 
 Func SetupFriendlyChallengeGUI($x, $y)
+	Local $xStart = $x
+	Local $yStart = $y
 	GUICtrlCreateGroup(GetTranslatedFileIni("sam m0d","Friendly Challenge", "Friend Challenge"), $x , $y, 430, 400)
 	$x += 10
 	$y += 20
 	$chkEnableFriendlyChallenge = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Enable Friendly Challenge", "Enable Friendly Challenge"), $x , $y, -1, -1)
 	GUICtrlSetOnEvent(-1, "chkEnableFriendlyChallenge")
-	$y += 20
-	$chkOnlyOnRequest = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Only share up on chat request", "Only share up on chat request, Please enter keyword to below:"), $x , $y, -1, -1)
-	GUICtrlSetOnEvent(-1, "chkOnlyOnRequest")
-	$y += 25
-	$txtKeywordForRequest = GUICtrlCreateEdit("", $x, $y, 205, 100, BitOR($ES_WANTRETURN, $ES_CENTER, $ES_AUTOVSCROLL))
-	GUICtrlSetOnEvent(-1, "txtKeywordForRequest")
-	$y += 125
-	GUICtrlCreateLabel(GetTranslatedFileIni("sam m0d", "Please select which base to share", "Please select which base to share for Friendly Challenge"), $x, $y)
-	$y += 20
+	$y += 30
+
+	GUICtrlCreateLabel(GetTranslatedFileIni("sam m0d", "Please select which base to share", "Please select which base to share for Friendly Challenge"), $x, $y,205,40)
+	$y += 30
 	$chkFriendlyChallengeBase[0] = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Base 1", "Village Base 1"), $x , $y, -1, -1)
 	GUICtrlSetOnEvent(-1, "chkFriendlyChallengeBase")
 	$y += 20
@@ -34,7 +31,7 @@ Func SetupFriendlyChallengeGUI($x, $y)
 	$y += 20
 	$chkFriendlyChallengeBase[2] = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Base 3", "Village Base 3"), $x , $y, -1, -1)
 	GUICtrlSetOnEvent(-1, "chkFriendlyChallengeBase")
-	$x += 140
+	$x += 100
 	$y -= 40
 	$chkFriendlyChallengeBase[3] = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Base 4", "War Base 1"), $x , $y, -1, -1)
 	GUICtrlSetOnEvent(-1, "chkFriendlyChallengeBase")
@@ -44,8 +41,26 @@ Func SetupFriendlyChallengeGUI($x, $y)
 	$y += 20
 	$chkFriendlyChallengeBase[5] = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Base 6", "War Base 3"), $x , $y, -1, -1)
 	GUICtrlSetOnEvent(-1, "chkFriendlyChallengeBase")
-	$x -= 140
-	$y += 30
+
+	$x = $xStart + 220
+	$y = $yStart + 40
+
+	$chkOnlyOnRequest = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "Only share up on chat request", "Only share up on chat request, Please enter keyword to below:"), $x , $y, 205, 40, $BS_MULTILINE)
+	GUICtrlSetOnEvent(-1, "chkOnlyOnRequest")
+	$y += 40
+	$txtKeywordForRequest = GUICtrlCreateEdit("", $x, $y, 205, 60, BitOR($ES_WANTRETURN, $ES_CENTER, $ES_AUTOVSCROLL))
+	GUICtrlSetOnEvent(-1, "txtKeywordForRequest")
+
+	$x = $xStart + 10
+	$y = $yStart + 160
+
+	GUICtrlCreateLabel(GetTranslatedFileIni("sam m0d", "Challenge text", "Challenge text (If more that a line will random select)"), $x, $y)
+	$y += 20
+	$txtChallengeText = GUICtrlCreateEdit("", $x, $y, 300, 60, BitOR($ES_WANTRETURN, $ES_CENTER, $ES_AUTOVSCROLL))
+	GUICtrlSetOnEvent(-1, "txtChallengeText")
+
+
+	$y += 80
 	GUICtrlCreateLabel(GetTranslatedFileIni("sam m0d", "Cool down share", "After each share, cool down how many minutes to share again? :"), $x, $y)
 	$x += 220
 	$y -= 2
@@ -187,6 +202,7 @@ Func saveFriendlyChallengeSetting()
 	IniWriteS($g_sProfileConfigPath, "FriendlyChallenge", "FriendlyChallengeEnable", (GUICtrlRead($chkEnableFriendlyChallenge) = $GUI_CHECKED ? 1 : 0))
 	IniWriteS($g_sProfileConfigPath, "FriendlyChallenge", "FriendlyChallengeEnableOnlyOnRequest", (GUICtrlRead($chkOnlyOnRequest) = $GUI_CHECKED ? 1 : 0))
 	IniWriteS($g_sProfileConfigPath, "FriendlyChallenge", "FriendlyChallengeKeyword", StringReplace(GUICtrlRead($txtKeywordForRequest), @CRLF, "|"))
+	IniWriteS($g_sProfileConfigPath, "FriendlyChallenge", "FriendlyChallengeText", StringReplace(GUICtrlRead($txtChallengeText), @CRLF, "|"))
 	IniWriteS($g_sProfileConfigPath, "FriendlyChallenge", "FriendlyChallengeCoolDownTime", GUICtrlRead($txtFriendlyChallengeCoolDownTime))
 EndFunc
 
@@ -196,6 +212,7 @@ Func readFriendlyChallengeSetting()
 	IniReadS($ichkEnableFriendlyChallenge, $g_sProfileConfigPath, "FriendlyChallenge", "FriendlyChallengeEnable", "0", "Int")
 	IniReadS($ichkOnlyOnRequest, $g_sProfileConfigPath, "FriendlyChallenge", "FriendlyChallengeEnableOnlyOnRequest", "0", "Int")
 	$stxtKeywordForRequest = StringReplace(IniRead($g_sProfileConfigPath, "FriendlyChallenge", "FriendlyChallengeKeyword", "friendly|challenge"), "|", @CRLF)
+	$stxtChallengeText = StringReplace(IniRead($g_sProfileConfigPath, "FriendlyChallenge", "FriendlyChallengeText", ""), "|", @CRLF)
 	IniReadS($itxtFriendlyChallengeCoolDownTime, $g_sProfileConfigPath, "FriendlyChallenge", "FriendlyChallengeCoolDownTime", "5", "Int")
 EndFunc
 
@@ -209,6 +226,7 @@ Func applyFriendlyChallengeSetting()
 	GUICtrlSetState($chkEnableFriendlyChallenge, $ichkEnableFriendlyChallenge = 1 ? $GUI_CHECKED : $GUI_UNCHECKED)
 	GUICtrlSetState($chkOnlyOnRequest, $ichkOnlyOnRequest = 1 ? $GUI_CHECKED : $GUI_UNCHECKED)
 	GUICtrlSetData($txtKeywordForRequest, $stxtKeywordForRequest)
+	GUICtrlSetData($txtChallengeText, $stxtChallengeText)
 	GUICtrlSetData($txtFriendlyChallengeCoolDownTime, $itxtFriendlyChallengeCoolDownTime)
 EndFunc
 
@@ -228,6 +246,24 @@ EndFunc
 
 Func txtKeywordForRequest()
 	$stxtKeywordForRequest = GUICtrlRead($txtKeywordForRequest)
+EndFunc
+
+Func txtChallengeText()
+	Local $sInputText = StringReplace(GUICtrlRead($txtChallengeText), @CRLF, "|")
+	Local $iCount = 0
+	Local $bUpdateDateFlag = False
+	While 1
+		If StringRight($sInputText,1) = "|" Then
+			$sInputText = StringLeft($sInputText, StringLen($sInputText) - 1)
+			$bUpdateDateFlag = True
+		Else
+			If $bUpdateDateFlag Then GUICtrlSetData($txtChallengeText, StringReplace($sInputText, "|", @CRLF))
+			ExitLoop
+		EndIf
+		$iCount += 1
+		If $iCount > 10 Then ExitLoop
+	WEnd
+	$stxtChallengeText = StringReplace($sInputText, "|", @CRLF)
 EndFunc
 
 Func txtFriendlyChallengeCoolDownTime()
@@ -520,7 +556,32 @@ Func FriendlyChallenge()
 			EndIf
 			If _Sleep(250) Then Return False
 		WEnd
+		If $stxtChallengeText <> "" Then
+			Click(Random(440,620,1),Random(120,130,1))
+			If _Sleep(100) Then Return False
+			Local $asText = StringSplit($stxtChallengeText, @CRLF, BitOR($STR_ENTIRESPLIT,$STR_NOCOUNT))
+			If IsArray($asText) Then
+				Local $sText4Send = $asText[Random(0,UBound($asText)-1,1)]
+				SetLog("Send text: " & $sText4Send, $COLOR_DEBUG)
 
+				If $g_bChkBackgroundMode = False And $g_bNoFocusTampering = False Then ControlFocus($g_hAndroidWindow, "", "")
+				If SendText($sText4Send) = 0 Then
+					Setlog(" challenge text entry failed!", $COLOR_ERROR)
+				EndIf
+			EndIf
+			If _Sleep(100) Then Return False
+		EndIf
+		While Not _ColorCheck(_GetPixelColor($aButtonFCStart[4], $aButtonFCStart[5],True), Hex($aButtonFCStart[6],6), $aButtonFCStart[7])
+			If $g_iSamM0dDebug Then SetLog("friendly challenge start button Color: " & _GetPixelColor($aButtonFCStart[4], $aButtonFCStart[5],True))
+			$iCount += 1
+			If $iCount > 8 Then
+				SetLog("Cannot find friendly challenge start button. Maybe the base cannot be select.", $COLOR_RED)
+				Click($aButtonFCClose[4], $aButtonFCClose[5], 1, 0, "#BtnClose")
+				ClostChatTab()
+				Return False
+			EndIf
+			If _Sleep(250) Then Return False
+		WEnd
 		Click($aButtonFCStart[4], $aButtonFCStart[5], 1, 0, "#BtnFCStart")
 		SetLog("Friendly Challenge Shared.", $COLOR_INFO)
 		$iTimeForLastShareFriendlyChallenge = _NowCalc()

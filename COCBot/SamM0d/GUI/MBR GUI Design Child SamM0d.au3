@@ -22,6 +22,7 @@ $hGUI_MOD = GUICreate("", $_GUI_MAIN_WIDTH - 20, $_GUI_MAIN_HEIGHT - 255, $_GUI_
 GUISwitch($hGUI_MOD)
 
 ;========================Attack=============================
+SplashStep("Loading M0d - Attack tab...")
 GUICtrlCreateTab(0, 0, $_GUI_MAIN_WIDTH - 20, $_GUI_MAIN_HEIGHT - 255, $TCS_FLATBUTTONS)
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", 54, "Attack"))
 
@@ -159,6 +160,7 @@ GUICtrlCreateGroup("", -99, -99, 1, 1)
 				;GUISetState(@SW_SHOW)
 				GUICtrlSetOnEvent(-1, "AttackNowLB")
 
+SplashStep("Loading M0d - Attack II tab...")
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", 112, "Attack II"))
 
 GUICtrlCreateGroup("", -99, -99, 1, 1)
@@ -276,7 +278,7 @@ $y += 25
 
 
 Local $x = 10, $y = 30
-
+SplashStep("Loading M0d - Advanced Random Click tab...")
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", 10, "Random Click"))
 $grpHLFClick = GUICtrlCreateGroup(GetTranslatedFileIni("sam m0d", 11, "Advanced Random Click On Button"), $x, $y, 430, 180)
 	; More Human Like When Train Click By Sam
@@ -312,7 +314,7 @@ $grpHLFClick = GUICtrlCreateGroup(GetTranslatedFileIni("sam m0d", 11, "Advanced 
 		GUICtrlSetState(-1, $GUI_UNCHECKED)
 		GUICtrlSetOnEvent(-1, "chkEnableHLFClickSetlog")
 
-
+SplashStep("Loading M0d - My Troops tab...")
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", 64, "My Troops"))
 
 Local $xStart, $yStart
@@ -425,7 +427,7 @@ GUICtrlSetOnEvent(-1, "ForcePretrainTroops")
 
 
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-
+SplashStep("Loading M0d - My Spells tab...")
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", 65, "My Spells"))
 
 Local $xStart, $yStart
@@ -581,7 +583,7 @@ $chkForcePreBrewSpell = GUICtrlCreateCheckbox(GetTranslatedFileIni("sam m0d", "F
 
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-
+SplashStep("Loading M0d - My Clan Castle tab...")
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", "My Clan Castle", "My Clan Castle"))
 
 Local $xStart, $yStart
@@ -686,7 +688,7 @@ $txtCCStrength = GUICtrlCreateInput("100", $x + 255, $y+2, 31, 20, BitOR($GUI_SS
 
 
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
-
+SplashStep("Loading M0d - Friend Challenge tab...")
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d","Friendly Challenge", "Friend Challenge"))
 
 Local $x = 10, $y = 30
@@ -696,7 +698,7 @@ SetupFriendlyChallengeGUI($x, $y)
 GUICtrlCreateTabItem(GetTranslatedFileIni("sam m0d", 14, "Other"))
 
 Local $x = 10, $y = 30
-
+SplashStep("Loading M0d - Other tab...")
 $grpStatsMisc = GUICtrlCreateGroup(GetTranslatedFileIni("sam m0d", 14, "Other"), $x, $y, 430, 360)
 
 $y += 20
